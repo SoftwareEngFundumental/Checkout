@@ -1,5 +1,7 @@
-public class SalesStaff extends Staff{
-    public SalesStaff(String staffName) {
+public class SalesStaff extends User
+{
+    public SalesStaff(String staffName)
+    {
         super(staffName);
     }
 }

@@ -7,6 +7,7 @@ import java.util.TreeMap;
 import static java.lang.Integer.valueOf;
 
 public class CustomerView {
+
     public static void scanItem(TreeMap<Integer, Product> productTreeMap) {
         boolean doneEnteringItem = false;
         Scanner scanner = new Scanner(System.in);

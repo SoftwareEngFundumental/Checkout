@@ -1,21 +1,15 @@
-public class Customer {
-    private String customerName;
+public class Customer  extends User
+{
     private CreditCard creditCard;
     private int point;
 
-    public Customer(String customerName, CreditCard creditCard) {
-        this.customerName = customerName;
+    public Customer(String customerName, CreditCard creditCard)
+    {
+        super(customerName);
         this.creditCard = creditCard;
         this.point = 0;
     }
 
-    public String getCustomerName() {
-        return customerName;
-    }
-
-    public void setCustomerName(String customerName) {
-        this.customerName = customerName;
-    }
 
     public CreditCard getCreditCard() {
         return creditCard;
