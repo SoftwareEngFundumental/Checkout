@@ -1,11 +1,10 @@
-public class Customer  extends User
+public class Customer
 {
     private CreditCard creditCard;
     private int point;
 
     public Customer(String customerName, CreditCard creditCard)
     {
-        super(customerName);
         this.creditCard = creditCard;
         this.point = 0;
     }
