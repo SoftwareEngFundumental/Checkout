@@ -1,3 +1,5 @@
+package checkout;
+
 public abstract class Staff {
     private String staffName;
 

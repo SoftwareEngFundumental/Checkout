@@ -1,3 +1,5 @@
+package checkout;
+
 public class CreditCard {
     private String cardNumber;
     private String firstName;

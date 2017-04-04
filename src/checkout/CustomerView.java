@@ -1,7 +1,6 @@
-import java.io.BufferedReader;
+package checkout;
+
 import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
 import java.util.Scanner;
 import java.util.TreeMap;
 import static java.lang.Integer.valueOf;

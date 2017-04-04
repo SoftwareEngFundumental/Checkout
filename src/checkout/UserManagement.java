@@ -1,8 +1,5 @@
-/**
- * Created by hu on 1/4/17.
- */
-import java.io.*;
-import java.lang.reflect.Array;
+package checkout;
+
 import java.util.*;
 
 public class UserManagement
@@ -130,6 +127,23 @@ public class UserManagement
         }
     }
 
+    public void userLogout(String userName)
+    {
+        User user = findUserFromList(userName);
+        if(user != null)
+        {
+            user.setUserLoginStatus(false);
+        }
+    }
+
+    public void userLogout(UUID userUuid)
+    {
+        User user = findUserFromList(userUuid);
+        if(user != null)
+        {
+            user.setUserLoginStatus(false);
+        }
+    }
 
 }
 

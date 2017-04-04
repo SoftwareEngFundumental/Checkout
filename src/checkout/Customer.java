@@ -1,3 +1,5 @@
+package checkout;
+
 public class Customer
 {
     private CreditCard creditCard;

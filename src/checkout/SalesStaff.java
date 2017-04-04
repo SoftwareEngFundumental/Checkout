@@ -1,8 +1,10 @@
+package checkout;
+
 import java.util.UUID;
 
-public class WarehouseStaff extends User
+public class SalesStaff extends User
 {
-    public WarehouseStaff(String userName, String userPassword, UUID userUuid)
+    public SalesStaff(String userName, String userPassword, UUID userUuid)
     {
         super.setUserName(userName);
         super.setUserPassword(userPassword);
