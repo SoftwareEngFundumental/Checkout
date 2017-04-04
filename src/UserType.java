@@ -4,7 +4,6 @@
 
 public enum UserType
 {
-    CUSTOMER,
     SALES,
     WAREHOUSE,
     MANAGER
