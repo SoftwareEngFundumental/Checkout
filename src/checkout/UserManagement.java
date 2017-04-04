@@ -1,5 +1,7 @@
 package checkout;
 
+import com.sun.corba.se.spi.ior.ObjectKey;
+
 import java.util.*;
 
 public class UserManagement
@@ -127,6 +129,22 @@ public class UserManagement
         }
     }
 
+    public Boolean changeUserPassword(String userName, String userOldPassword, String userNewPassword)
+    {
+        User user = findUserFromList(userName);
+
+        // If old password not match then just return false to reject changes
+        if(!(user.getUserPassword().equals(userOldPassword)))
+        {
+            return false;
+        }
+        else
+        {
+            user.setUserPassword(userNewPassword);
+            return true;
+        }
+    }
+
     public void userLogout(String userName)
     {
         User user = findUserFromList(userName);
@@ -143,6 +161,18 @@ public class UserManagement
         {
             user.setUserLoginStatus(false);
         }
+    }
+
+    public void saveUsersToFile(String filePath)
+    {
+        ObjectToJson objToJson = new ObjectToJson();
+        objToJson.saveObjectToJsonFile(getUserList(), filePath);
+    }
+
+    public void loadUsersFromFile(String filePath)
+    {
+        ObjectToJson objToJson = new ObjectToJson();
+        objToJson.readObjectFromFile(filePath, userList.getClass());
     }
 
 }
