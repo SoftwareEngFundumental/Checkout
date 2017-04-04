@@ -1,0 +1,6 @@
+.idea/
+out/
+*.class
+*desktop.ini
+desktop.ini*
+.DS_Store
