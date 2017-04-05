@@ -1,17 +1,30 @@
 package checkout;
 
-public abstract class Staff {
-    private String staffName;
+import com.sun.org.apache.xpath.internal.operations.Bool;
 
-    public Staff(String staffName) {
-        this.staffName = staffName;
-    }
+import java.util.UUID;
 
-    public String getStaffName() {
-        return staffName;
-    }
+public abstract class User
+{
+    private String  userName;
+    private String  userPassword;
+    private UUID    userUuid;
+    private Boolean userLoginStatus;
 
-    public void setStaffName(String staffName) {
-        this.staffName = staffName;
-    }
+
+    public String getUserName() { return userName; }
+
+    public String getUserPassword() { return userPassword; }
+
+    public UUID   getUserUuid() { return userUuid; }
+
+    public Boolean getUserLoginStatus() { return userLoginStatus; }
+
+    public void setUserName(String userName) { this.userName = userName; }
+
+    public void setUserPassword(String userPassword) { this.userPassword = userPassword; }
+
+    public void setUserUuid(UUID uuid) { this.userUuid = uuid; }
+
+    public void setUserLoginStatus(Boolean userLoginStatus) { this.userLoginStatus = userLoginStatus; }
 }
