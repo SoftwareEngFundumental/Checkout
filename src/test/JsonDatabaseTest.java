@@ -59,14 +59,5 @@ public class JsonDatabaseTest
         assertTrue(reloadedStaffList.get(0).getUserUuid().equals(staffManagement.getStaffList().get(0).getUserUuid()));
     }
 
-    @Test
-    public void readObjectFromFile() throws Exception
-    {
-        StaffManagement staffManagement = new StaffManagement();
-
-        JsonDatabase jsonDatabase = new JsonDatabase();
-        jsonDatabase.readObjectFromFile("settings.json", staffManagement.getStaffList().getClass());
-
-    }
 
 }

@@ -67,14 +67,14 @@ public class StaffManagementTest
     @Test
     public void testDeleteUser() throws Exception
     {
-        // Scenario #1: Delete this user from the list
+        // Scenario #1.1: Delete this user from the list
         assertTrue(staffManagement.deleteUser("Foo Delete"));
+
+        // Scenario #1.2: Check if the "Foo Delete" has been correctly deleted
+        assertTrue(staffManagement.findUserFromList("Foo Delete") != null);
 
         // Scenario #2: Delete a user that DOES NOT exist in the list
         assertTrue(!staffManagement.deleteUser("Foo Oops"));
-
-        // Scenario #3: Check if the "Foo Delete" has been correctly deleted
-        assertTrue(staffManagement.findUserFromList("Foo Delete") != null);
     }
 
 
@@ -84,7 +84,8 @@ public class StaffManagementTest
         // Create a new user for testing
         staffManagement.createUser(StaffType.SALES, "Foo Bar", "f0o.bAr");
 
-        // Scenario #1: Check if can set a new password
+        // Scenario #1/2: Check if this user can set a new password,
+        //  i.e. user exists and password must correct
         assertTrue(staffManagement.changeUserPassword("Foo Bar", "f0o.bAr", "fo0.baR"));
 
         // Scenario #2: If old password is not correct, check if it returns false result
@@ -122,7 +123,7 @@ public class StaffManagementTest
 
         // Scenario #2, see if the file correctly saved with valid contents.
         JsonDatabase jsonDatabase = new JsonDatabase();
-        ArrayList<Staff> testListObject = new ArrayList<>();
+        ArrayList<Staff> testListObject;
 
         testListObject = jsonDatabase.readStaffListFromFile("settings.json");
         assertTrue(testListObject.size() > 0);
