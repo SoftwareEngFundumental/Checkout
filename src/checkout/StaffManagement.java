@@ -2,7 +2,7 @@ package checkout;
 
 import java.util.*;
 
-public class UserManagement
+public class StaffManagement
 {
     private ArrayList<Staff> staffList = new ArrayList<>();
 
@@ -58,7 +58,7 @@ public class UserManagement
         return passwordCheck;
     }
 
-    public Boolean createUser(UserType userType, String userName, String userPassword)
+    public Boolean createUser(StaffType staffType, String userName, String userPassword)
     {
         // Generate user ID (UUID)
         UUID newUserUuid = UUID.randomUUID();
@@ -66,7 +66,7 @@ public class UserManagement
 
         if(findUserFromList(userName) == null)
         {
-            switch(userType)
+            switch(staffType)
             {
                 case SALES:
                 {

@@ -4,8 +4,8 @@ import static org.junit.Assert.*;
 
 import checkout.JsonDatabase;
 import checkout.Staff;
-import checkout.UserManagement;
-import checkout.UserType;
+import checkout.StaffManagement;
+import checkout.StaffType;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.FixMethodOrder;
@@ -18,15 +18,15 @@ import java.util.*;
 @FixMethodOrder(MethodSorters.JVM)
 public class StaffManagementTest
 {
-    private UserManagement userManagement = null;
+    private StaffManagement staffManagement = null;
 
     @Before
     public void setUp() throws Exception
     {
-        userManagement = new UserManagement();
-        userManagement.createUser(UserType.MANAGER, "Foo Delete", "f0o.bAr");
-        userManagement.createUser(UserType.MANAGER, "Foo Password", "f0o.bAr");
-        userManagement.createUser(UserType.MANAGER, "Foo Login", "f0o.bAr");
+        staffManagement = new StaffManagement();
+        staffManagement.createUser(StaffType.MANAGER, "Foo Delete", "f0o.bAr");
+        staffManagement.createUser(StaffType.MANAGER, "Foo Password", "f0o.bAr");
+        staffManagement.createUser(StaffType.MANAGER, "Foo Login", "f0o.bAr");
     }
 
     @After
@@ -39,45 +39,45 @@ public class StaffManagementTest
     @Test
     public void testUserLogin() throws Exception
     {
-        assertTrue(userManagement.userLogin("Foo Login", "f0o.bAr"));
-        userManagement.userLogout("Foo Login");
+        assertTrue(staffManagement.userLogin("Foo Login", "f0o.bAr"));
+        staffManagement.userLogout("Foo Login");
     }
 
     @Test
     public void testCreateUser() throws Exception
     {
-        assertTrue(userManagement.createUser(UserType.MANAGER, "Foo Bar", "f0o.bAr"));
-        ArrayList<Staff> staffList = userManagement.getStaffList();
+        assertTrue(staffManagement.createUser(StaffType.MANAGER, "Foo Bar", "f0o.bAr"));
+        ArrayList<Staff> staffList = staffManagement.getStaffList();
         assertTrue(staffList.size() > 0);
     }
 
     @Test
     public void testDeleteUser() throws Exception
     {
-        assertTrue(userManagement.deleteUser("Foo Delete"));
+        assertTrue(staffManagement.deleteUser("Foo Delete"));
     }
 
 
     @Test
     public void testChangeUserPassword() throws Exception
     {
-        userManagement.createUser(UserType.SALES, "Foo Bar", "f0o.bAr");
-        assertTrue(userManagement.changeUserPassword("Foo Bar", "f0o.bAr", "fo0.baR"));
-        userManagement.deleteUser("Foo Bar");
+        staffManagement.createUser(StaffType.SALES, "Foo Bar", "f0o.bAr");
+        assertTrue(staffManagement.changeUserPassword("Foo Bar", "f0o.bAr", "fo0.baR"));
+        staffManagement.deleteUser("Foo Bar");
     }
 
     @Test
     public void testUserLogout() throws Exception
     {
-        userManagement.userLogin("Foo Login", "f0o.bAr");
-        assertTrue(userManagement.userLogout("Foo Login"));
+        staffManagement.userLogin("Foo Login", "f0o.bAr");
+        assertTrue(staffManagement.userLogout("Foo Login"));
     }
 
 
     @Test
     public void testSaveUsersToFile() throws Exception
     {
-        userManagement.saveUsersToFile("settings.json");
+        staffManagement.saveUsersToFile("settings.json");
 
         // Case #1, see if the file correctly created and saved to correct location.
         File testFile = new File("settings.json");
@@ -96,8 +96,8 @@ public class StaffManagementTest
     public void testLoadUsersFromFile() throws Exception
     {
         // Save to file and then load it, then see if it works.
-        userManagement.saveUsersToFile("settings.json");
-        userManagement.loadUsersFromFile("settings.json");
+        staffManagement.saveUsersToFile("settings.json");
+        staffManagement.loadUsersFromFile("settings.json");
 
         JsonDatabase jsonDatabase = new JsonDatabase();
         ArrayList<Staff> testListObject = new ArrayList<>();

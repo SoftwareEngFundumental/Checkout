@@ -2,7 +2,6 @@ package checkout;
 
 import com.google.gson.Gson;
 import java.io.*;
-import java.util.*;
 
 
 public class JsonDatabase
@@ -48,9 +47,7 @@ public class JsonDatabase
         try
         {
             BufferedReader reader = new BufferedReader(new FileReader(filePath));
-
             jsonString += reader.readLine();
-
         }
         catch (FileNotFoundException fileNotFoundException)
         {
