@@ -1,5 +1,12 @@
 package checkout;
 
+import com.google.gson.internal.LinkedTreeMap;
+import com.google.gson.reflect.TypeToken;
+import com.google.gson.JsonObject;
+import com.google.gson.Gson;
+
+import javax.xml.soap.Node;
+import java.lang.reflect.Type;
 import java.util.*;
 
 public class StaffManagement
@@ -10,7 +17,9 @@ public class StaffManagement
 
     public void setStaffList(ArrayList<Staff> staffList) { this.staffList = staffList; }
 
-    private Staff findUserFromList(String userName)
+    public Type staffListType = new TypeToken<ArrayList<Staff>>() {}.getType();
+
+    public Staff findUserFromList(String userName)
     {
         ArrayList<Staff> staffList = getStaffList();
         Staff staff = null;
@@ -26,7 +35,7 @@ public class StaffManagement
         return staff;
     }
 
-    private Staff findUserFromList(UUID userUuid)
+    public Staff findUserFromList(UUID userUuid)
     {
         ArrayList<Staff> staffList = getStaffList();
         Staff staff = null;
@@ -71,18 +80,21 @@ public class StaffManagement
                 case SALES:
                 {
                     newStaff = new SalesStaff(userName, userPassword, newUserUuid);
+                    newStaff.setUserType(StaffType.SALES);
                     staffList.add(newStaff);
                     break;
                 }
                 case MANAGER:
                 {
                     newStaff = new ManagerStaff(userName, userPassword, newUserUuid);
+                    newStaff.setUserType(StaffType.MANAGER);
                     staffList.add(newStaff);
                     break;
                 }
                 case WAREHOUSE:
                 {
                     newStaff = new WarehouseStaff(userName, userPassword, newUserUuid);
+                    newStaff.setUserType(StaffType.WAREHOUSE);
                     staffList.add(newStaff);
                     break;
                 }
@@ -184,7 +196,7 @@ public class StaffManagement
     public void loadUsersFromFile(String filePath)
     {
         JsonDatabase jsonDatabase = new JsonDatabase();
-        jsonDatabase.readObjectFromFile(filePath, staffList.getClass());
+        this.setStaffList(jsonDatabase.readStaffListFromFile(filePath));
     }
 
 }
