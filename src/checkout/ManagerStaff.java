@@ -2,7 +2,7 @@ package checkout;
 
 import java.util.UUID;
 
-public class ManagerStaff extends User
+public class ManagerStaff extends Staff
 {
     public ManagerStaff(String userName, String userPassword, UUID userUuid)
     {

@@ -5,9 +5,9 @@ import java.io.*;
 import java.util.*;
 
 
-public class ObjectToJson
+public class JsonDatabase
 {
-    public ObjectToJson()
+    public JsonDatabase()
     {
 
     }

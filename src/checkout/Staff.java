@@ -4,7 +4,7 @@ import com.sun.org.apache.xpath.internal.operations.Bool;
 
 import java.util.UUID;
 
-public abstract class User
+public abstract class Staff
 {
     private String  userName;
     private String  userPassword;

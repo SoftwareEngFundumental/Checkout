@@ -1,178 +1,190 @@
 package checkout;
 
-import com.sun.corba.se.spi.ior.ObjectKey;
-
 import java.util.*;
 
 public class UserManagement
 {
-    private ArrayList<User> userList = new ArrayList<User>();
+    private ArrayList<Staff> staffList = new ArrayList<>();
 
-    public ArrayList<User> getUserList() { return this.userList; }
+    public ArrayList<Staff> getStaffList() { return this.staffList; }
 
-    public void setUserList(ArrayList<User> userList) { this.userList = userList; }
+    public void setStaffList(ArrayList<Staff> staffList) { this.staffList = staffList; }
 
-    private User findUserFromList(String userName)
+    private Staff findUserFromList(String userName)
     {
-        ArrayList<User> userList = getUserList();
-        User user = null;
+        ArrayList<Staff> staffList = getStaffList();
+        Staff staff = null;
 
-        for(User userToQuery : userList)
+        for(Staff staffToQuery : staffList)
         {
-            if(userToQuery.getUserName().equals(userName))
+            if(staffToQuery.getUserName().equals(userName))
             {
-                user = userToQuery;
+                staff = staffToQuery;
             }
         }
 
-        return user;
+        return staff;
     }
 
-    private User findUserFromList(UUID userUuid)
+    private Staff findUserFromList(UUID userUuid)
     {
-        ArrayList<User> userList = getUserList();
-        User user = null;
+        ArrayList<Staff> staffList = getStaffList();
+        Staff staff = null;
 
-        for(User userToQuery : userList)
+        for(Staff staffToQuery : staffList)
         {
-            if(userToQuery.getUserUuid().equals(userUuid))
+            if(staffToQuery.getUserUuid().equals(userUuid))
             {
-                user = userToQuery;
+                staff = staffToQuery;
             }
         }
 
-        return user;
+        return staff;
     }
 
     public Boolean userLogin(String userName, String userPassword)
     {
-        ArrayList<User> userList = getUserList();
-        User user = null;
+        Staff staff = findUserFromList(userName);
 
-        for(User userToQuery : userList)
-        {
-            if(userToQuery.getUserName().equals(userName))
-            {
-                user = userToQuery;
-            }
-        }
-
-        // Return false because user name not found.
-        if(user == null)
+        // Return false if staff name not found.
+        if(staff == null)
         {
             return false;
         }
 
-        // Compare the password true or not, return the result directly!
-        return user.getUserPassword().equals(userPassword);
+        // Set the status of password check
+        Boolean passwordCheck = staff.getUserPassword().equals(userPassword);
+        staff.setUserLoginStatus(passwordCheck);
+        return passwordCheck;
     }
 
-    public ArrayList<User> createUser(ArrayList<User> originalUserList, UserType userType,
-                                      String userName, String userPassword)
+    public Boolean createUser(UserType userType, String userName, String userPassword)
     {
         // Generate user ID (UUID)
         UUID newUserUuid = UUID.randomUUID();
-        User newUser;
+        Staff newStaff;
 
-        switch(userType)
+        if(findUserFromList(userName) == null)
         {
-            case SALES:
+            switch(userType)
             {
-                newUser = new SalesStaff(userName, userPassword, newUserUuid);
-                originalUserList.add(newUser);
-                break;
+                case SALES:
+                {
+                    newStaff = new SalesStaff(userName, userPassword, newUserUuid);
+                    staffList.add(newStaff);
+                    break;
+                }
+                case MANAGER:
+                {
+                    newStaff = new ManagerStaff(userName, userPassword, newUserUuid);
+                    staffList.add(newStaff);
+                    break;
+                }
+                case WAREHOUSE:
+                {
+                    newStaff = new WarehouseStaff(userName, userPassword, newUserUuid);
+                    staffList.add(newStaff);
+                    break;
+                }
             }
-            case MANAGER:
-            {
-                newUser = new ManagerStaff(userName, userPassword, newUserUuid);
-                originalUserList.add(newUser);
-                break;
-            }
-            case WAREHOUSE:
-            {
-                newUser = new WarehouseStaff(userName, userPassword, newUserUuid);
-                originalUserList.add(newUser);
-                break;
-            }
+
+            return true;
+        }
+        else
+        {
+            // Since this Staff is already existed in the list, it shouldn't be added into the list anymore.
+            return false;
         }
 
-        return originalUserList;
+
+
     }
 
     public Boolean deleteUser(UUID userUuid)
     {
-        User user = findUserFromList(userUuid);
+        Staff staff = findUserFromList(userUuid);
 
-        return(user != null && this.getUserList().remove(user));
+        return(staff != null && this.getStaffList().remove(staff));
     }
 
     public Boolean deleteUser(String userName)
     {
-        User user = findUserFromList(userName);
+        Staff staff = findUserFromList(userName);
 
-        return(user != null && this.getUserList().remove(user));
+        return(staff != null && this.getStaffList().remove(staff));
     }
 
     public Boolean changeUserPassword(UUID userUuid, String userOldPassword, String userNewPassword)
     {
-        User user = findUserFromList(userUuid);
+        Staff staff = findUserFromList(userUuid);
 
         // If old password not match then just return false to reject changes
-        if(!(user.getUserPassword().equals(userOldPassword)))
+        if(!(staff.getUserPassword().equals(userOldPassword)))
         {
             return false;
         }
         else
         {
-            user.setUserPassword(userNewPassword);
+            staff.setUserPassword(userNewPassword);
             return true;
         }
     }
 
     public Boolean changeUserPassword(String userName, String userOldPassword, String userNewPassword)
     {
-        User user = findUserFromList(userName);
+        Staff staff = findUserFromList(userName);
 
         // If old password not match then just return false to reject changes
-        if(!(user.getUserPassword().equals(userOldPassword)))
+        if(!(staff.getUserPassword().equals(userOldPassword)))
         {
             return false;
         }
         else
         {
-            user.setUserPassword(userNewPassword);
+            staff.setUserPassword(userNewPassword);
             return true;
         }
     }
 
-    public void userLogout(String userName)
+    public Boolean userLogout(String userName)
     {
-        User user = findUserFromList(userName);
-        if(user != null)
+        Staff staff = findUserFromList(userName);
+        if(staff != null)
         {
-            user.setUserLoginStatus(false);
+            staff.setUserLoginStatus(false);
+            return true;
+        }
+        else
+        {
+            return false;
         }
     }
 
-    public void userLogout(UUID userUuid)
+    public Boolean userLogout(UUID userUuid)
     {
-        User user = findUserFromList(userUuid);
-        if(user != null)
+        Staff staff = findUserFromList(userUuid);
+
+        if(staff != null)
         {
-            user.setUserLoginStatus(false);
+            staff.setUserLoginStatus(false);
+            return true;
+        }
+        else
+        {
+            return false;
         }
     }
 
     public void saveUsersToFile(String filePath)
     {
-        ObjectToJson objToJson = new ObjectToJson();
-        objToJson.saveObjectToJsonFile(getUserList(), filePath);
+        JsonDatabase jsonDatabase = new JsonDatabase();
+        jsonDatabase.saveObjectToJsonFile(getStaffList(), filePath);
     }
 
     public void loadUsersFromFile(String filePath)
     {
-        ObjectToJson objToJson = new ObjectToJson();
-        objToJson.readObjectFromFile(filePath, userList.getClass());
+        JsonDatabase jsonDatabase = new JsonDatabase();
+        jsonDatabase.readObjectFromFile(filePath, staffList.getClass());
     }
 
 }
