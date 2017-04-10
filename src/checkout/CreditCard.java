@@ -1,67 +1,36 @@
 package checkout;
 
 public class CreditCard {
-    private String cardNumber;
-    private String firstName;
-    private String lastName;
-    private String CVV;
-    private int cardExpireYear;
-    private int cardExpireMonth;
+    private int cardNumber;
+    private double cardValue;
 
-    public CreditCard(String cardNumber, String firstName, String lastName, String CVV, int cardExpireYear, int cardExpireMonth) {
-        this.cardNumber = cardNumber;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.CVV = CVV;
-        this.cardExpireYear = cardExpireYear;
-        this.cardExpireMonth = cardExpireMonth;
+    public CreditCard() {
+        // TODO: 11/04/2017 auto create ID
+        cardValue = 0;
     }
 
-    public String getCardNumber() {
+    public int getCardNumber() {
         return cardNumber;
     }
 
-    public void setCardNumber(String cardNumber) {
-        this.cardNumber = cardNumber;
+    public double getCardValue() {
+        return cardValue;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public void setCardValue(double cardValue) {
+        this.cardValue = cardValue;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public void rechargeValue() {
+        // TODO: 11/04/2017 put money in to the card (maybe just change the cardValue because we can't process real money transaction)
     }
 
-    public String getLastName() {
-        return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public String getCVV() {
-        return CVV;
-    }
-
-    public void setCVV(String CVV) {
-        this.CVV = CVV;
-    }
-
-    public int getCardExpireYear() {
-        return cardExpireYear;
-    }
-
-    public void setCardExpireYear(int cardExpireYear) {
-        this.cardExpireYear = cardExpireYear;
-    }
-
-    public int getCardExpireMonth() {
-        return cardExpireMonth;
-    }
-
-    public void setCardExpireMonth(int cardExpireMonth) {
-        this.cardExpireMonth = cardExpireMonth;
+    @Override
+    public String toString() {
+        // TODO: 11/04/2017 To String
+        return "CreditCard{" +
+                "cardNumber=" + cardNumber +
+                ", cardValue=" + cardValue +
+                '}';
     }
 }
