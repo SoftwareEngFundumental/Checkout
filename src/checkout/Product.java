@@ -28,7 +28,7 @@ public class Product {
         // TODO: 11/04/2017 store into JSON file 
     }
 
-    public ArrayList<Product> getProductList() {
+    public static ArrayList<Product> getProductList() {
         Type productListType = new TypeToken<ArrayList<Product>>() {}.getType();
         JsonDatabase jsonDatabase = new JsonDatabase();
         ArrayList<Product> productArrayList = jsonDatabase.readObjectFromFile("productList.json", productListType);
