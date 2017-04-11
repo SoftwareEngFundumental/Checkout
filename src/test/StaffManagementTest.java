@@ -8,9 +8,7 @@ import checkout.StaffManagement;
 import checkout.StaffType;
 import org.junit.After;
 import org.junit.Before;
-import org.junit.FixMethodOrder;
 import org.junit.Test;
-import org.junit.runners.MethodSorters;
 import java.io.*;
 
 import java.util.*;

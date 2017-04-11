@@ -1,5 +1,9 @@
 package checkout;
 
+import com.google.gson.reflect.TypeToken;
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+
 public class Customer
 {
     private int ID;
@@ -7,14 +11,40 @@ public class Customer
     private int cardNumber;
     private int point;
 
-    public Customer(String name, int cardNumber)
-    {
-        // TODO: 11/04/2017 auto create ID
+    public Customer(String name, int cardNumber) {
+        this.ID = getCustomerList().size() + 1;
         this.name = name;
         this.cardNumber = cardNumber;
         this.point = 0;
-        // TODO: 11/04/2017 store into JSON file
     }
+
+
+
+    public static ArrayList<Customer> getCustomerList() {
+        Type customerListType = new TypeToken<ArrayList<Customer>>() {}.getType();
+        JsonDatabase jsonDatabase = new JsonDatabase();
+        ArrayList<Customer> customerArrayList = jsonDatabase.readObjectFromFile("customerList.json", customerListType);
+        return customerArrayList;
+    }
+
+    public static void saveCustomerList(ArrayList<Customer> customerArrayList) {
+        JsonDatabase jsonDatabase = new JsonDatabase();
+        jsonDatabase.saveObjectToJsonFile(customerArrayList, "customerList.json");
+    }
+
+    public static Customer getCustomerByID(int ID) {
+        ArrayList<Customer> customerArrayList = getCustomerList();
+        Customer customer = null;
+        for (int i = 0; i < customerArrayList.size(); i++) {
+            Customer temp = customerArrayList.get(i);
+            if (temp.getID() == ID) {
+                customer = temp;
+            }
+        }
+        return customer;
+    }
+
+
 
     public int getID() {
         return ID;

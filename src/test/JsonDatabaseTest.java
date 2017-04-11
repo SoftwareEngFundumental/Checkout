@@ -1,7 +1,6 @@
 package test;
 
 import checkout.StaffType;
-import com.google.gson.internal.LinkedTreeMap;
 import org.junit.Before;
 import org.junit.Test;
 

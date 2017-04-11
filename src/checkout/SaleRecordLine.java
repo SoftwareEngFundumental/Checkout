@@ -12,9 +12,9 @@ public class SaleRecordLine {
     @Override
     public String toString() {
         // TODO: 11/04/2017 To String
-        return "SaleRecordLine{" +
-                "productID=" + productID +
-                ", quantity=" + quantity +
-                '}';
+        return Product.getProductByID(productID).getName()
+                + ", price: " + Product.getProductByID(productID).getPrice()
+                + ", quantity: " + quantity
+                + ", total: " + quantity*Product.getProductByID(productID).getPrice();
     }
 }

@@ -1,14 +1,43 @@
 package checkout;
 
+import com.google.gson.reflect.TypeToken;
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+
 public class CreditCard {
     private int cardNumber;
     private double cardValue;
 
-    public CreditCard() {
-        // TODO: 11/04/2017 auto create ID
-        cardValue = 0;
-        // TODO: 11/04/2017 stor into JSON file
+    public CreditCard(double initialValue) {
+        cardNumber = getCreditCardList().size()+1;
+        cardValue = initialValue;
     }
+
+
+    public static ArrayList<CreditCard> getCreditCardList() {
+        Type creditCardListType = new TypeToken<ArrayList<CreditCard>>() {}.getType();
+        JsonDatabase jsonDatabase = new JsonDatabase();
+        ArrayList<CreditCard> creditCardsArrayList = jsonDatabase.readObjectFromFile("creditCardList.json", creditCardListType);
+        return creditCardsArrayList;
+    }
+
+    public static void saveCreditCardList(ArrayList<CreditCard> creditCardsArrayList) {
+        JsonDatabase jsonDatabase = new JsonDatabase();
+        jsonDatabase.saveObjectToJsonFile(creditCardsArrayList, "creditCardList.json");
+    }
+
+    public static CreditCard getCreditCardByID(int ID) {
+        ArrayList<CreditCard> creditCardArrayList = getCreditCardList();
+        CreditCard creditCard = null;
+        for (int i = 0; i < creditCardArrayList.size(); i++) {
+            CreditCard temp = creditCardArrayList.get(i);
+            if (temp.getCardNumber() == ID) {
+                creditCard = temp;
+            }
+        }
+        return creditCard;
+    }
+
 
     public int getCardNumber() {
         return cardNumber;
@@ -28,7 +57,6 @@ public class CreditCard {
 
     @Override
     public String toString() {
-        // TODO: 11/04/2017 To String
         return "CreditCard{" +
                 "cardNumber=" + cardNumber +
                 ", cardValue=" + cardValue +
