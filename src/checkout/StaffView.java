@@ -15,7 +15,7 @@ public class StaffView
     private static void doDemo()
     {
         System.out.println(
-                "Milestone 1 Demo for Staff classes\n" +
+                "\n\nMilestone 1 Demo for Staff classes\n" +
                         "By \"Jackson\" Ming Hu (s3554025)\n"
         );
         System.out.println(
@@ -24,7 +24,9 @@ public class StaffView
                         "2. Login as a staff\n" +
                         "3. Logout\n" +
                         "4. Remove a staff\n" +
-                        "5. Change a staff's password\n"
+                        "5. Change a staff's password\n" +
+                        "6. Save staff details to JSON\n" +
+                        "7. Load staff details from JSON"
         );
 
         Scanner scanner = new Scanner(System.in);
@@ -58,10 +60,24 @@ public class StaffView
                 doPasswordChange();
                 break;
             }
+            case 6:
+            {
+                System.out.println("\nTry saving to JSON...");
+                staffManagement.saveUsersToFile("staff.json");
+                doDemo();
+                break;
+            }
+            case 7:
+            {
+                System.out.println("\nTry loading from JSON...");
+                staffManagement.loadUsersFromFile("staff.json");
+                doDemo();
+                break;
+            }
         }
     }
 
-    public static void addStaff()
+    private static void addStaff()
     {
         Scanner scanner = new Scanner(System.in);
         System.out.print("\nEnter user name: ");
