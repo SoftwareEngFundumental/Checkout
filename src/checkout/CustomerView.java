@@ -42,7 +42,7 @@ public class CustomerView {
     }
 
     public static void main(String[] args) throws FileNotFoundException {
-        scanItem(Product.getProductList());
+//        scanItem(Product.getProductList());
         System.out.println();
         // TODO: 30/03/2017 ask for quantity (or just leave it and scan multiple times)
         // TODO: 30/03/2017 save to receipt

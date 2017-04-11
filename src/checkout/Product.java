@@ -25,10 +25,10 @@ public class Product {
         this.ID = ID;
         this.name = name;
         this.price = price;
-        // TODO: 11/04/2017 store into JSON file 
+        this.quantity = quantity;
     }
 
-    public ArrayList<Product> getProductList() {
+    public static ArrayList<Product> getProductList() {
         Type productListType = new TypeToken<ArrayList<Product>>() {}.getType();
         JsonDatabase jsonDatabase = new JsonDatabase();
         ArrayList<Product> productArrayList = jsonDatabase.readObjectFromFile("productList.json", productListType);
@@ -42,8 +42,14 @@ public class Product {
 
     @Override
     public String toString() {
-        // TODO: 11/04/2017 To String
-        return ID + "-" + name + "-" + price;
+        return "Product{" +
+                "ID=" + ID +
+                ", name='" + name + '\'' +
+                ", price=" + price +
+                ", quantity=" + quantity +
+                ", promoCondition=" + promoCondition +
+                ", promoDiscount=" + promoDiscount +
+                '}';
     }
 }
 
