@@ -61,7 +61,7 @@ public class StaffManagementTest
         assertTrue(!staffManagement.createUser(StaffType.MANAGER, "Foo Bar", "rand0m"));
 
         // Scenario #3: Find out the use from the list, should not be null
-        assertTrue(staffManagement.findUserFromList("Foo Bar") != null);
+        assertNotNull(staffManagement.findUserFromList("Foo Bar"));
     }
 
     @Test
@@ -71,7 +71,7 @@ public class StaffManagementTest
         assertTrue(staffManagement.deleteUser("Foo Delete"));
 
         // Scenario #1.2: Check if the "Foo Delete" has been correctly deleted
-        assertTrue(staffManagement.findUserFromList("Foo Delete") != null);
+        assertNull(staffManagement.findUserFromList("Foo Delete"));
 
         // Scenario #2: Delete a user that DOES NOT exist in the list
         assertTrue(!staffManagement.deleteUser("Foo Oops"));

@@ -1,6 +1,5 @@
 package checkout;
 
-import com.google.gson.internal.LinkedTreeMap;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
@@ -13,8 +12,6 @@ public class StaffManagement
     public ArrayList<Staff> getStaffList() { return this.staffList; }
 
     public void setStaffList(ArrayList<Staff> staffList) { this.staffList = staffList; }
-
-    public Type staffListType = new TypeToken<ArrayList<Staff>>() {}.getType();
 
     public Staff findUserFromList(String userName)
     {
@@ -105,8 +102,6 @@ public class StaffManagement
             return false;
         }
 
-
-
     }
 
     public Boolean deleteUser(int userId)
@@ -158,21 +153,17 @@ public class StaffManagement
     public Boolean userLogout(String userName)
     {
         Staff staff = findUserFromList(userName);
-        if(staff != null)
-        {
-            staff.setUserLoginStatus(false);
-            return true;
-        }
-        else
-        {
-            return false;
-        }
+        return _doUserLogout(staff);
     }
 
     public Boolean userLogout(int userId)
     {
         Staff staff = findUserFromList(userId);
+        return _doUserLogout(staff);
+    }
 
+    private Boolean _doUserLogout(Staff staff)
+    {
         if(staff != null)
         {
             if(!staff.getUserLoginStatus())
@@ -213,7 +204,15 @@ public class StaffManagement
         }
 
         Collections.sort(userIdList);
-        return userIdList.get(userIdList.size() - 1);
+
+        if(userIdList.size() == 0)
+        {
+            return 0;
+        }
+        else
+        {
+            return (userIdList.get(userIdList.size() - 1) + 1);
+        }
     }
 
 }
