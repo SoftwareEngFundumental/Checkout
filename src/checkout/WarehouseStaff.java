@@ -4,10 +4,10 @@ import java.util.UUID;
 
 public class WarehouseStaff extends Staff
 {
-    public WarehouseStaff(String userName, String userPassword, UUID userUuid)
+    public WarehouseStaff(String userName, String userPassword, int userId)
     {
         super.setUserName(userName);
         super.setUserPassword(userPassword);
-        super.setUserUuid(userUuid);
+        super.setUserId(userId);
     }
 }

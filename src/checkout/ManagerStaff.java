@@ -1,13 +1,11 @@
 package checkout;
 
-import java.util.UUID;
-
 public class ManagerStaff extends Staff
 {
-    public ManagerStaff(String userName, String userPassword, UUID userUuid)
+    public ManagerStaff(String userName, String userPassword, int userId)
     {
         super.setUserName(userName);
         super.setUserPassword(userPassword);
-        super.setUserUuid(userUuid);
+        super.setUserId(userId);
     }
 }

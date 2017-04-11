@@ -2,10 +2,7 @@ package checkout;
 
 import com.google.gson.internal.LinkedTreeMap;
 import com.google.gson.reflect.TypeToken;
-import com.google.gson.JsonObject;
-import com.google.gson.Gson;
 
-import javax.xml.soap.Node;
 import java.lang.reflect.Type;
 import java.util.*;
 
@@ -35,14 +32,14 @@ public class StaffManagement
         return staff;
     }
 
-    public Staff findUserFromList(UUID userUuid)
+    public Staff findUserFromList(int userId)
     {
         ArrayList<Staff> staffList = getStaffList();
         Staff staff = null;
 
         for(Staff staffToQuery : staffList)
         {
-            if(staffToQuery.getUserUuid().equals(userUuid))
+            if(staffToQuery.getUserId() == userId)
             {
                 staff = staffToQuery;
             }
@@ -69,8 +66,8 @@ public class StaffManagement
 
     public Boolean createUser(StaffType staffType, String userName, String userPassword)
     {
-        // Generate user ID (UUID)
-        UUID newUserUuid = UUID.randomUUID();
+        // Generate user ID (int)
+        int newUserId = getNewUserId(getStaffList());
         Staff newStaff;
 
         if(findUserFromList(userName) == null)
@@ -79,21 +76,21 @@ public class StaffManagement
             {
                 case SALES:
                 {
-                    newStaff = new SalesStaff(userName, userPassword, newUserUuid);
+                    newStaff = new SalesStaff(userName, userPassword, newUserId);
                     newStaff.setUserType(StaffType.SALES);
                     staffList.add(newStaff);
                     break;
                 }
                 case MANAGER:
                 {
-                    newStaff = new ManagerStaff(userName, userPassword, newUserUuid);
+                    newStaff = new ManagerStaff(userName, userPassword, newUserId);
                     newStaff.setUserType(StaffType.MANAGER);
                     staffList.add(newStaff);
                     break;
                 }
                 case WAREHOUSE:
                 {
-                    newStaff = new WarehouseStaff(userName, userPassword, newUserUuid);
+                    newStaff = new WarehouseStaff(userName, userPassword, newUserId);
                     newStaff.setUserType(StaffType.WAREHOUSE);
                     staffList.add(newStaff);
                     break;
@@ -112,9 +109,9 @@ public class StaffManagement
 
     }
 
-    public Boolean deleteUser(UUID userUuid)
+    public Boolean deleteUser(int userId)
     {
-        Staff staff = findUserFromList(userUuid);
+        Staff staff = findUserFromList(userId);
 
         return(staff != null && this.getStaffList().remove(staff));
     }
@@ -126,9 +123,9 @@ public class StaffManagement
         return(staff != null && this.getStaffList().remove(staff));
     }
 
-    public Boolean changeUserPassword(UUID userUuid, String userOldPassword, String userNewPassword)
+    public Boolean changeUserPassword(int userId, String userOldPassword, String userNewPassword)
     {
-        Staff staff = findUserFromList(userUuid);
+        Staff staff = findUserFromList(userId);
 
         // If old password not match then just return false to reject changes
         if(!(staff.getUserPassword().equals(userOldPassword)))
@@ -172,14 +169,21 @@ public class StaffManagement
         }
     }
 
-    public Boolean userLogout(UUID userUuid)
+    public Boolean userLogout(int userId)
     {
-        Staff staff = findUserFromList(userUuid);
+        Staff staff = findUserFromList(userId);
 
         if(staff != null)
         {
-            staff.setUserLoginStatus(false);
-            return true;
+            if(!staff.getUserLoginStatus())
+            {
+                return false;
+            }
+            else
+            {
+                staff.setUserLoginStatus(false);
+                return true;
+            }
         }
         else
         {
@@ -197,6 +201,19 @@ public class StaffManagement
     {
         JsonDatabase jsonDatabase = new JsonDatabase();
         this.setStaffList(jsonDatabase.readStaffListFromFile(filePath));
+    }
+
+    private int getNewUserId(ArrayList<Staff> userList)
+    {
+        ArrayList<Integer> userIdList = new ArrayList<>();
+
+        for(Staff staffToQuery : userList)
+        {
+            userIdList.add(staffToQuery.getUserId());
+        }
+
+        Collections.sort(userIdList);
+        return userIdList.get(userIdList.size() - 1);
     }
 
 }
