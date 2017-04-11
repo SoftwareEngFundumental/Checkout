@@ -65,7 +65,7 @@ public class CustomerView {
 
     public static void main(String[] args) throws FileNotFoundException {
         // TODO: 11/04/2017 what if scan same item twice (can we merge?)
-//        scanItem();
+        scanItem();
 
         // TODO: 30/03/2017 scan customer ID (just like the products)
     }
