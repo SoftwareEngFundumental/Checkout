@@ -7,6 +7,7 @@ public class CreditCard {
     public CreditCard() {
         // TODO: 11/04/2017 auto create ID
         cardValue = 0;
+        // TODO: 11/04/2017 store into JSON file
     }
 
     public int getCardNumber() {
