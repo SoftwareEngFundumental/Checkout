@@ -1,12 +1,9 @@
 package checkout;
 
 import com.google.gson.reflect.TypeToken;
-
 import java.lang.reflect.Type;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.time.Instant;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -17,17 +14,7 @@ public class SalesRecord {
         this.recordLines = recordLines;
     }
 
-    public ArrayList<SaleRecordLine> getRecordLines() {
-        return recordLines;
-    }
-
-    public void setRecordLines(ArrayList<SaleRecordLine> recordLines) {
-        this.recordLines = recordLines;
-    }
-
     public void saveSaleRecord() {
-        // TODO: 11/04/2017
-
         DateFormat dateFormat = new SimpleDateFormat("yyyyMMdd-HHmmss");
         Date date = new Date();
         System.out.println(dateFormat.format(date));

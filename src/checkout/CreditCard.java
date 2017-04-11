@@ -8,12 +8,9 @@ public class CreditCard {
     private int cardNumber;
     private double cardValue;
 
-    public CreditCard(double intitalValue) {
-        // TODO: 11/04/2017 auto create ID
+    public CreditCard(double initialValue) {
         cardNumber = getCreditCardList().size()+1;
-        cardValue = intitalValue;
-
-        // TODO: 11/04/2017 store into JSON file
+        cardValue = initialValue;
     }
 
 
@@ -60,7 +57,6 @@ public class CreditCard {
 
     @Override
     public String toString() {
-        // TODO: 11/04/2017 To String
         return "CreditCard{" +
                 "cardNumber=" + cardNumber +
                 ", cardValue=" + cardValue +

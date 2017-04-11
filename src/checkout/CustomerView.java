@@ -33,7 +33,6 @@ public class CustomerView {
                 continue;
             }
             if (Product.getProductByID(valueOf(scannedProductID)) != null) {
-                // TODO: 11/04/2017 Record
                 System.out.print("Enter the quantity: ");
                 String quantityInput = scanner.nextLine();
                 try {

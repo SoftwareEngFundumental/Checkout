@@ -11,13 +11,11 @@ public class Customer
     private int cardNumber;
     private int point;
 
-    public Customer(String name, int cardNumber)
-    {
+    public Customer(String name, int cardNumber) {
         this.ID = getCustomerList().size() + 1;
         this.name = name;
         this.cardNumber = cardNumber;
         this.point = 0;
-        // TODO: 11/04/2017 store into JSON file
     }
 
 
