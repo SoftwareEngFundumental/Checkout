@@ -153,21 +153,17 @@ public class StaffManagement
     public Boolean userLogout(String userName)
     {
         Staff staff = findUserFromList(userName);
-        if(staff != null)
-        {
-            staff.setUserLoginStatus(false);
-            return true;
-        }
-        else
-        {
-            return false;
-        }
+        return _doUserLogout(staff);
     }
 
     public Boolean userLogout(int userId)
     {
         Staff staff = findUserFromList(userId);
+        return _doUserLogout(staff);
+    }
 
+    private Boolean _doUserLogout(Staff staff)
+    {
         if(staff != null)
         {
             if(!staff.getUserLoginStatus())

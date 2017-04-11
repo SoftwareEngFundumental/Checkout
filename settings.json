@@ -1,1 +1,1 @@
-[{"userName":"Foo Delete","userPassword":"f0o.bAr","userId":0,"userType":"MANAGER"},{"userName":"Foo Password","userPassword":"f0o.bAr","userId":0,"userType":"MANAGER"},{"userName":"Foo Login","userPassword":"f0o.bAr","userId":0,"userType":"MANAGER"}]
+[{"userName":"Foo Delete","userPassword":"f0o.bAr","userId":0,"userType":"MANAGER"},{"userName":"Foo Password","userPassword":"f0o.bAr","userId":1,"userType":"MANAGER"},{"userName":"Foo Login","userPassword":"f0o.bAr","userId":2,"userType":"MANAGER"}]
