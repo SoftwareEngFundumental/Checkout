@@ -1,19 +1,10 @@
 package checkout;
 
-import com.sun.org.apache.xpath.internal.operations.Bool;
-
-import java.util.UUID;
-
 public abstract class Staff
 {
-    public Staff()
-    {
-
-    }
-
     private String  userName;
     private String  userPassword;
-    private UUID    userUuid;
+    private int     userId;
     private Boolean userLoginStatus;
     private StaffType userType;
 
@@ -22,7 +13,7 @@ public abstract class Staff
 
     public String getUserPassword() { return userPassword; }
 
-    public UUID   getUserUuid() { return userUuid; }
+    public int   getUserId() { return userId; }
 
     public Boolean getUserLoginStatus() { return userLoginStatus; }
 
@@ -32,7 +23,7 @@ public abstract class Staff
 
     public void setUserPassword(String userPassword) { this.userPassword = userPassword; }
 
-    public void setUserUuid(UUID uuid) { this.userUuid = uuid; }
+    public void setUserId(int id) { this.userId = id; }
 
     public void setUserLoginStatus(Boolean userLoginStatus) { this.userLoginStatus = userLoginStatus; }
 
