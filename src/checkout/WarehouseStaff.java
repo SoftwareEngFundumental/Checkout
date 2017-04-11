@@ -20,8 +20,11 @@ public class WarehouseStaff extends Staff
     public int restock(){
         //get product from arrayList
         ArrayList<Product> productArrayList = Product.getProductList();
+        for (int i=0; i<productArrayList.size(); i++){
+            //if quantity is less than a certain amount
+            //add new number of product
+        }
 
-        System.out.println(productArrayList);
 
         return 0;
     }
