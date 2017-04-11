@@ -26,8 +26,8 @@ public class StaffManagementTest
 
         // Create three users for testing. Here we can't just use one user,
         // it may conflict with other test methods which will cause unexpected results.
-        staffManagement.createUser(StaffType.MANAGER, "Foo Delete", "f0o.bAr");
-        staffManagement.createUser(StaffType.MANAGER, "Foo Password", "f0o.bAr");
+        staffManagement.createUser(StaffType.WAREHOUSE, "Foo Delete", "f0o.bAr");
+        staffManagement.createUser(StaffType.SALES, "Foo Password", "f0o.bAr");
         staffManagement.createUser(StaffType.MANAGER, "Foo Login", "f0o.bAr");
     }
 
