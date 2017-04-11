@@ -1,19 +1,56 @@
 package checkout;
 
+import com.google.gson.reflect.TypeToken;
+
+import java.lang.reflect.Type;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.Instant;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Date;
-import java.util.TreeMap;
 
 public class SalesRecord {
-    DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+    private ArrayList<SaleRecordLine> recordLines;
 
-    private Date date;
-    private TreeMap<Product, Integer> receipt;
-    private Customer customer;
+    public SalesRecord(ArrayList<SaleRecordLine> recordLines) {
+        this.recordLines = recordLines;
+    }
 
-    public SalesRecord() {
-        date = new Date();
-        receipt = new TreeMap<Product, Integer>();
+    public ArrayList<SaleRecordLine> getRecordLines() {
+        return recordLines;
+    }
+
+    public void setRecordLines(ArrayList<SaleRecordLine> recordLines) {
+        this.recordLines = recordLines;
+    }
+
+    public void saveSaleRecord() {
+        // TODO: 11/04/2017
+
+        DateFormat dateFormat = new SimpleDateFormat("yyyyMMdd-HHmmss");
+        Date date = new Date();
+        System.out.println(dateFormat.format(date));
+
+        String filepath = "Sales Record/" + dateFormat.format(date) + ".json";
+        JsonDatabase jsonDatabase = new JsonDatabase();
+        jsonDatabase.saveObjectToJsonFile(recordLines, filepath);
+    }
+
+    public static ArrayList<SaleRecordLine> getSaleRecord(String filename) {
+        filename = "Sales Record/" + filename;
+        Type productListType = new TypeToken<ArrayList<SaleRecordLine>>() {}.getType();
+        JsonDatabase jsonDatabase = new JsonDatabase();
+        ArrayList<SaleRecordLine> saleRecordLineArrayList = jsonDatabase.readObjectFromFile(filename, productListType);
+        return saleRecordLineArrayList;
+    }
+
+    @Override
+    public String toString() {
+        String output = "";
+        for (SaleRecordLine recordLine : recordLines) {
+            output += recordLine + "\n";
+        }
+        return output;
     }
 }
