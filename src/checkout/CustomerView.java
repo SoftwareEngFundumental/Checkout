@@ -1,17 +1,22 @@
 package checkout;
 
 import java.io.FileNotFoundException;
+import java.time.Instant;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.TreeMap;
 import static java.lang.Integer.valueOf;
 
 public class CustomerView {
 
-    public static void scanItem(TreeMap<Integer, Product> productTreeMap) {
+    private static void scanItem() {
         boolean doneEnteringItem = false;
         Scanner scanner = new Scanner(System.in);
-        String scannedProductID;
+        ArrayList<SaleRecordLine> salesRecordArrayList = new ArrayList<SaleRecordLine>();
 
+
+        String scannedProductID;
         while (!doneEnteringItem) {
             System.out.print("Scan your next item: ");
             scannedProductID = scanner.nextLine();
@@ -20,21 +25,38 @@ public class CustomerView {
                 doneEnteringItem = true;
                 continue;
             }
-
             try {
                 valueOf(scannedProductID);
             }
             catch (NumberFormatException e) {
-                System.out.println("Cannot find product. Please scan again.\n");
+                System.out.println("Cannot find product. Please scan again. \n");
                 continue;
+            }
+            if (Product.getProductByID(valueOf(scannedProductID)) != null) {
+                // TODO: 11/04/2017 Record
+                System.out.print("Enter the quantity: ");
+                String quantityInput = scanner.nextLine();
+                try {
+                    valueOf(quantityInput);
+                }
+                catch (NumberFormatException e) {
+                    System.out.println("Invalid input. Please enter quantity again?\n");
+                    continue;
+                }
+                SaleRecordLine saleRecordLine = new SaleRecordLine(valueOf(scannedProductID), valueOf(quantityInput));
+                System.out.println(saleRecordLine + "\n");
+                salesRecordArrayList.add(saleRecordLine);
+
+
+            }
+            else {
+                System.out.println("Cannot find product. Please scan again.\n");
             }
 
-            if (!productTreeMap.containsKey(valueOf(scannedProductID))) {
-                System.out.println("Cannot find product. Please scan again.\n");
-                continue;
-            }
-            System.out.println(productTreeMap.get(valueOf(scannedProductID)) + "\n");
         }
+        SalesRecord salesRecord = new SalesRecord(salesRecordArrayList);
+        salesRecord.saveSaleRecord();
+        System.out.println("\n" + salesRecord);
     }
 
     public  static void scanCustomerID (TreeMap<Integer, Customer> customerTreeMap) {
@@ -42,13 +64,9 @@ public class CustomerView {
     }
 
     public static void main(String[] args) throws FileNotFoundException {
-//        scanItem(Product.getProductList());
-        System.out.println();
-        // TODO: 30/03/2017 ask for quantity (or just leave it and scan multiple times)
-        // TODO: 30/03/2017 save to receipt
+        // TODO: 11/04/2017 what if scan same item twice (can we merge?)
+        scanItem();
 
-
-        System.out.print("Enter your customer ID: ");
         // TODO: 30/03/2017 scan customer ID (just like the products)
     }
 }
