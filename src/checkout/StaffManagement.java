@@ -1,6 +1,5 @@
 package checkout;
 
-import com.google.gson.internal.LinkedTreeMap;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
@@ -13,8 +12,6 @@ public class StaffManagement
     public ArrayList<Staff> getStaffList() { return this.staffList; }
 
     public void setStaffList(ArrayList<Staff> staffList) { this.staffList = staffList; }
-
-    public Type staffListType = new TypeToken<ArrayList<Staff>>() {}.getType();
 
     public Staff findUserFromList(String userName)
     {
@@ -104,8 +101,6 @@ public class StaffManagement
             // Since this Staff is already existed in the list, it shouldn't be added into the list anymore.
             return false;
         }
-
-
 
     }
 
@@ -213,7 +208,15 @@ public class StaffManagement
         }
 
         Collections.sort(userIdList);
-        return userIdList.get(userIdList.size() - 1);
+
+        if(userIdList.size() == 0)
+        {
+            return 0;
+        }
+        else
+        {
+            return (userIdList.get(userIdList.size() - 1) + 1);
+        }
     }
 
 }

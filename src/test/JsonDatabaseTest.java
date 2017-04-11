@@ -56,7 +56,7 @@ public class JsonDatabaseTest
         assertTrue(reloadedStaffList.get(0).getUserName().equals("Foo Bar"));
         assertTrue(reloadedStaffList.get(0).getUserPassword().equals("fo0.BaR"));
         assertTrue(reloadedStaffList.get(0).getUserType().equals(StaffType.MANAGER));
-        assertTrue(reloadedStaffList.get(0).getUserUuid().equals(staffManagement.getStaffList().get(0).getUserUuid()));
+        assertTrue(reloadedStaffList.get(0).getUserId() == staffManagement.getStaffList().get(0).getUserId());
     }
 
 
