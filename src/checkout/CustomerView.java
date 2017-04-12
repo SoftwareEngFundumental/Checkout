@@ -10,7 +10,7 @@ import static java.lang.Integer.valueOf;
 
 public class CustomerView {
 
-    private static void scanItem() {
+    public static void scanItem() {
         boolean doneEnteringItem = false;
         Scanner scanner = new Scanner(System.in);
         ArrayList<SaleRecordLine> salesRecordArrayList = new ArrayList<SaleRecordLine>();
@@ -45,8 +45,6 @@ public class CustomerView {
                 SaleRecordLine saleRecordLine = new SaleRecordLine(valueOf(scannedProductID), valueOf(quantityInput));
                 System.out.println(saleRecordLine + "\n");
                 salesRecordArrayList.add(saleRecordLine);
-
-
             }
             else {
                 System.out.println("Cannot find product. Please scan again.\n");

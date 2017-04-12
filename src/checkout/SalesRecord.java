@@ -8,6 +8,8 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class SalesRecord {
+    //it is reciept
+    // has many record line
     private ArrayList<SaleRecordLine> recordLines;
 
     public SalesRecord(ArrayList<SaleRecordLine> recordLines) {
