@@ -8,20 +8,19 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class SalesRecord {
-    //it is reciept
-    // has many record line
+
     private ArrayList<SaleRecordLine> recordLines;
 
     public SalesRecord(ArrayList<SaleRecordLine> recordLines) {
         this.recordLines = recordLines;
     }
 
-    public void saveSaleRecord() {
+    public void saveSaleRecord(int customerID) {
         DateFormat dateFormat = new SimpleDateFormat("yyyyMMdd-HHmmss");
         Date date = new Date();
         System.out.println(dateFormat.format(date));
 
-        String filepath = "Sales Record/" + dateFormat.format(date) + ".json";
+        String filepath = "Sales Record/" + dateFormat.format(date) + "-" + customerID + ".json";
         JsonDatabase jsonDatabase = new JsonDatabase();
         jsonDatabase.saveObjectToJsonFile(recordLines, filepath);
     }

@@ -8,6 +8,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Scanner;
 import java.util.TreeMap;
 
 import static java.lang.Integer.valueOf;
@@ -49,6 +50,35 @@ public class Product {
             if (temp.getID() == ID) {
                 product = temp;
             }
+        }
+        return product;
+    }
+
+    public static Product scanProductID() {
+        Scanner scanner = new Scanner(System.in);
+        boolean validInput = false;
+        String scannedProductID;
+        Product product = null;
+
+        while (!validInput) {
+            System.out.print("Scan your next item: ");
+            scannedProductID = scanner.nextLine();
+
+            try {
+                valueOf(scannedProductID);
+            } catch (NumberFormatException e) {
+                System.out.println("Cannot find product. Please scan again. \n");
+                continue;
+            }
+
+            product = Product.getProductByID(valueOf(scannedProductID));
+
+            if (product == null) {
+                System.out.println("Cannot find product. Please scan again. \n");
+                continue;
+            }
+
+            validInput = true;
         }
         return product;
     }

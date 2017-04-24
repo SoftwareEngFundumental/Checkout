@@ -1,16 +1,13 @@
 package checkout;
 
 import java.io.FileNotFoundException;
-import java.time.Instant;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.util.TreeMap;
 import static java.lang.Integer.valueOf;
 
 public class CustomerView {
 
-    public static void scanItem() {
+    public static ArrayList<SaleRecordLine> checkOut() {
         boolean doneEnteringItem = false;
         Scanner scanner = new Scanner(System.in);
         ArrayList<SaleRecordLine> salesRecordArrayList = new ArrayList<SaleRecordLine>();
@@ -51,19 +48,17 @@ public class CustomerView {
             }
 
         }
-        SalesRecord salesRecord = new SalesRecord(salesRecordArrayList);
-        salesRecord.saveSaleRecord();
-        System.out.println("\n" + salesRecord);
-    }
-
-    public  static void scanCustomerID (TreeMap<Integer, Customer> customerTreeMap) {
-
+        return salesRecordArrayList;
     }
 
     public static void main(String[] args) throws FileNotFoundException {
         // TODO: 11/04/2017 what if scan same item twice (can we merge?)
-        scanItem();
 
-        // TODO: 30/03/2017 scan customer ID (just like the products)
+        ArrayList<SaleRecordLine> salesRecordArrayList = checkOut();
+        Customer customer = Customer.scanCustomerID();
+
+        SalesRecord salesRecord = new SalesRecord(salesRecordArrayList);
+        salesRecord.saveSaleRecord(customer.getID());
+        System.out.println("\n" + salesRecord);
     }
 }
