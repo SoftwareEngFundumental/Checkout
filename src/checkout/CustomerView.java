@@ -39,14 +39,29 @@ public class CustomerView {
                     System.out.println("Invalid input. Please enter quantity again?\n");
                     continue;
                 }
-                SaleRecordLine saleRecordLine = new SaleRecordLine(valueOf(scannedProductID), valueOf(quantityInput));
-                System.out.println(saleRecordLine + "\n");
-                salesRecordArrayList.add(saleRecordLine);
+                Product product = Product.getProductByID(valueOf(scannedProductID));
+                Product.deductQuantity(product, valueOf(quantityInput));
+
+
+                boolean itemAlreadyInTheList = false;
+                for (SaleRecordLine saleRecordLine :  salesRecordArrayList) {
+                    if (saleRecordLine.getProductID() == valueOf(scannedProductID)) {
+                        itemAlreadyInTheList = true;
+                        int index = salesRecordArrayList.indexOf(saleRecordLine);
+                        saleRecordLine.setQuantity(saleRecordLine.getQuantity() + valueOf(quantityInput));
+                        salesRecordArrayList.set(index,saleRecordLine);
+                        System.out.println(saleRecordLine + "\n");
+                    }
+                }
+                if (!itemAlreadyInTheList) {
+                    SaleRecordLine newSaleRecordLine = new SaleRecordLine(product.getID(), valueOf(quantityInput));
+                    System.out.println(newSaleRecordLine + "\n");
+                    salesRecordArrayList.add(newSaleRecordLine);
+                }
             }
             else {
                 System.out.println("Cannot find product. Please scan again.\n");
             }
-
         }
         return salesRecordArrayList;
     }

@@ -18,7 +18,6 @@ public class SalesRecord {
     public void saveSaleRecord(int customerID) {
         DateFormat dateFormat = new SimpleDateFormat("yyyyMMdd-HHmmss");
         Date date = new Date();
-        System.out.println(dateFormat.format(date));
 
         String filepath = "Sales Record/" + dateFormat.format(date) + "-" + customerID + ".json";
         JsonDatabase jsonDatabase = new JsonDatabase();

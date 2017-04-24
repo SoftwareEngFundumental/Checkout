@@ -37,7 +37,7 @@ public class Product {
         return productArrayList;
     }
 
-    public void saveProductList(ArrayList<Product> productArrayList) {
+    public static void saveProductList(ArrayList<Product> productArrayList) {
         JsonDatabase jsonDatabase = new JsonDatabase();
         jsonDatabase.saveObjectToJsonFile(productArrayList, "productList.json");
     }
@@ -81,6 +81,17 @@ public class Product {
             validInput = true;
         }
         return product;
+    }
+
+    public static void deductQuantity(Product product, int amount) {
+        ArrayList<Product> productArrayList = getProductList();
+
+        int index = product.getID()-1;
+
+        product.setQuantity(product.getQuantity() - amount);
+        productArrayList.set(index, product);
+
+        saveProductList(productArrayList);
     }
 
 
