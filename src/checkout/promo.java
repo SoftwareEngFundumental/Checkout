@@ -33,14 +33,14 @@ public class Promo
     private double promoDiscount;
 
 
-    public void addPromoCondition(Boolean staff.userLoginStatus, String staff.userType, String product.name, Double product.price, UUID product.ID, Double transaction.quantity) {
+    public void addPromoCondition(Staff staff, Product product, Transaction transaction) {
 
     /* need to be logged in as manager
      - check boolean 'userLoginStatus = T'
      - check boolean 'userType = Manager'*/
 
 
-
+        string userName = staff.getUserName()
 
         /*private double promoCondition =*/
 
