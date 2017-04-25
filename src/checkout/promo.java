@@ -16,6 +16,7 @@ public class Promo
 
 
 /*
+
     ATTRIBUTES:
 
 - promoAmount: double
@@ -40,7 +41,7 @@ public class Promo
      - check boolean 'userType = Manager'*/
 
 
-        string userName = staff.getUserName()
+        string userName = staff.getUserName();
 
         /*private double promoCondition =*/
 
