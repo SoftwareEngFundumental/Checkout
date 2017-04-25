@@ -7,7 +7,7 @@ import checkout.Staff;
 import checkout.StaffManagement;
 import checkout.StaffType;
 import org.junit.After;
-import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import java.io.*;
 
@@ -17,7 +17,7 @@ public class StaffManagementTest
 {
     private StaffManagement staffManagement = null;
 
-    @Before
+    @BeforeClass
     public void setUp() throws Exception
     {
         staffManagement = new StaffManagement();

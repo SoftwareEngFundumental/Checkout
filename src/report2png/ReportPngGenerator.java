@@ -11,7 +11,7 @@ import javax.imageio.*;
  */
 public class ReportPngGenerator
 {
-    public PicInfo GenerateImage(String strToGenerate, String fontName, int fontSize)
+    public PicInfo getImageSize(String strToGenerate, String fontName, int fontSize)
     {
         // Split multiple lines of strings to an ArrayList, in order to get the correct pic size.
         ArrayList<String> linesOfString = new ArrayList<>();
@@ -27,7 +27,7 @@ public class ReportPngGenerator
             // Temporarily set a buffered image first, in order to get the "graphical" string size
             BufferedImage bufferedImage = new BufferedImage(1,1, BufferedImage.TYPE_INT_RGB);
 
-            // Create a Graphic object and bind with the "Calibri" font
+            // Create a Graphic object and bind with the font which user specified.
             Graphics2D graphics2D = bufferedImage.createGraphics();
             graphics2D.setFont(new Font(fontName, Font.PLAIN, fontSize));
 
@@ -56,7 +56,7 @@ public class ReportPngGenerator
         return new PicInfo(picWidth, picHeight, linesOfString, fontName, fontSize);
     }
 
-    public void GenerateImage(PicInfo picInfo, String pathOfPic)
+    public void generateImage(PicInfo picInfo, String pathOfPic)
     {
         // Split multiple lines of strings to an ArrayList, in order to get each lines' height
         ArrayList<String> linesOfString = picInfo.getLinesOfString();
