@@ -18,6 +18,8 @@ public class StaffManagement
         ArrayList<Staff> staffList = getStaffList();
         Staff staff = null;
 
+        // Find out the staff from the list
+        // by iterate them one by one and match the username keyword.
         for(Staff staffToQuery : staffList)
         {
             if(staffToQuery.getUserName().equals(userName))
@@ -34,6 +36,8 @@ public class StaffManagement
         ArrayList<Staff> staffList = getStaffList();
         Staff staff = null;
 
+        // Find out the staff from the list
+        // by iterate them one by one and match the user ID keyword.
         for(Staff staffToQuery : staffList)
         {
             if(staffToQuery.getUserId() == userId)
@@ -196,6 +200,7 @@ public class StaffManagement
 
     private int getNewUserId(ArrayList<Staff> userList)
     {
+        // Create a user ID list to count
         ArrayList<Integer> userIdList = new ArrayList<>();
 
         for(Staff staffToQuery : userList)
@@ -203,8 +208,11 @@ public class StaffManagement
             userIdList.add(staffToQuery.getUserId());
         }
 
+        // Sort it in ascend
         Collections.sort(userIdList);
 
+        // If the user ID list does not have any user in it, return 0 because there is NO USER AT ALL!
+        // Otherwise, find the largest user ID, then plus one to get the new ID.
         if(userIdList.size() == 0)
         {
             return 0;

@@ -56,7 +56,11 @@ public class ReportPngGeneratorTest
     @Test
     public void getImageSize() throws Exception
     {
-        PicInfo picInfo = reportPngGenerator.getImageSize(testStr, "Calibri", 15);
+        PicInfo picInfo = reportPngGenerator.getImageSize(
+                testStr,
+                "Calibri",
+                QualityValues.HIGH_QUALITY_FONTSIZE,
+                QualityValues.HIGH_QUALITY_EDGESCALE);
         assertNotNull(picInfo);
 
         // Actually I don't know the size of this picture will be (on various platforms),
@@ -68,15 +72,50 @@ public class ReportPngGeneratorTest
     @Test
     public void generateImage() throws Exception
     {
+        // Generate the low quality image
         reportPngGenerator.generateImage(
-                reportPngGenerator.getImageSize(testStr, "Calibri", 15),
-                "test.png");
+                reportPngGenerator.getImageSize(
+                        testStr,
+                        "Calibri",
+                        QualityValues.LOW_QUALITY_FONTSIZE,
+                        QualityValues.LOW_QUALITY_EDGESCALE),
+                "test-low.png");
 
         // Don't know how to re-parse (Do an OCR???) pictures in Java lol,
         // so just judge if this file is generated or not...
-        File file = new File("test.png");
+        File fileLow = new File("test-low.png");
+        assertTrue(fileLow.exists());
+        System.out.println("[Unit test] Please check the test-low.png manually if possible.");
+
+        // Generate the medium quality image
+        reportPngGenerator.generateImage(
+                reportPngGenerator.getImageSize(
+                        testStr,
+                        "Calibri",
+                        QualityValues.MEDIUM_QUALITY_FONTSIZE,
+                        QualityValues.MEDIUM_QUALITY_EDGESCALE),
+                "test-med.png");
+
+        // Don't know how to re-parse (Do an OCR???) pictures in Java lol,
+        // so just judge if this file is generated or not...
+        File file = new File("test-med.png");
         assertTrue(file.exists());
-        System.out.println("[Unit test] Please check the test.png manually if possible.");
+        System.out.println("[Unit test] Please check the test-low.png manually if possible.");
+
+        // Generate the high quality image
+        reportPngGenerator.generateImage(
+                reportPngGenerator.getImageSize(
+                        testStr,
+                        "Calibri",
+                        QualityValues.HIGH_QUALITY_FONTSIZE,
+                        QualityValues.HIGH_QUALITY_EDGESCALE),
+                "test-high.png");
+
+        // Don't know how to re-parse (Do an OCR???) pictures in Java lol,
+        // so just judge if this file is generated or not...
+        File fileMed = new File("test-high.png");
+        assertTrue(file.exists());
+        System.out.println("[Unit test] Please check the test-low.png manually if possible.");
     }
 
 }

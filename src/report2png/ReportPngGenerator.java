@@ -11,7 +11,7 @@ import javax.imageio.*;
  */
 public class ReportPngGenerator
 {
-    public PicInfo getImageSize(String strToGenerate, String fontName, int fontSize)
+    public PicInfo getImageSize(String strToGenerate, String fontName, int fontSize, int horizonEdgeScale)
     {
         // Split multiple lines of strings to an ArrayList, in order to get the correct pic size.
         ArrayList<String> linesOfString = new ArrayList<>();
@@ -40,6 +40,8 @@ public class ReportPngGenerator
             // Find the longest line's width
             int currentLineWidth = fontMetrics.stringWidth(currentLine);
 
+            // Get the longest line width as the picture width dynamically,
+            // to prevent something to be covered or too much blank space at the edge.
             if(picWidth < currentLineWidth)
             {
                 picWidth = currentLineWidth;
@@ -49,10 +51,20 @@ public class ReportPngGenerator
             graphics2D.dispose();
         }
 
-        // Make it slightly larger, otherwise the last char of every line will become hard to read.
-        picWidth += 50;
+        // Make the width slightly larger
+        // So here we use a denominator value to prevent the picture's edge is too narrow,
+        // otherwise the last char of every line will become hard to read.
+        if(horizonEdgeScale > 1)
+        {
+            picWidth = picWidth + (picWidth / (horizonEdgeScale * 2)) * 3;
+        }
+        else
+        {
+            picWidth = picWidth + (picWidth / 10) * 3;
+        }
 
-        return new PicInfo(picWidth, picHeight, linesOfString, fontName, fontSize);
+
+        return new PicInfo(picWidth, picHeight, linesOfString, fontName, fontSize, horizonEdgeScale);
     }
 
     public void generateImage(PicInfo picInfo, String pathOfPic)
@@ -83,22 +95,33 @@ public class ReportPngGenerator
         graphics2D.setFont(new Font(picInfo.getFontName(), Font.PLAIN, picInfo.getFontSize()));
         FontMetrics fontMetrics = graphics2D.getFontMetrics();
 
-        // Current position of y-axis. For x-axis, it should be always be the same (left-aligned)
+        // Current position of y-axis.
         // This value must not be zero, otherwise it will become very ugly.
         int currentPosY = 25;
+
+        // For x-axis, it should be always be the same (left-aligned), but not 0,
+        // otherwise the first char of every new line will become hard to read.
+        int posX;
+        if(picInfo.getHorizonEdgeScale() > 1)
+        {
+            posX = picInfo.getPicWidth() / (picInfo.getHorizonEdgeScale() * 2);
+        }
+        else
+        {
+            posX = 25;
+        }
 
         // Do a for loop to get the current line of string
         for(String currentLine : linesOfString)
         {
             currentPosY += fontMetrics.getAscent();
-            graphics2D.drawString(currentLine, 25, currentPosY);
+            graphics2D.drawString(currentLine, posX, currentPosY);
         }
 
         // Dispose the Graphic2D object
         graphics2D.dispose();
 
         // Save picture to PNG file
-
         try
         {
             System.out.println("\nSaving sales report to path: " + pathOfPic);
