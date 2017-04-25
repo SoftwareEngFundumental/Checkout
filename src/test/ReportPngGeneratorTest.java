@@ -76,6 +76,7 @@ public class ReportPngGeneratorTest
         // so just judge if this file is generated or not...
         File file = new File("test.png");
         assertTrue(file.exists());
+        System.out.println("[Unit test] Please check the test.png manually if possible.");
     }
 
 }
