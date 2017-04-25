@@ -1,0 +1,119 @@
+package checkout;
+
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.TreeMap;
+import java.util.Scanner;
+import static java.lang.Integer.valueOf;
+import java.util.*;
+import java.lang.System;
+
+
+public class Promo
+{
+
+
+/*
+
+    ATTRIBUTES:
+
+- promoAmount: double
+- item: TreeMap<Product, promoDiscount>
+
+
+    FUNCTIONS:
+
+- addPromoCondition(): double
+- applyPromoDiscount(): double
+
+*/
+
+    private double promoCondition;
+    private double promoDiscount;
+
+
+    public void addPromoCondition(Staff staff, Product product, Transaction transaction) {
+
+    /* need to be logged in as manager
+     - check boolean 'userLoginStatus = T'
+     - check boolean 'userType = Manager'*/
+
+
+        string userName = staff.getUserName();
+
+        /*private double promoCondition =*/
+
+        System.out.println("please enter quantity to qualify for discount");
+        Scanner A = new Scanner(System.in);
+        int promoConditionVal;
+
+
+        System.out.println("please enter discount amount eg. 10, 20, 50 etc.");
+        Scanner B = new Scanner(System.in);
+        int promoAmount;
+
+
+        promoDiscount = promoAmount * 0.01;
+
+
+
+    }
+
+
+
+    public void applyPromoDiscount(product.name, product.price, product.ID, promoCondition) {
+
+    /*need to import product name, ID and price
+     - must be able to see what discount amount product has
+     - must automatically apply discount when condition met*/
+
+        System.out.println("your discount amount is" + promoDiscount + "off");
+
+
+        this.discount = promoDiscount;
+    }
+
+    /*double a, b, c;
+    Scanner s = new Scanner(System.in);
+
+    //1.User inputs the sides of a triangle
+  System.out.println("Please enter the sides of the triangle:");
+    a = s.nextDouble();
+    b = s.nextDouble();
+    c = s.nextDouble();
+
+  if(a==b && b == c)
+
+    {
+        System.out.println("The triangle is a equalateral triangle");
+    }
+    */
+
+    /*
+    public static TreeMap<Integer, product> getProductList(){
+        TreeMap<Integer, Product> productTreMap = new TreeMap<Integer, Product>();
+        BufferedReader br;
+
+        try {
+            br = new BufferedReader(new FileReader("productList.json"));
+            String line = br.readLine();
+            while (line!=null) {
+                String[] parts = line.split("-");
+                Integer id = valueOf(parts[0]);
+                String name = parts[1];
+                Double price = Double.parseDouble(parts[2]);
+                productTreMap.put(id, new Product(name, price));
+                line = br.readLine();
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return productTreMap;
+
+    }
+    */
+}
