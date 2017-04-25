@@ -22,6 +22,7 @@ public class CustomerView {
                 doneEnteringItem = true;
                 continue;
             }
+//            Eliminate string
             try {
                 valueOf(scannedProductID);
             }
@@ -29,9 +30,11 @@ public class CustomerView {
                 System.out.println("Cannot find product. Please scan again. \n");
                 continue;
             }
+//            Ask for quantity
             if (Product.getProductByID(valueOf(scannedProductID)) != null) {
                 System.out.print("Enter the quantity: ");
                 String quantityInput = scanner.nextLine();
+//                Eliminate String
                 try {
                     valueOf(quantityInput);
                 }
@@ -39,13 +42,14 @@ public class CustomerView {
                     System.out.println("Invalid input. Please enter quantity again?\n");
                     continue;
                 }
+//                Deduct the quantity from the inventory
                 Product product = Product.getProductByID(valueOf(scannedProductID));
                 Product.deductQuantity(product, valueOf(quantityInput));
 
-
+//                Merge same item into same line
                 boolean itemAlreadyInTheList = false;
                 for (SaleRecordLine saleRecordLine :  salesRecordArrayList) {
-                    if (saleRecordLine.getProductID() == valueOf(scannedProductID)) {
+                    if (saleRecordLine.getProduct().getID() == valueOf(scannedProductID)) {
                         itemAlreadyInTheList = true;
                         int index = salesRecordArrayList.indexOf(saleRecordLine);
                         saleRecordLine.setQuantity(saleRecordLine.getQuantity() + valueOf(quantityInput));
@@ -53,12 +57,16 @@ public class CustomerView {
                         System.out.println(saleRecordLine + "\n");
                     }
                 }
+//                Create new line if the product is not already scan
                 if (!itemAlreadyInTheList) {
-                    SaleRecordLine newSaleRecordLine = new SaleRecordLine(product.getID(), valueOf(quantityInput));
+                    SaleRecordLine newSaleRecordLine = new SaleRecordLine(product, valueOf(quantityInput));
                     System.out.println(newSaleRecordLine + "\n");
                     salesRecordArrayList.add(newSaleRecordLine);
                 }
+
+                // TODO: 25/04/2017 Check Promo
             }
+//            This is when the system cannot find the product from the database (the scanned ID is already an int)
             else {
                 System.out.println("Cannot find product. Please scan again.\n");
             }

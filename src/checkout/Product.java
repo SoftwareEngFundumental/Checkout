@@ -94,6 +94,17 @@ public class Product {
         saveProductList(productArrayList);
     }
 
+    public static void addPromo(ArrayList<SaleRecordLine> salesRecordArrayList) {
+        for (SaleRecordLine saleRecordLine: salesRecordArrayList) {
+            if (saleRecordLine.getProduct().getPromoCondition() != 0) {
+                if (saleRecordLine.getQuantity() % saleRecordLine.getProduct().getPromoCondition() > 0) {
+//                  add promo here
+
+                }
+            }
+        }
+    }
+
 
 
     public int getID() {

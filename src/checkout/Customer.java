@@ -11,13 +11,13 @@ public class Customer
 {
     private int ID;
     private String name;
-    private int cardNumber;
+    private CreditCard creditCard;
     private int point;
 
-    public Customer(String name, int cardNumber) {
+    public Customer(String name, CreditCard creditCard) {
         this.ID = getCustomerList().size() + 1;
         this.name = name;
-        this.cardNumber = cardNumber;
+        this.creditCard = creditCard;
         this.point = 0;
     }
 
@@ -89,12 +89,12 @@ public class Customer
         this.name = name;
     }
 
-    public int getCardNumber() {
-        return cardNumber;
+    public CreditCard getCreditCard() {
+        return creditCard;
     }
 
-    public void setCardNumber(int cardNumber) {
-        this.cardNumber = cardNumber;
+    public void setCreditCard(CreditCard creditCard) {
+        this.creditCard = creditCard;
     }
 
     public int getPoint() {
@@ -111,7 +111,7 @@ public class Customer
         return "Customer{" +
                 "ID=" + ID +
                 ", name='" + name + '\'' +
-                ", cardNumber=" + cardNumber +
+                ", credit card=" + creditCard +
                 ", point=" + point +
                 '}';
     }
