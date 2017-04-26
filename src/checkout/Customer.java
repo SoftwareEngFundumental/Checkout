@@ -3,18 +3,21 @@ package checkout;
 import com.google.gson.reflect.TypeToken;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Scanner;
+
+import static java.lang.Integer.valueOf;
 
 public class Customer
 {
     private int ID;
     private String name;
-    private int cardNumber;
+    private CreditCard creditCard;
     private int point;
 
-    public Customer(String name, int cardNumber) {
+    public Customer(String name, CreditCard creditCard) {
         this.ID = getCustomerList().size() + 1;
         this.name = name;
-        this.cardNumber = cardNumber;
+        this.creditCard = creditCard;
         this.point = 0;
     }
 
@@ -23,8 +26,7 @@ public class Customer
     public static ArrayList<Customer> getCustomerList() {
         Type customerListType = new TypeToken<ArrayList<Customer>>() {}.getType();
         JsonDatabase jsonDatabase = new JsonDatabase();
-        ArrayList<Customer> customerArrayList = jsonDatabase.readObjectFromFile("customerList.json", customerListType);
-        return customerArrayList;
+        return jsonDatabase.readObjectFromFile("customerList.json", customerListType);
     }
 
     public static void saveCustomerList(ArrayList<Customer> customerArrayList) {
@@ -44,6 +46,35 @@ public class Customer
         return customer;
     }
 
+    public  static Customer scanCustomerID () {
+        Scanner scanner = new Scanner(System.in);
+        boolean validInput = false;
+        String scannedCustomerID;
+        Customer customer = null;
+
+        while (!validInput) {
+            System.out.print("Scan customer ID: ");
+            scannedCustomerID = scanner.nextLine();
+
+            try {
+                valueOf(scannedCustomerID);
+            } catch (NumberFormatException e) {
+                System.out.println("Can't find customer. Please scan again: \n");
+                continue;
+            }
+
+            customer = Customer.getCustomerByID(valueOf(scannedCustomerID));
+
+            if (customer == null) {
+                System.out.println("Can't find customer. Please scan again: \n");
+                continue;
+            }
+
+            validInput = true;
+        }
+        return customer;
+    }
+
 
 
     public int getID() {
@@ -58,12 +89,12 @@ public class Customer
         this.name = name;
     }
 
-    public int getCardNumber() {
-        return cardNumber;
+    public CreditCard getCreditCard() {
+        return creditCard;
     }
 
-    public void setCardNumber(int cardNumber) {
-        this.cardNumber = cardNumber;
+    public void setCreditCard(CreditCard creditCard) {
+        this.creditCard = creditCard;
     }
 
     public int getPoint() {
@@ -80,7 +111,7 @@ public class Customer
         return "Customer{" +
                 "ID=" + ID +
                 ", name='" + name + '\'' +
-                ", cardNumber=" + cardNumber +
+                ", credit card=" + creditCard +
                 ", point=" + point +
                 '}';
     }

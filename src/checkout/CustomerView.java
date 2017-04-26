@@ -1,16 +1,13 @@
 package checkout;
 
 import java.io.FileNotFoundException;
-import java.time.Instant;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.util.TreeMap;
 import static java.lang.Integer.valueOf;
 
 public class CustomerView {
 
-    private static void scanItem() {
+    public static ArrayList<SaleRecordLine> checkOut() {
         boolean doneEnteringItem = false;
         Scanner scanner = new Scanner(System.in);
         ArrayList<SaleRecordLine> salesRecordArrayList = new ArrayList<SaleRecordLine>();
@@ -25,6 +22,7 @@ public class CustomerView {
                 doneEnteringItem = true;
                 continue;
             }
+//            Eliminate string
             try {
                 valueOf(scannedProductID);
             }
@@ -32,9 +30,11 @@ public class CustomerView {
                 System.out.println("Cannot find product. Please scan again. \n");
                 continue;
             }
+//            Ask for quantity
             if (Product.getProductByID(valueOf(scannedProductID)) != null) {
                 System.out.print("Enter the quantity: ");
                 String quantityInput = scanner.nextLine();
+//                Eliminate String
                 try {
                     valueOf(quantityInput);
                 }
@@ -42,30 +42,46 @@ public class CustomerView {
                     System.out.println("Invalid input. Please enter quantity again?\n");
                     continue;
                 }
-                SaleRecordLine saleRecordLine = new SaleRecordLine(valueOf(scannedProductID), valueOf(quantityInput));
-                System.out.println(saleRecordLine + "\n");
-                salesRecordArrayList.add(saleRecordLine);
+//                Deduct the quantity from the inventory
+                Product product = Product.getProductByID(valueOf(scannedProductID));
+                Product.deductQuantity(product, valueOf(quantityInput));
 
+//                Merge same item into same line
+                boolean itemAlreadyInTheList = false;
+                for (SaleRecordLine saleRecordLine :  salesRecordArrayList) {
+                    if (saleRecordLine.getProduct().getID() == valueOf(scannedProductID)) {
+                        itemAlreadyInTheList = true;
+                        int index = salesRecordArrayList.indexOf(saleRecordLine);
+                        saleRecordLine.setQuantity(saleRecordLine.getQuantity() + valueOf(quantityInput));
+                        salesRecordArrayList.set(index,saleRecordLine);
+                        System.out.println(saleRecordLine + "\n");
+                    }
+                }
+//                Create new line if the product is not already scan
+                if (!itemAlreadyInTheList) {
+                    SaleRecordLine newSaleRecordLine = new SaleRecordLine(product, valueOf(quantityInput));
+                    System.out.println(newSaleRecordLine + "\n");
+                    salesRecordArrayList.add(newSaleRecordLine);
+                }
 
+                // TODO: 25/04/2017 Check Promo
             }
+//            This is when the system cannot find the product from the database (the scanned ID is already an int)
             else {
                 System.out.println("Cannot find product. Please scan again.\n");
             }
-
         }
-        SalesRecord salesRecord = new SalesRecord(salesRecordArrayList);
-        salesRecord.saveSaleRecord();
-        System.out.println("\n" + salesRecord);
-    }
-
-    public  static void scanCustomerID (TreeMap<Integer, Customer> customerTreeMap) {
-
+        return salesRecordArrayList;
     }
 
     public static void main(String[] args) throws FileNotFoundException {
         // TODO: 11/04/2017 what if scan same item twice (can we merge?)
-        scanItem();
 
-        // TODO: 30/03/2017 scan customer ID (just like the products)
+        ArrayList<SaleRecordLine> salesRecordArrayList = checkOut();
+        Customer customer = Customer.scanCustomerID();
+
+        SalesRecord salesRecord = new SalesRecord(salesRecordArrayList);
+        salesRecord.saveSaleRecord(customer.getID());
+        System.out.println("\n" + salesRecord);
     }
 }

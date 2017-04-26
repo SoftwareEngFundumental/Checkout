@@ -1,5 +1,1 @@
-[{"ID":1,"name":"John Locke","cardNumber":4,"point":0},
-  {"ID":2,"name":"Kate Austen","cardNumber":2,"point":0},
-  {"ID":3,"name":"James Ford","cardNumber":1,"point":0},
-  {"ID":4,"name":"Hugo Reyes","cardNumber":5,"point":0},
-  {"ID":5,"name":"Anna Lucia Cortez","cardNumber":3,"point":0}]
+[{"ID":1,"name":"John Locke","cardNumber":4,"point":0},{"ID":2,"name":"Kate Austen","cardNumber":2,"point":0},{"ID":3,"name":"James Ford","cardNumber":1,"point":0}, {"ID":4,"name":"Hugo Reyes","cardNumber":5,"point":0},{"ID":5,"name":"Anna Lucia Cortez","cardNumber":3,"point":0}]

@@ -29,9 +29,15 @@ public class StaffView
                         "7. Load staff details from JSON"
         );
 
+        // Create scanner
         Scanner scanner = new Scanner(System.in);
+
+        // Record user choice
         int userChoice = scanner.nextInt();
-        scanner.nextLine();                         // Eat up the new line
+
+        // Clean up next line, otherwise the new line character will still exist in the buffer
+        // which will causes other issues later on.
+        scanner.nextLine();
 
         switch(userChoice)
         {
