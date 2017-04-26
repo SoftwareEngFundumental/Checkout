@@ -27,6 +27,7 @@ public class WarehouseStaff extends Staff
             //if quantity is less than a certain amount
             if (productArrayList.get(i).getQuantity() < 500) {
                 //update quantity of product
+                productArrayList.get(i).setQuantity(500);
             }
         }
 
