@@ -17,15 +17,21 @@ public class WarehouseStaff extends Staff
     * staff gets id
     * add more inventory to product
     */
-    public int restock(){
+
+    public int restock()
+    {
         //get product from arrayList
         ArrayList<Product> productArrayList = Product.getProductList();
-        for (int i=0; i<productArrayList.size(); i++){
+        for (int i=0; i<productArrayList.size(); i++)
+        {
             //if quantity is less than a certain amount
-            //add new number of product
+            if (productArrayList.get(i).getQuantity() < 500) {
+                //update quantity of product
+                productArrayList.get(i).setQuantity(500);
+            }
         }
-
 
         return 0;
     }
 }
+

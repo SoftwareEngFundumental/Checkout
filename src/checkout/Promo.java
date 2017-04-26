@@ -15,6 +15,8 @@ public class Promo
 {
 
 
+
+
 /*
 
     ATTRIBUTES:
@@ -32,27 +34,29 @@ public class Promo
 
     private double promoCondition;
     private double promoDiscount;
+    private Boolean userLoginStatus;
 
-
-    public void addPromoCondition(Staff staff, Product product, Transaction transaction) {
+    public Boolean getUserLoginStatus() { return userLoginStatus; }
+    public void addPromoCondition(Staff staff, Product product) {
 
     /* need to be logged in as manager
      - check boolean 'userLoginStatus = T'
      - check boolean 'userType = Manager'*/
 
 
-        string userName = staff.getUserName();
+
+        String userName = staff.getUserName();
 
         /*private double promoCondition =*/
 
-        System.out.println("please enter quantity to qualify for discount");
+        System.out.println("please enter product quantity to qualify for discount");
         Scanner A = new Scanner(System.in);
-        int promoConditionVal;
+        double promoConditionVal= A.nextDouble();
 
 
         System.out.println("please enter discount amount eg. 10, 20, 50 etc.");
         Scanner B = new Scanner(System.in);
-        int promoAmount;
+        double promoAmount = B.nextDouble();
 
 
         promoDiscount = promoAmount * 0.01;
@@ -63,33 +67,23 @@ public class Promo
 
 
 
-    public void applyPromoDiscount(product.name, product.price, product.ID, promoCondition) {
+    public void applyPromoDiscount(Product product) {
 
     /*need to import product name, ID and price
      - must be able to see what discount amount product has
      - must automatically apply discount when condition met*/
 
-        System.out.println("your discount amount is" + promoDiscount + "off");
+        System.out.println("your discount amount is" + promoDiscount * 100 + "% off");
+
+        double discountedPrice = product.getPrice() * promoDiscount;
+
+        System.out.println("new price is $" + discountedPrice);
 
 
-        this.discount = promoDiscount;
+        this.promoDiscount = promoDiscount;
     }
 
-    /*double a, b, c;
-    Scanner s = new Scanner(System.in);
 
-    //1.User inputs the sides of a triangle
-  System.out.println("Please enter the sides of the triangle:");
-    a = s.nextDouble();
-    b = s.nextDouble();
-    c = s.nextDouble();
-
-  if(a==b && b == c)
-
-    {
-        System.out.println("The triangle is a equalateral triangle");
-    }
-    */
 
     /*
     public static TreeMap<Integer, product> getProductList(){
