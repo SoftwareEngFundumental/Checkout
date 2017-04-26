@@ -1,20 +1,20 @@
 package checkout;
 
 public class SaleRecordLine {
-    private Product product;
+    private Item item;
     private int quantity;
 
-    public SaleRecordLine(Product product, int quantity) {
-        this.product = product;
+    public SaleRecordLine(Item item, int quantity) {
+        this.item = item;
         this.quantity = quantity;
     }
 
-    public Product getProduct() {
-        return product;
+    public Item getItem() {
+        return item;
     }
 
-    public void setProduct(Product product) {
-        this.product = product;
+    public void setItem(Item item) {
+        this.item = item;
     }
 
     public int getQuantity() {
@@ -28,9 +28,9 @@ public class SaleRecordLine {
     @Override
     public String toString() {
         // TODO: 11/04/2017 To String
-        return product.getName()
-                + ", price: " + product.getPrice()
+        return item.getName()
+                + ", price: " + item.getPrice()
                 + ", quantity: " + quantity
-                + ", total: " + quantity*product.getPrice();
+                + ", total: " + quantity*item.getPrice();
     }
 }

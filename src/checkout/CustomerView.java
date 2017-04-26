@@ -49,12 +49,17 @@ public class CustomerView {
 //                Merge same item into same line
                 boolean itemAlreadyInTheList = false;
                 for (SaleRecordLine saleRecordLine :  salesRecordArrayList) {
-                    if (saleRecordLine.getProduct().getID() == valueOf(scannedProductID)) {
-                        itemAlreadyInTheList = true;
-                        int index = salesRecordArrayList.indexOf(saleRecordLine);
-                        saleRecordLine.setQuantity(saleRecordLine.getQuantity() + valueOf(quantityInput));
-                        salesRecordArrayList.set(index,saleRecordLine);
-                        System.out.println(saleRecordLine + "\n");
+//                    get ID for Item. switch class
+
+                    if (saleRecordLine.getItem().getClass() == Product.class) {
+                        Product scannedProduct = (Product)saleRecordLine.getItem();
+                        if (scannedProduct.getID() == valueOf(scannedProductID)) {
+                            itemAlreadyInTheList = true;
+                            int index = salesRecordArrayList.indexOf(saleRecordLine);
+                            saleRecordLine.setQuantity(saleRecordLine.getQuantity() + valueOf(quantityInput));
+                            salesRecordArrayList.set(index,saleRecordLine);
+                            System.out.println(saleRecordLine + "\n");
+                        }
                     }
                 }
 //                Create new line if the product is not already scan
@@ -65,6 +70,7 @@ public class CustomerView {
                 }
 
                 // TODO: 25/04/2017 Check Promo
+                // TODO: 25/04/2017 customer loyalty point
             }
 //            This is when the system cannot find the product from the database (the scanned ID is already an int)
             else {

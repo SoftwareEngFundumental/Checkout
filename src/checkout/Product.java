@@ -13,21 +13,15 @@ import java.util.TreeMap;
 
 import static java.lang.Integer.valueOf;
 
-public class Product {
+public class Product extends Item {
     private int ID;
-    private String name;
-    private double price;
     private int quantity;
-    private int promoCondition;
-    private double promoDiscount;
 
     public Product(String name, double price, int quantity) {
+        super(name, price);
         this.ID = getProductList().size() + 1;
-        this.name = name;
-        this.price = price;
         this.quantity = quantity;
     }
-
 
 
     public static ArrayList<Product> getProductList() {
@@ -94,72 +88,29 @@ public class Product {
         saveProductList(productArrayList);
     }
 
-    public static void addPromo(ArrayList<SaleRecordLine> salesRecordArrayList) {
-        for (SaleRecordLine saleRecordLine: salesRecordArrayList) {
-            if (saleRecordLine.getProduct().getPromoCondition() != 0) {
-                if (saleRecordLine.getQuantity() % saleRecordLine.getProduct().getPromoCondition() > 0) {
-//                  add promo here
-
-                }
-            }
-        }
-    }
-
-
 
     public int getID() {
         return ID;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public double getPrice() {
-        return price;
     }
 
     public int getQuantity() {
         return quantity;
     }
 
-    public int getPromoCondition() {
-        return promoCondition;
-    }
-
-    public double getPromoDiscount() {
-        return promoDiscount;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setPrice(double price) {
-        this.price = price;
-    }
-
     public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
 
-    public void setPromoCondition(int promoCondition) {
-        this.promoCondition = promoCondition;
-    }
 
-    public void setPromoDiscount(double promoDiscount) {
-        this.promoDiscount = promoDiscount;
-    }
+
 
     @Override
     public String toString() {
         return "Product{" +
                 "ID=" + ID +
-                ", name='" + name + '\'' +
-                ", price=" + price +
+                ", name='" + super.getName() + '\'' +
+                ", price=" + super.getPrice() +
                 ", quantity=" + quantity +
-                ", promoCondition=" + promoCondition +
-                ", promoDiscount=" + promoDiscount +
                 '}';
     }
 }
