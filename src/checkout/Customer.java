@@ -3,19 +3,29 @@ package checkout;
 import com.google.gson.reflect.TypeToken;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.Objects;
 import java.util.Scanner;
 
 import static java.lang.Integer.valueOf;
 
 public class Customer
 {
-    private int ID;
+    private String ID;
     private String name;
     private CreditCard creditCard;
     private int point;
 
     public Customer(String name, CreditCard creditCard) {
-        this.ID = getCustomerList().size() + 1;
+        int newCustomerIDNumber = 0;
+        boolean isAvailableForNewCustomer = false;
+        do {
+            newCustomerIDNumber++;
+            if (getCustomerByID("c" + newCustomerIDNumber) == null) {
+                isAvailableForNewCustomer = true;
+            }
+        }while (!isAvailableForNewCustomer);
+
+        this.ID ="c"+newCustomerIDNumber;
         this.name = name;
         this.creditCard = creditCard;
         this.point = 0;
@@ -34,50 +44,42 @@ public class Customer
         jsonDatabase.saveObjectToJsonFile(customerArrayList, "customerList.json");
     }
 
-    public static Customer getCustomerByID(int ID) {
+    public static Customer getCustomerByID(String ID) {
         ArrayList<Customer> customerArrayList = getCustomerList();
-        Customer customer = null;
         for (int i = 0; i < customerArrayList.size(); i++) {
-            Customer temp = customerArrayList.get(i);
-            if (temp.getID() == ID) {
-                customer = temp;
+            Customer customer = customerArrayList.get(i);
+            if (Objects.equals(customer.getID(), ID)) {
+                return customer;
             }
         }
-        return customer;
+        return null;
     }
 
     public  static Customer scanCustomerID () {
         Scanner scanner = new Scanner(System.in);
-        boolean validInput = false;
+        boolean hasValidInput = false;
         String scannedCustomerID;
         Customer customer = null;
 
-        while (!validInput) {
+        while (!hasValidInput) {
             System.out.print("Scan customer ID: ");
             scannedCustomerID = scanner.nextLine();
 
-            try {
-                valueOf(scannedCustomerID);
-            } catch (NumberFormatException e) {
-                System.out.println("Can't find customer. Please scan again: \n");
-                continue;
-            }
-
-            customer = Customer.getCustomerByID(valueOf(scannedCustomerID));
+            customer = Customer.getCustomerByID(scannedCustomerID);
 
             if (customer == null) {
                 System.out.println("Can't find customer. Please scan again: \n");
                 continue;
             }
 
-            validInput = true;
+            hasValidInput = true;
         }
         return customer;
     }
 
 
 
-    public int getID() {
+    public String getID() {
         return ID;
     }
 

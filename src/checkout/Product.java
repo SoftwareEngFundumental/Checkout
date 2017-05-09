@@ -16,19 +16,28 @@ import static java.lang.Integer.valueOf;
 public class Product extends Item {
     private int ID;
     private int quantity;
+    private boolean hasPromo;
 
     public Product(String name, double price, int quantity) {
         super(name, price);
-        this.ID = getProductList().size() + 1;
+        int newProductID = 0;
+        boolean isAvailableForNewProduct = false;
+        do {
+            newProductID++;
+            if (getProductByID(newProductID) == null) {
+                isAvailableForNewProduct = true;
+            }
+        } while (!isAvailableForNewProduct);
+        this.ID = newProductID;
         this.quantity = quantity;
+        this.hasPromo = false;
     }
 
 
     public static ArrayList<Product> getProductList() {
         Type productListType = new TypeToken<ArrayList<Product>>() {}.getType();
         JsonDatabase jsonDatabase = new JsonDatabase();
-        ArrayList<Product> productArrayList = jsonDatabase.readObjectFromFile("productList.json", productListType);
-        return productArrayList;
+        return jsonDatabase.readObjectFromFile("productList.json", productListType);
     }
 
     public static void saveProductList(ArrayList<Product> productArrayList) {
@@ -38,14 +47,13 @@ public class Product extends Item {
 
     public static Product getProductByID(int ID) {
         ArrayList<Product> productArrayList = getProductList();
-        Product product = null;
         for (int i = 0; i < productArrayList.size(); i++) {
-            Product temp = productArrayList.get(i);
-            if (temp.getID() == ID) {
-                product = temp;
+            Product product = productArrayList.get(i);
+            if (product.getID() == ID) {
+                return  product;
             }
         }
-        return product;
+        return null;
     }
 
     public static Product scanProductID() {
@@ -101,8 +109,24 @@ public class Product extends Item {
         this.quantity = quantity;
     }
 
+    public boolean isHasPromo() {
+        return hasPromo;
+    }
 
+    public void setHasPromo(boolean hasPromo) {
+        this.hasPromo = hasPromo;
+    }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Product product = (Product) o;
+
+        return ID == product.ID;
+
+    }
 
     @Override
     public String toString() {
@@ -111,6 +135,7 @@ public class Product extends Item {
                 ", name='" + super.getName() + '\'' +
                 ", price=" + super.getPrice() +
                 ", quantity=" + quantity +
+                ", hasPromo=" + hasPromo +
                 '}';
     }
 }

@@ -9,6 +9,24 @@ public class SaleRecordLine {
         this.quantity = quantity;
     }
 
+    public  boolean hasItem(Item item) {
+        return this.item.getClass() == item.getClass() && this.item.equals(item);
+    }
+
+    public  boolean canApplyPromo() {
+        if (this.item.getClass() == Product.class) {
+            Product product= (Product)this.item;
+            if (product.isHasPromo()) {
+                Promotion promotion = Promotion.getPromoByProduct(product);
+                if (quantity >= promotion.getCondition()) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+
     public Item getItem() {
         return item;
     }
