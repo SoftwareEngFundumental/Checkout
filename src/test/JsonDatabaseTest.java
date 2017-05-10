@@ -1,12 +1,11 @@
 package test;
 
-import checkout.StaffType;
+import checkout.Staff.StaffType;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.BeforeClass;
 import checkout.JsonDatabase;
-import checkout.Staff;
-import checkout.StaffManagement;
+import checkout.Staff.Staff;
+import checkout.Staff.StaffManagement;
 
 import static org.junit.Assert.*;
 

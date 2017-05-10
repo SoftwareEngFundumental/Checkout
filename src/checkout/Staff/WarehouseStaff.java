@@ -1,7 +1,8 @@
-package checkout;
+package checkout.Staff;
+
+import checkout.Item.Product;
 
 import java.util.ArrayList;
-import java.util.UUID;
 
 public class WarehouseStaff extends Staff
 {

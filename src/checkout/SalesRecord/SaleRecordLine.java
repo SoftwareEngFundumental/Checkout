@@ -1,4 +1,8 @@
-package checkout;
+package checkout.SalesRecord;
+
+import checkout.Item.Item;
+import checkout.Item.Product;
+import checkout.Item.Promotion;
 
 public class SaleRecordLine {
     private Item item;

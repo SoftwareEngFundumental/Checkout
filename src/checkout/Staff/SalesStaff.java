@@ -1,6 +1,4 @@
-package checkout;
-
-import java.util.UUID;
+package checkout.Staff;
 
 public class SalesStaff extends Staff
 {

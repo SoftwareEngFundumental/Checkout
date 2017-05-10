@@ -1,8 +1,7 @@
-package checkout;
+package checkout.Staff;
 
-import com.google.gson.reflect.TypeToken;
+import checkout.JsonDatabase;
 
-import java.lang.reflect.Type;
 import java.util.*;
 
 public class StaffManagement

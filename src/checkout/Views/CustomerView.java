@@ -1,4 +1,10 @@
-package checkout;
+package checkout.Views;
+
+import checkout.Customer.Customer;
+import checkout.Item.Product;
+import checkout.Item.Promotion;
+import checkout.SalesRecord.SaleRecordLine;
+import checkout.SalesRecord.SalesRecord;
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;

@@ -1,4 +1,4 @@
-package checkout;
+package checkout.Staff;
 
 public class ManagerStaff extends Staff
 {

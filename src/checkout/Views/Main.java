@@ -1,4 +1,9 @@
-package checkout;
+package checkout.Views;
+import checkout.Customer.Customer;
+import checkout.Views.CustomerView;
+import checkout.Views.ManagerStaffView;
+import checkout.Views.WarehouseStaffView;
+
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 

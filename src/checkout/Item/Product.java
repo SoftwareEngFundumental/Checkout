@@ -1,15 +1,11 @@
-package checkout;
+package checkout.Item;
 
+import checkout.JsonDatabase;
 import com.google.gson.reflect.TypeToken;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.util.TreeMap;
 
 import static java.lang.Integer.valueOf;
 

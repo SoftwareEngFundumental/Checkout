@@ -3,9 +3,9 @@ package test;
 import static org.junit.Assert.*;
 
 import checkout.JsonDatabase;
-import checkout.Staff;
-import checkout.StaffManagement;
-import checkout.StaffType;
+import checkout.Staff.Staff;
+import checkout.Staff.StaffManagement;
+import checkout.Staff.StaffType;
 import org.junit.After;
 import org.junit.BeforeClass;
 import org.junit.Test;

@@ -1,4 +1,4 @@
-package checkout;
+package checkout.Staff;
 
 public enum StaffType
 {

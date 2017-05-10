@@ -1,5 +1,9 @@
 package checkout;
 
+import checkout.Staff.ManagerStaff;
+import checkout.Staff.SalesStaff;
+import checkout.Staff.Staff;
+import checkout.Staff.WarehouseStaff;
 import com.google.gson.Gson;
 import com.google.gson.JsonDeserializer;
 import com.google.gson.*;

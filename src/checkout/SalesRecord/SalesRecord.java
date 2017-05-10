@@ -1,5 +1,7 @@
-package checkout;
+package checkout.SalesRecord;
 
+import checkout.Customer.Customer;
+import checkout.JsonDatabase;
 import com.google.gson.reflect.TypeToken;
 import java.lang.reflect.Type;
 import java.text.DateFormat;

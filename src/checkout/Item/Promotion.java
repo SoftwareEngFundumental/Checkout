@@ -1,5 +1,6 @@
-package checkout;
+package checkout.Item;
 
+import checkout.JsonDatabase;
 import com.google.gson.reflect.TypeToken;
 import java.lang.reflect.Type;
 import java.util.ArrayList;

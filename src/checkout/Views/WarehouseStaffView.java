@@ -1,4 +1,4 @@
-package checkout;
+package checkout.Views;
 
 import java.util.Scanner;
 
