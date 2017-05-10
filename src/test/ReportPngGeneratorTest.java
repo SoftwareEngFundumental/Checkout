@@ -1,12 +1,9 @@
 package test;
 
-import org.junit.BeforeClass;
 import org.junit.Test;
-import org.junit.After;
 import org.junit.Before;
-import report2png.*;
+import reportgen.report2png.*;
 import java.io.*;
-import java.util.*;
 
 import static org.junit.Assert.*;
 

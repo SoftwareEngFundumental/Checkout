@@ -1,4 +1,4 @@
-package report2png;
+package reportgen.report2png;
 
 /**
  * Created by hu on 25/4/17.

@@ -1,4 +1,4 @@
-package report2png;
+package reportgen.report2png;
 
 import java.util.*;
 
