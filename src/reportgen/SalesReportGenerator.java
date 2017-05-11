@@ -1,6 +1,8 @@
 package reportgen;
 
+import java.lang.reflect.Array;
 import java.text.*;
+import java.time.LocalDateTime;
 import java.util.*;
 import java.io.*;
 import checkout.SalesRecord.*;
@@ -14,7 +16,43 @@ import checkout.Views.*;
 public class SalesReportGenerator
 {
 
-    public String generateSingleSalesReportString(ArrayList<SaleRecordLine> saleRecordLines, Date recordDate)
+    public String generateReportString(String pathName) throws ParseException
+    {
+        // Put all files' name in the directory into the name list, then parse it later.
+        ArrayList<String> fileNames = new ArrayList<>();
+
+        File fileOfPath = new File(pathName);
+
+        for(File fileInPath : fileOfPath.listFiles())
+        {
+            fileNames.add(fileInPath.getName());
+        }
+
+        // Time to generate the report!
+        StringBuilder recordStr = new StringBuilder("-----------------------------------\n");
+
+        recordStr.append(String.format("Report created @ %s...\n",
+                new SimpleDateFormat("HH:mm:ss - dd MMM, yyyy").format(LocalDateTime.now())));
+
+        double totalSalesIncome = 0;
+
+        for(String fileName : fileNames)
+        {
+            ArrayList<SaleRecordLine> saleRecordLines = SalesRecord.getSaleRecord(fileName);
+            recordStr.append(generateSingleSalesReportString(saleRecordLines, getTimeFromFilename(fileName)));
+
+            for(SaleRecordLine saleRecordLine : saleRecordLines)
+            {
+                totalSalesIncome += (saleRecordLine.getQuantity() * saleRecordLine.getItem().getPrice());
+            }
+        }
+
+        recordStr.append(String.format("\n\nTotal income: $%f\n\n", totalSalesIncome));
+
+        return recordStr.toString();
+    }
+
+    protected String generateSingleSalesReportString(ArrayList<SaleRecordLine> saleRecordLines, Date recordDate)
     {
 
         StringBuilder recordStr = new StringBuilder("-----------------------------------\n");
