@@ -1,14 +1,11 @@
 package reportgen;
 
-import java.lang.reflect.Array;
 import java.text.*;
 import java.time.LocalDateTime;
 import java.util.*;
 import java.io.*;
 import checkout.SalesRecord.*;
 import checkout.Item.*;
-import checkout.SalesRecord.*;
-import checkout.Views.*;
 
 /**
  * Created by hu on 10/5/17.
@@ -38,12 +35,12 @@ public class SalesReportGenerator
 
         for(String fileName : fileNames)
         {
-            ArrayList<SaleRecordLine> saleRecordLines = SalesRecord.getSaleRecord(fileName);
-            recordStr.append(generateSingleSalesReportString(saleRecordLines, getTimeFromFilename(fileName)));
+            ArrayList<SalesRecordLine> salesRecordLines = SalesRecord.getSaleRecord(fileName);
+            recordStr.append(generateSingleSalesReportString(salesRecordLines, getTimeFromFilename(fileName)));
 
-            for(SaleRecordLine saleRecordLine : saleRecordLines)
+            for(SalesRecordLine salesRecordLine : salesRecordLines)
             {
-                totalSalesIncome += (saleRecordLine.getQuantity() * saleRecordLine.getItem().getPrice());
+                totalSalesIncome += (salesRecordLine.getQuantity() * salesRecordLine.getItem().getPrice());
             }
         }
 
@@ -52,7 +49,7 @@ public class SalesReportGenerator
         return recordStr.toString();
     }
 
-    protected String generateSingleSalesReportString(ArrayList<SaleRecordLine> saleRecordLines, Date recordDate)
+    protected String generateSingleSalesReportString(ArrayList<SalesRecordLine> salesRecordLines, Date recordDate)
     {
 
         StringBuilder recordStr = new StringBuilder("-----------------------------------\n");
@@ -64,7 +61,7 @@ public class SalesReportGenerator
          * */
         recordStr.append(String.format("Date @ %s, got %d records.\n\n",
                 new SimpleDateFormat("HH:mm:ss - dd MMM, yyyy").format(recordDate),
-                saleRecordLines.size()));
+                salesRecordLines.size()));
 
         // Print the header
         int index = 1;
@@ -72,15 +69,15 @@ public class SalesReportGenerator
         recordStr.append("ID\tName\tPrice\tAmount\n");
 
         // Get each sales record
-        for(SaleRecordLine saleRecordLine : saleRecordLines)
+        for(SalesRecordLine salesRecordLine : salesRecordLines)
         {
-            Item item = saleRecordLine.getItem();
+            Item item = salesRecordLine.getItem();
             recordStr.append(String.format("%d\t%s\t%f\t%d\n",
-                    index, item.getName(), item.getPrice(), saleRecordLine.getQuantity()));
+                    index, item.getName(), item.getPrice(), salesRecordLine.getQuantity()));
 
             // Count the index and total price
             index++;
-            totalPrice += item.getPrice() * saleRecordLine.getQuantity();
+            totalPrice += item.getPrice() * salesRecordLine.getQuantity();
         }
 
         recordStr.append(String.format("\n\nTotal price $ %f, item amount %d\n\n", totalPrice, index));

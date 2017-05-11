@@ -4,11 +4,11 @@ import checkout.Item.Item;
 import checkout.Item.Product;
 import checkout.Item.Promotion;
 
-public class SaleRecordLine {
+public class SalesRecordLine {
     private Item item;
     private int quantity;
 
-    public SaleRecordLine(Item item, int quantity) {
+    public SalesRecordLine(Item item, int quantity) {
         this.item = item;
         this.quantity = quantity;
     }

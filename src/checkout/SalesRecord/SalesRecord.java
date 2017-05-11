@@ -11,9 +11,9 @@ import java.util.Date;
 
 public class SalesRecord {
 
-    private ArrayList<SaleRecordLine> recordLines;
+    private ArrayList<SalesRecordLine> recordLines;
 
-    public SalesRecord(ArrayList<SaleRecordLine> recordLines) {
+    public SalesRecord(ArrayList<SalesRecordLine> recordLines) {
         this.recordLines = recordLines;
     }
 
@@ -30,9 +30,9 @@ public class SalesRecord {
         // TODO: 04/05/2017 Loyalty Point
     }
 
-    public static ArrayList<SaleRecordLine> getSaleRecord(String filename) {
+    public static ArrayList<SalesRecordLine> getSaleRecord(String filename) {
         filename = "Sales Record/" + filename;
-        Type productListType = new TypeToken<ArrayList<SaleRecordLine>>() {}.getType();
+        Type productListType = new TypeToken<ArrayList<SalesRecordLine>>() {}.getType();
         JsonDatabase jsonDatabase = new JsonDatabase();
         return jsonDatabase.readObjectFromFile(filename, productListType);
     }
@@ -40,7 +40,7 @@ public class SalesRecord {
     @Override
     public String toString() {
         String output = "";
-        for (SaleRecordLine recordLine : recordLines) {
+        for (SalesRecordLine recordLine : recordLines) {
             output += recordLine + "\n";
         }
         return output;
