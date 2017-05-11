@@ -1,16 +1,28 @@
 package reportgen.report2png;
 
+import checkout.JsonDatabase;
+
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.*;
 import java.io.*;
 import javax.imageio.*;
 
-/**
- * Created by hu on 25/4/17.
- */
 public class ReportPngGenerator
 {
+    public void generatePicFromTextFile(String reportPath, String pngPath) throws FileNotFoundException
+    {
+        String reportStr = JsonDatabase.readStringFromFile(reportPath);
+
+        generateImage(
+                getImageSize(
+                        reportStr,
+                        "Calibri",
+                        QualityValues.LOW_QUALITY_FONTSIZE,
+                        QualityValues.LOW_QUALITY_EDGESCALE),
+                pngPath);
+    }
+
     public PicInfo getImageSize(String strToGenerate, String fontName, int fontSize, int horizonEdgeScale)
     {
         // Split multiple lines of strings to an ArrayList, in order to get the correct pic size.

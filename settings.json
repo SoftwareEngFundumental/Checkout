@@ -1,1 +1,1 @@
-[{"userName":"Foo Delete","userPassword":"f0o.bAr","userId":0,"userType":"WAREHOUSE"},{"userName":"Foo Password","userPassword":"f0o.bAr","userId":1,"userType":"SALES"},{"userName":"Foo Login","userPassword":"f0o.bAr","userId":2,"userType":"MANAGER"}]
+[{"userName":"Foo Bar","userPassword":"fo0.BaR","userId":0,"userType":"MANAGER"}]

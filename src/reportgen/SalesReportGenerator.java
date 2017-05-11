@@ -50,12 +50,12 @@ public class SalesReportGenerator
         bufferedWriter.close();
     }
 
-    protected String generateSingleSalesReportString(ArrayList<SalesRecordLine> salesRecordLines, Date recordDate) throws IOException
+    private String generateSingleSalesReportString(ArrayList<SalesRecordLine> salesRecordLines, Date recordDate) throws IOException
     {
 
         StringBuilder recordStr = new StringBuilder("-----------------------------------\n");
 
-        /**
+        /*
          * Get the time string only, in the format of "yyyyMMdd-HHmmss".
          * For the detailed date format, please refer to:
          *      https://docs.oracle.com/javase/6/docs/api/java/text/SimpleDateFormat.html

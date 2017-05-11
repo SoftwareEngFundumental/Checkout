@@ -31,13 +31,13 @@ public class JsonDatabase
     public Object readObjectFromFile(String filePath, Class<?> classType)
     {
         Gson gson = new Gson();
-        return gson.fromJson(readFromFile(filePath), classType);
+        return gson.fromJson(readStringFromFile(filePath), classType);
     }
 
     public <T> T readObjectFromFile(String filePath, Type type)
     {
         Gson gson = new Gson();
-        return gson.fromJson(readFromFile(filePath), type);
+        return gson.fromJson(readStringFromFile(filePath), type);
     }
 
     public ArrayList<Staff> readStaffListFromFile(String filePath)
@@ -49,12 +49,9 @@ public class JsonDatabase
         Type staffListType = new TypeToken<ArrayList<Staff>>(){}.getType();
 
         // Parse the damn JSON, then return
-        return gsonWithConverter.fromJson(readFromFile(filePath), staffListType);
+        return gsonWithConverter.fromJson(readStringFromFile(filePath), staffListType);
 
     }
-
-
-
 
     private void saveToFile(String jsonString, String filePath)
     {
@@ -63,6 +60,7 @@ public class JsonDatabase
             BufferedWriter writer = new BufferedWriter(new FileWriter(filePath));
 
             writer.write(jsonString);
+            writer.flush();
             writer.close();
         }
         catch (IOException e)
@@ -71,14 +69,19 @@ public class JsonDatabase
         }
     }
 
-    private String readFromFile(String filePath)
+    public static String readStringFromFile(String filePath)
     {
-        String jsonString = "";
+        StringBuilder jsonString = new StringBuilder();
+        String strBuffer;
 
         try
         {
             BufferedReader reader = new BufferedReader(new FileReader(filePath));
-            jsonString += reader.readLine();
+
+            while((strBuffer = reader.readLine()) != null)
+            {
+                jsonString.append(strBuffer);
+            }
         }
         catch (FileNotFoundException fileNotFoundException)
         {
@@ -89,7 +92,7 @@ public class JsonDatabase
             System.out.println(String.format("[Error] IOException thrown when saving file %s", filePath));
         }
 
-        return jsonString;
+        return jsonString.toString();
     }
 }
 
