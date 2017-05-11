@@ -6,18 +6,9 @@ import java.util.*;
 import java.io.*;
 import checkout.SalesRecord.*;
 import checkout.Item.*;
-import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
 
-/**
- * Created by hu on 10/5/17.
- */
 public class SalesReportGenerator
 {
-    public void generateTextReport(String filePath)
-    {
-
-    }
-
     public void generateReportString(String pathName, String reportPath) throws ParseException, IOException
     {
         // Put all files' name in the directory into the name list, then parse it later.
@@ -33,7 +24,7 @@ public class SalesReportGenerator
         // Time to generate the report!
         FileWriter fileWriter = new FileWriter(reportPath);
         BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
-        
+        bufferedWriter.write("-----------------------------------\n");
         bufferedWriter.write(String.format("Report created @ %s...\n",
                 new SimpleDateFormat("HH:mm:ss - dd MMM, yyyy").format(LocalDateTime.now())));
 
@@ -54,6 +45,7 @@ public class SalesReportGenerator
         }
 
         bufferedWriter.write(String.format("\n\nTotal income: $%f\n\n", totalSalesIncome));
+        bufferedWriter.write("-----------------------------------\n");
         bufferedWriter.flush();
         bufferedWriter.close();
     }
