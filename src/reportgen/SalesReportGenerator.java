@@ -6,14 +6,19 @@ import java.util.*;
 import java.io.*;
 import checkout.SalesRecord.*;
 import checkout.Item.*;
+import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
 
 /**
  * Created by hu on 10/5/17.
  */
 public class SalesReportGenerator
 {
+    public void generateTextReport(String filePath)
+    {
 
-    public String generateReportString(String pathName) throws ParseException
+    }
+
+    public void generateReportString(String pathName, String reportPath) throws ParseException, IOException
     {
         // Put all files' name in the directory into the name list, then parse it later.
         ArrayList<String> fileNames = new ArrayList<>();
@@ -26,9 +31,10 @@ public class SalesReportGenerator
         }
 
         // Time to generate the report!
-        StringBuilder recordStr = new StringBuilder("-----------------------------------\n");
-
-        recordStr.append(String.format("Report created @ %s...\n",
+        FileWriter fileWriter = new FileWriter(reportPath);
+        BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+        
+        bufferedWriter.write(String.format("Report created @ %s...\n",
                 new SimpleDateFormat("HH:mm:ss - dd MMM, yyyy").format(LocalDateTime.now())));
 
         double totalSalesIncome = 0;
@@ -36,20 +42,23 @@ public class SalesReportGenerator
         for(String fileName : fileNames)
         {
             ArrayList<SalesRecordLine> salesRecordLines = SalesRecord.getSaleRecord(fileName);
-            recordStr.append(generateSingleSalesReportString(salesRecordLines, getTimeFromFilename(fileName)));
+            bufferedWriter.write(generateSingleSalesReportString(salesRecordLines, getTimeFromFilename(fileName)));
 
+            // Calculate the total income
             for(SalesRecordLine salesRecordLine : salesRecordLines)
             {
                 totalSalesIncome += (salesRecordLine.getQuantity() * salesRecordLine.getItem().getPrice());
             }
+
+            bufferedWriter.flush();
         }
 
-        recordStr.append(String.format("\n\nTotal income: $%f\n\n", totalSalesIncome));
-
-        return recordStr.toString();
+        bufferedWriter.write(String.format("\n\nTotal income: $%f\n\n", totalSalesIncome));
+        bufferedWriter.flush();
+        bufferedWriter.close();
     }
 
-    protected String generateSingleSalesReportString(ArrayList<SalesRecordLine> salesRecordLines, Date recordDate)
+    protected String generateSingleSalesReportString(ArrayList<SalesRecordLine> salesRecordLines, Date recordDate) throws IOException
     {
 
         StringBuilder recordStr = new StringBuilder("-----------------------------------\n");

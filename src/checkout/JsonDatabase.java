@@ -68,7 +68,6 @@ public class JsonDatabase
         catch (IOException e)
         {
             System.out.println(String.format("[Error] IOException thrown when saving file %s", filePath));
-
         }
     }
 
