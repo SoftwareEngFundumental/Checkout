@@ -26,7 +26,7 @@ public class SalesReportGenerator
         BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
         bufferedWriter.write("-----------------------------------\n");
         bufferedWriter.write(String.format("Report created @ %s...\n",
-                new SimpleDateFormat("HH:mm:ss - dd MMM, yyyy").format(LocalDateTime.now())));
+                new SimpleDateFormat("HH:mm:ss - dd MM, yyyy").format(LocalDateTime.now())));
 
         double totalSalesIncome = 0;
 
