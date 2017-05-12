@@ -1,5 +1,8 @@
 package checkout;
 
+import checkout.Item.Item;
+import checkout.Item.Product;
+import checkout.SalesRecord.SalesRecordLine;
 import checkout.Staff.ManagerStaff;
 import checkout.Staff.SalesStaff;
 import checkout.Staff.Staff;
@@ -51,6 +54,12 @@ public class JsonDatabase
         // Parse the damn JSON, then return
         return gsonWithConverter.fromJson(readStringFromFile(filePath), staffListType);
 
+    }
+
+    public ArrayList<SalesRecordLine> readSalesRecordListFromFile(String filePath)
+    {
+        //TODO: Add converters
+        return null;
     }
 
     private void saveToFile(String jsonString, String filePath)
@@ -120,5 +129,15 @@ class StaffJsonDeserializer implements JsonDeserializer<Staff>
             default:
                 throw new NullPointerException(String.format("What the hell is this: %s", type));
         }
+    }
+}
+
+class SalesProductDeserializer implements JsonDeserializer<Product>
+{
+    @Override
+    public Product deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException
+    {
+        JsonElement productElement = json.getAsJsonObject().get("item");
+        return new Gson().fromJson(productElement, typeOfT);
     }
 }
