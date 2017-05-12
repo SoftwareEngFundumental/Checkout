@@ -12,21 +12,36 @@ public class Main {
     {
         Scanner scanner = new Scanner(System.in);
 
+        System.out.println("\n[[\"Checkout View Selection\"]]");
         System.out.println("1. Customer View\n" +
-                            "2. Staff View\n");
+                            "2. Staff View\n" + "3. Quit\n\n");
         System.out.print(">: ");
         String input = scanner.nextLine();
 
 
-        switch (input) {
+        switch (input)
+        {
             case "1":
+            {
                 Customer customer = Customer.scanCustomerID();
                 CustomerView.main(customer);
                 break;
+            }
             case "2":
+            {
                 StaffView.main(args);
                 break;
+            }
+            case "3":
+            {
+                System.exit(0);
+                break;
+            }
             default:
+            {
+                System.out.println("[ERROR] Wrong input, please try again...\n\n");
+                main(args);
+            }
         }
     }
 }

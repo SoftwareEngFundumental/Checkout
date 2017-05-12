@@ -97,6 +97,11 @@ public class StaffView
             {
                 Main.main(null);
             }
+            default:
+            {
+                System.out.println("[ERROR] Wrong input, please try again...\n\n");
+                main(null);
+            }
         }
     }
 
