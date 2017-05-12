@@ -8,12 +8,12 @@ import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 public class Main {
-    public static void main(String[] args) throws FileNotFoundException {
+    public static void main(String[] args)
+    {
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("1. Customer View\n" +
-                            "2. Manager View\n" +
-                            "3. Warehouse Staff View\n");
+                            "2. Staff View\n");
         System.out.print(">: ");
         String input = scanner.nextLine();
 
@@ -24,10 +24,7 @@ public class Main {
                 CustomerView.main(customer);
                 break;
             case "2":
-                ManagerStaffView.main(args);
-                break;
-            case "3":
-                WarehouseStaffView.main(args);
+                StaffView.main(args);
                 break;
             default:
         }

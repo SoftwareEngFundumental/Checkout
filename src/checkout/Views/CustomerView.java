@@ -6,7 +6,6 @@ import checkout.Item.Promotion;
 import checkout.SalesRecord.SalesRecordLine;
 import checkout.SalesRecord.SalesRecord;
 
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
 import static java.lang.Integer.valueOf;
@@ -147,7 +146,8 @@ public class CustomerView {
 
 
 
-    public static void main(Customer customer) throws FileNotFoundException {
+    public static void main(Customer customer)
+    {
         ArrayList<SalesRecordLine> salesRecordArrayList = checkOut();
 
         SalesRecord salesRecord = new SalesRecord(salesRecordArrayList);

@@ -11,24 +11,40 @@ public class StaffView
     public static StaffManagement staffManagement = new StaffManagement();
     public static void main(String[] args)
     {
-        doDemo();
+        loginMain();
     }
 
-    private static void doDemo()
+    private static void loginMain()
     {
+        System.out.println("[INFO] Trying to load staff.json...");
+        staffManagement.loadUsersFromFile("staff.json");
+
+        System.out.println("\n[[\"Checkout\" Staff Console]] - [[LOGIN]]\n");
+
+        if(doStaffLogin())
+        {
+            System.out.println("\n[INFO] Login successful!\n");
+            staffMain();
+        }
+        else
+        {
+            System.out.println("\n[INFO] Login failed, please try again.");
+            loginMain();
+        }
+    }
+    
+    private static void staffMain()
+    {
+
         System.out.println(
-                "\n\nMilestone 1 Demo for Staff classes\n" +
-                        "By \"Jackson\" Ming Hu (s3554025)\n"
-        );
-        System.out.println(
-                "Pick a function: \n" +
+                "Pick a function (by entering index number): \n" +
                         "1. Register a new staff\n" +
-                        "2. Login as a staff\n" +
-                        "3. Logout\n" +
-                        "4. Remove a staff\n" +
-                        "5. Change a staff's password\n" +
-                        "6. Save staff details to JSON\n" +
-                        "7. Load staff details from JSON"
+                        "2. Logout\n" +
+                        "3. Remove a staff\n" +
+                        "4. Change a staff's password\n" +
+                        "5. Save staff details to JSON\n" +
+                        "6. Load staff details from JSON\n" +
+                        "7. Save status and quit\n"
         );
 
         // Create scanner
@@ -50,37 +66,36 @@ public class StaffView
             }
             case 2:
             {
-                doStaffLogin();
+                doStaffLogout();
                 break;
             }
             case 3:
             {
-                doStaffLogout();
+                doRemoveUser();
                 break;
             }
             case 4:
             {
-                doRemoveUser();
+                doPasswordChange();
                 break;
             }
             case 5:
             {
-                doPasswordChange();
+                System.out.println("\n[DEBUG] Try saving to JSON...");
+                staffManagement.saveUsersToFile("staff.json");
+                staffMain();
                 break;
             }
             case 6:
             {
-                System.out.println("\nTry saving to JSON...");
-                staffManagement.saveUsersToFile("staff.json");
-                doDemo();
+                System.out.println("\n[DEBUG] Try loading from JSON...");
+                staffManagement.loadUsersFromFile("staff.json");
+                staffMain();
                 break;
             }
             case 7:
             {
-                System.out.println("\nTry loading from JSON...");
-                staffManagement.loadUsersFromFile("staff.json");
-                doDemo();
-                break;
+                Main.main(null);
             }
         }
     }
@@ -136,11 +151,11 @@ public class StaffView
         }
         else
         {
-            doDemo();
+            staffMain();
         }
     }
 
-    private static void doStaffLogin()
+    private static boolean doStaffLogin()
     {
         Scanner scanner = new Scanner(System.in);
 
@@ -149,16 +164,7 @@ public class StaffView
         System.out.print("\nEnter password: ");
         String userPassword = scanner.nextLine();
 
-        if(staffManagement.userLogin(userName, userPassword))
-        {
-            System.out.println("Login successful!!");
-            doDemo();
-        }
-        else
-        {
-            System.out.println("Login FAILED!");
-            doDemo();
-        }
+        return staffManagement.userLogin(userName, userPassword);
     }
 
     private static void doStaffLogout()
@@ -171,12 +177,12 @@ public class StaffView
         if(staffManagement.userLogout(userName))
         {
             System.out.println("Log out successful!!");
-            doDemo();
+            loginMain();
         }
         else
         {
             System.out.println("Log out FAILED!");
-            doDemo();
+            loginMain();
         }
     }
 
@@ -191,12 +197,12 @@ public class StaffView
         if(staffManagement.deleteUser(userName))
         {
             System.out.println("Remove successful!!");
-            doDemo();
+            staffMain();
         }
         else
         {
             System.out.println("Remove FAILED!");
-            doDemo();
+            staffMain();
         }
     }
 
@@ -214,12 +220,12 @@ public class StaffView
         if(staffManagement.changeUserPassword(userName, userOldPassword, userNewPassword))
         {
             System.out.println("Change successful!!");
-            doDemo();
+            staffMain();
         }
         else
         {
             System.out.println("Change FAILED!");
-            doDemo();
+            staffMain();
         }
     }
 
