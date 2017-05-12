@@ -1,7 +1,9 @@
 package checkout.Views;
 
+import checkout.Staff.LoginResult;
 import checkout.Staff.StaffManagement;
 import checkout.Staff.StaffType;
+import checkout.Staff.WarehouseStaff;
 
 import java.util.*;
 import java.lang.*;
@@ -21,10 +23,12 @@ public class StaffView
 
         System.out.println("\n[[\"Checkout\" Staff Console]] - [[LOGIN]]\n");
 
-        if(doStaffLogin())
+        LoginResult loginResult = doStaffLogin();
+
+        if(loginResult.getLoginStatus())
         {
             System.out.println("\n[INFO] Login successful!\n");
-            staffMain();
+            staffMain(loginResult);
         }
         else
         {
@@ -33,9 +37,8 @@ public class StaffView
         }
     }
     
-    private static void staffMain()
+    private static void staffMain(LoginResult loginResult)
     {
-
         System.out.println(
                 "Pick a function (by entering index number): \n" +
                         "1. Register a new staff\n" +
@@ -44,8 +47,26 @@ public class StaffView
                         "4. Change a staff's password\n" +
                         "5. Save staff details to JSON\n" +
                         "6. Load staff details from JSON\n" +
-                        "7. Save status and quit\n"
+                        "7. Save status and quit"
         );
+
+        switch(loginResult.getStaff().getUserType())
+        {
+            case SALES:
+            {
+                break;
+            }
+            case MANAGER:
+            {
+                System.out.println("8. Go to manager view");
+                break;
+            }
+            case WAREHOUSE:
+            {
+                System.out.println("9. Go to warehouse staff view");
+                break;
+            }
+        }
 
         // Create scanner
         Scanner scanner = new Scanner(System.in);
@@ -61,41 +82,65 @@ public class StaffView
         {
             case 1:
             {
-                addStaff();
+                addStaff(loginResult);
                 break;
             }
             case 2:
             {
-                doStaffLogout();
+                doStaffLogout(loginResult);
                 break;
             }
             case 3:
             {
-                doRemoveUser();
+                doRemoveUser(loginResult);
                 break;
             }
             case 4:
             {
-                doPasswordChange();
+                doPasswordChange(loginResult);
                 break;
             }
             case 5:
             {
                 System.out.println("\n[DEBUG] Try saving to JSON...");
                 staffManagement.saveUsersToFile("staff.json");
-                staffMain();
+                staffMain(loginResult);
                 break;
             }
             case 6:
             {
                 System.out.println("\n[DEBUG] Try loading from JSON...");
                 staffManagement.loadUsersFromFile("staff.json");
-                staffMain();
+                staffMain(loginResult);
                 break;
             }
             case 7:
             {
                 Main.main(null);
+                break;
+            }
+            case 8:
+            {
+                if(loginResult.getStaff().getUserType() == StaffType.MANAGER)
+                {
+                    ManagerStaffView.main(null);
+                }
+                else
+                {
+                    System.out.println("[ERROR] Permission denied.");
+                }
+                break;
+            }
+            case 9:
+            {
+                if(loginResult.getStaff().getUserType() == StaffType.WAREHOUSE)
+                {
+                    WarehouseStaffView.main(null);
+                }
+                else
+                {
+                    System.out.println("[ERROR] Permission denied.");
+                }
             }
             default:
             {
@@ -105,7 +150,7 @@ public class StaffView
         }
     }
 
-    private static void addStaff()
+    private static void addStaff(LoginResult loginResult)
     {
         Scanner scanner = new Scanner(System.in);
         System.out.print("\nEnter user name: ");
@@ -120,7 +165,7 @@ public class StaffView
         if(userName.length() < 1 && userPassword.length() < 1)
         {
             System.out.println("\n\n[Error] Invalid input for user name/password, please try again.");
-            addStaff();
+            addStaff(loginResult);
         }
 
 
@@ -133,7 +178,7 @@ public class StaffView
         catch(IllegalArgumentException illegalInputException)
         {
             System.out.println("\n\n[Error] Invalid input for user type, please try again.");
-            addStaff();
+            addStaff(loginResult);
         }
 
 
@@ -152,15 +197,15 @@ public class StaffView
 
         if(userAddMore.toUpperCase().contains("Y"))
         {
-            addStaff();
+            addStaff(loginResult);
         }
         else
         {
-            staffMain();
+            staffMain(loginResult);
         }
     }
 
-    private static boolean doStaffLogin()
+    private static LoginResult doStaffLogin()
     {
         Scanner scanner = new Scanner(System.in);
 
@@ -172,7 +217,7 @@ public class StaffView
         return staffManagement.userLogin(userName, userPassword);
     }
 
-    private static void doStaffLogout()
+    private static void doStaffLogout(LoginResult loginResult)
     {
         Scanner scanner = new Scanner(System.in);
 
@@ -192,7 +237,7 @@ public class StaffView
     }
 
 
-    private static void doRemoveUser()
+    private static void doRemoveUser(LoginResult loginResult)
     {
         Scanner scanner = new Scanner(System.in);
 
@@ -202,16 +247,16 @@ public class StaffView
         if(staffManagement.deleteUser(userName))
         {
             System.out.println("Remove successful!!");
-            staffMain();
+            staffMain(loginResult);
         }
         else
         {
             System.out.println("Remove FAILED!");
-            staffMain();
+            staffMain(loginResult);
         }
     }
 
-    private static void doPasswordChange()
+    private static void doPasswordChange(LoginResult loginResult)
     {
         Scanner scanner = new Scanner(System.in);
 
@@ -225,12 +270,12 @@ public class StaffView
         if(staffManagement.changeUserPassword(userName, userOldPassword, userNewPassword))
         {
             System.out.println("Change successful!!");
-            staffMain();
+            staffMain(loginResult);
         }
         else
         {
             System.out.println("Change FAILED!");
-            staffMain();
+            staffMain(loginResult);
         }
     }
 

@@ -40,10 +40,10 @@ public class StaffManagementTest
     public void testUserLogin() throws Exception
     {
         // Scenario #1: Correct password, should return true
-        assertTrue(staffManagement.userLogin("Foo Login", "f0o.bAr"));
+        assertTrue(staffManagement.userLogin("Foo Login", "f0o.bAr").getLoginStatus());
 
         // Scenario #2: Incorrect password, should return false
-        assertTrue(!staffManagement.userLogin("Foo Login", "who_the_hell_knows"));
+        assertTrue(!staffManagement.userLogin("Foo Login", "who_the_hell_knows").getLoginStatus());
 
         // Clean up for future tests
         staffManagement.userLogout("Foo Login");
@@ -140,7 +140,7 @@ public class StaffManagementTest
         staffManagement.loadUsersFromFile("settings.json");
 
         // Scenario #1: Try do a login
-        assertTrue(staffManagement.userLogin("Foo Bar Save", "f0o.bAr"));
+        assertTrue(staffManagement.userLogin("Foo Bar Save", "f0o.bAr").getLoginStatus());
 
         // Scenario #2: ry do a logout
         assertTrue(staffManagement.userLogout("Foo Bar Save"));

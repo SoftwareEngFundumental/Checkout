@@ -48,20 +48,20 @@ public class StaffManagement
         return staff;
     }
 
-    public Boolean userLogin(String userName, String userPassword)
+    public LoginResult userLogin(String userName, String userPassword)
     {
         Staff staff = findUserFromList(userName);
 
         // Return false if staff name not found.
         if(staff == null)
         {
-            return false;
+            return new LoginResult(false, null);
         }
 
         // Set the status of password check
         Boolean passwordCheck = staff.getUserPassword().equals(userPassword);
         staff.setUserLoginStatus(passwordCheck);
-        return passwordCheck;
+        return new LoginResult(passwordCheck, staff);
     }
 
     public Boolean createUser(StaffType staffType, String userName, String userPassword)
