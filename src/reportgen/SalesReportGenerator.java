@@ -1,7 +1,6 @@
 package reportgen;
 
 import java.text.*;
-import java.time.LocalDateTime;
 import java.util.*;
 import java.io.*;
 import checkout.SalesRecord.*;
@@ -25,14 +24,15 @@ public class SalesReportGenerator
         FileWriter fileWriter = new FileWriter(reportPath);
         BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
         bufferedWriter.write("-----------------------------------\n");
+        Date currentDate = new Date();
         bufferedWriter.write(String.format("Report created @ %s...\n",
-                new SimpleDateFormat("HH:mm:ss - dd MM, yyyy").format(LocalDateTime.now())));
+                new SimpleDateFormat("HH:mm:ss - dd MM, yyyy").format(currentDate)));
 
         double totalSalesIncome = 0;
 
         for(String fileName : fileNames)
         {
-            ArrayList<SalesRecordLine> salesRecordLines = SalesRecord.getSaleRecord(fileName);
+            ArrayList<SalesRecordLine> salesRecordLines = SalesRecord.getSalesRecord(fileName);
             bufferedWriter.write(generateSingleSalesReportString(salesRecordLines, getTimeFromFilename(fileName)));
 
             // Calculate the total income

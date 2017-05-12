@@ -30,7 +30,7 @@ public class SalesRecord {
         // TODO: 04/05/2017 Loyalty Point
     }
 
-    public static ArrayList<SalesRecordLine> getSaleRecord(String filename) {
+    public static ArrayList<SalesRecordLine> getSalesRecord(String filename) {
         filename = "Sales Record/" + filename;
         Type productListType = new TypeToken<ArrayList<SalesRecordLine>>() {}.getType();
         JsonDatabase jsonDatabase = new JsonDatabase();
