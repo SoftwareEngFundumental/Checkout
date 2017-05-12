@@ -7,9 +7,6 @@ import java.io.*;
 
 import static org.junit.Assert.*;
 
-/**
- * Created by hu on 25/4/17.
- */
 public class ReportPngGeneratorTest
 {
     private ReportPngGenerator reportPngGenerator = null;
