@@ -30,7 +30,7 @@ public class SalesRecord {
         double total = getTotalAmount();
         int point = (int) total/10;
         customer.setPoint(customer.getPoint()+point);
-        Customer.saveCustomerInfoToList(customer);
+        customer.saveCustomerInfoToList();
     }
 
     public double getTotalAmount() {
