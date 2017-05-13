@@ -29,7 +29,7 @@ public class SalesReportGenerator
         Date currentDate = new Date();
 
         bufferedWriter.write(String.format("Report created @ %s...\n",
-                new SimpleDateFormat("HH:mm:ss - dd MM, yyyy").format(currentDate)));
+                new SimpleDateFormat("HH:mm:ss - dd MMM, yyyy").format(currentDate)));
 
         double totalSalesIncome = 0;
 
@@ -55,7 +55,7 @@ public class SalesReportGenerator
             }
         }
 
-        bufferedWriter.write(String.format("\n\nTotal income: $%f\n\n", totalSalesIncome));
+        bufferedWriter.write(String.format("\n\nTotal income: $%.2f\n\n", totalSalesIncome));
         bufferedWriter.write("-----------------------------------\n");
         bufferedWriter.flush();
         bufferedWriter.close();
@@ -84,7 +84,7 @@ public class SalesReportGenerator
         for(SalesRecordLine salesRecordLine : salesRecordLines)
         {
             Product product = salesRecordLine.getProduct();
-            recordStr.append(String.format("%d\t%s\t%f\t%d\n",
+            recordStr.append(String.format("%d\t%s\t%.2f\t%d\n",
                     index, product.getName(), product.getPrice(), salesRecordLine.getQuantity()));
 
             // Count the index and total price
@@ -92,7 +92,7 @@ public class SalesReportGenerator
             totalPrice += product.getPrice() * salesRecordLine.getQuantity();
         }
 
-        recordStr.append(String.format("\n\nTotal price $ %f, item amount %d\n\n", totalPrice, index));
+        recordStr.append(String.format("\n\nTotal price $%.2f, item amount %d\n\n", totalPrice, index));
         recordStr.append("-----------------------------------\n");
 
         return recordStr.toString();

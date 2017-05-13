@@ -19,8 +19,8 @@ public class ReportPngGenerator
                 getImageSize(
                         reportStr,
                         "Calibri",
-                        QualityValues.LOW_QUALITY_FONTSIZE,
-                        QualityValues.LOW_QUALITY_EDGESCALE),
+                        QualityValues.MEDIUM_QUALITY_FONTSIZE,
+                        QualityValues.MEDIUM_QUALITY_EDGESCALE),
                 pngPath);
     }
 
