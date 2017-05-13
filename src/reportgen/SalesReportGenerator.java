@@ -5,10 +5,12 @@ import java.util.*;
 import java.io.*;
 import checkout.SalesRecord.*;
 import checkout.Product.*;
+import checkout.util.DateCompare;
+import checkout.util.DatePeriod;
 
 public class SalesReportGenerator
 {
-    public void generateReportString(String pathName, String reportPath) throws ParseException, IOException
+    public void generateReportString(String pathName, String reportPath, DatePeriod datePeriod) throws ParseException, IOException
     {
         // Put all files' name in the directory into the name list, then parse it later.
         ArrayList<String> fileNames = new ArrayList<>();
@@ -25,6 +27,7 @@ public class SalesReportGenerator
         BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
         bufferedWriter.write("-----------------------------------\n");
         Date currentDate = new Date();
+
         bufferedWriter.write(String.format("Report created @ %s...\n",
                 new SimpleDateFormat("HH:mm:ss - dd MM, yyyy").format(currentDate)));
 
@@ -32,16 +35,24 @@ public class SalesReportGenerator
 
         for(String fileName : fileNames)
         {
-            ArrayList<SalesRecordLine> salesRecordLines = SalesRecord.getSaleRecord(fileName);
-            bufferedWriter.write(generateSingleSalesReportString(salesRecordLines, getTimeFromFilename(fileName)));
-
-            // Calculate the total income
-            for(SalesRecordLine salesRecordLine : salesRecordLines)
+            if(DateCompare.dateInDatePeriod(getTimeFromFilename(fileName), datePeriod))
             {
-                totalSalesIncome += (salesRecordLine.getQuantity() * salesRecordLine.getProduct().getPrice());
-            }
+                ArrayList<SalesRecordLine> salesRecordLines = SalesRecord.getSaleRecord(fileName);
+                bufferedWriter.write(generateSingleSalesReportString(salesRecordLines, getTimeFromFilename(fileName)));
 
-            bufferedWriter.flush();
+                // Calculate the total income
+                for(SalesRecordLine salesRecordLine : salesRecordLines)
+                {
+                    totalSalesIncome += (salesRecordLine.getQuantity() * salesRecordLine.getProduct().getPrice());
+                }
+
+                bufferedWriter.flush();
+            }
+            else
+            {
+                System.out.println(
+                        String.format("[WARN] Skipping report file %s which is not in specified time span.", fileName));
+            }
         }
 
         bufferedWriter.write(String.format("\n\nTotal income: $%f\n\n", totalSalesIncome));

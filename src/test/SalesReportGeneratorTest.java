@@ -1,5 +1,6 @@
 package test;
 
+import checkout.util.DatePeriod;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -9,6 +10,7 @@ import reportgen.report2png.*;
 import reportgen.*;
 
 import java.io.File;
+import java.util.Calendar;
 
 import static org.junit.Assert.*;
 
@@ -34,7 +36,8 @@ public class SalesReportGeneratorTest
     @Test
     public void generateReportString() throws Exception
     {
-        salesReportGenerator.generateReportString("Sales Record/", "report.txt");
+        salesReportGenerator.generateReportString("Sales Record/", "report.txt",
+                new DatePeriod(2017, 5,1,2017,6,1));
         File file = new File("report.txt");
         assertTrue(file.exists());
     }
@@ -42,7 +45,8 @@ public class SalesReportGeneratorTest
     @Test
     public void generateReportPic() throws Exception
     {
-        salesReportGenerator.generateReportString("Sales Record/", "report.txt");
+        salesReportGenerator.generateReportString("Sales Record/", "report.txt",
+                new DatePeriod(2017, 5,1,2017,6,1));
         reportPngGenerator.generatePicFromTextFile("report.txt", "report.png");
         File file = new File("report.png");
         assertTrue(file.exists());
