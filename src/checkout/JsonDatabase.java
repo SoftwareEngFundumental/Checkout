@@ -89,6 +89,7 @@ public class JsonDatabase
             while((strBuffer = reader.readLine()) != null)
             {
                 jsonString.append(strBuffer);
+                jsonString.append('\n');
             }
         }
         catch (FileNotFoundException fileNotFoundException)
@@ -128,15 +129,5 @@ class StaffJsonDeserializer implements JsonDeserializer<Staff>
             default:
                 throw new NullPointerException(String.format("What the hell is this: %s", type));
         }
-    }
-}
-
-class SalesProductDeserializer implements JsonDeserializer<Product>
-{
-    @Override
-    public Product deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException
-    {
-        JsonElement productElement = json.getAsJsonObject().get("item");
-        return new Gson().fromJson(productElement, typeOfT);
     }
 }
