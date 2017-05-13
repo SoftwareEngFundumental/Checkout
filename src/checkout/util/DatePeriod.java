@@ -38,6 +38,16 @@ public class DatePeriod
         this.laterDate = laterCal.getTime();
     }
 
+    public DatePeriod(int months)
+    {
+        this.laterDate = new Date();
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(new Date());
+        calendar.add(Calendar.MONTH, months * (-1));
+        this.earlierDate = calendar.getTime();
+    }
+
     public Date getEarlierDate()
     {
         return earlierDate;

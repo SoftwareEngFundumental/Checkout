@@ -6,7 +6,7 @@ import java.util.Scanner;
 import static java.lang.Integer.valueOf;
 
 public class Main {
-    public static void main(String[] args) throws FileNotFoundException {
+    public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("1. Customer View\n" +
@@ -24,6 +24,7 @@ public class Main {
                 StaffView.main(args);
                 break;
             default:
+
         }
     }
 }

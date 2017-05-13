@@ -39,114 +39,124 @@ public class StaffView
     
     private static void staffMain(LoginResult loginResult)
     {
-        System.out.println(
-                "Pick a function (by entering index number): \n" +
-                        "1. Register a new staff\n" +
-                        "2. Logout\n" +
-                        "3. Remove a staff\n" +
-                        "4. Change a staff's password\n" +
-                        "5. Save staff details to JSON\n" +
-                        "6. Load staff details from JSON\n" +
-                        "7. Save status and quit"
-        );
-
-        switch(loginResult.getStaff().getUserType())
+        try
         {
-            case SALES:
+            System.out.println(
+                    "Pick a function (by entering index number): \n" +
+                            "1. Register a new staff\n" +
+                            "2. Logout\n" +
+                            "3. Remove a staff\n" +
+                            "4. Change a staff's password\n" +
+                            "5. Save staff details to JSON\n" +
+                            "6. Load staff details from JSON\n" +
+                            "7. Save status and quit"
+            );
+
+            switch(loginResult.getStaff().getUserType())
             {
-                break;
+                case SALES:
+                {
+                    break;
+                }
+                case MANAGER:
+                {
+                    System.out.println("8. Go to manager view");
+                    break;
+                }
+                case WAREHOUSE:
+                {
+                    System.out.println("9. Go to warehouse staff view");
+                    break;
+                }
             }
-            case MANAGER:
+
+            // Create scanner
+            Scanner scanner = new Scanner(System.in);
+
+            // Record user choice
+            int userChoice = scanner.nextInt();
+
+
+
+            // Clean up next line, otherwise the new line character will still exist in the buffer
+            // which will causes other issues later on.
+            scanner.nextLine();
+
+            switch(userChoice)
             {
-                System.out.println("8. Go to manager view");
-                break;
-            }
-            case WAREHOUSE:
-            {
-                System.out.println("9. Go to warehouse staff view");
-                break;
+                case 1:
+                {
+                    addStaff(loginResult);
+                    break;
+                }
+                case 2:
+                {
+                    doStaffLogout(loginResult);
+                    break;
+                }
+                case 3:
+                {
+                    doRemoveUser(loginResult);
+                    break;
+                }
+                case 4:
+                {
+                    doPasswordChange(loginResult);
+                    break;
+                }
+                case 5:
+                {
+                    System.out.println("\n[DEBUG] Try saving to JSON...");
+                    staffManagement.saveUsersToFile("staff.json");
+                    staffMain(loginResult);
+                    break;
+                }
+                case 6:
+                {
+                    System.out.println("\n[DEBUG] Try loading from JSON...");
+                    staffManagement.loadUsersFromFile("staff.json");
+                    staffMain(loginResult);
+                    break;
+                }
+                case 7:
+                {
+//                Main.main(null);
+                    break;
+                }
+                case 8:
+                {
+                    if(loginResult.getStaff().getUserType() == StaffType.MANAGER)
+                    {
+                        ManagerStaffView.main(null);
+                    }
+                    else
+                    {
+                        System.out.println("[ERROR] Permission denied.");
+                    }
+                    break;
+                }
+                case 9:
+                {
+                    if(loginResult.getStaff().getUserType() == StaffType.WAREHOUSE)
+                    {
+                        WarehouseStaffView.main(null);
+                    }
+                    else
+                    {
+                        System.out.println("[ERROR] Permission denied.");
+                    }
+                }
+                default:
+                {
+                    System.out.println("[ERROR] Wrong input, please try again...\n\n");
+                    main(null);
+                }
             }
         }
-
-        // Create scanner
-        Scanner scanner = new Scanner(System.in);
-
-        // Record user choice
-        int userChoice = scanner.nextInt();
-
-        // Clean up next line, otherwise the new line character will still exist in the buffer
-        // which will causes other issues later on.
-        scanner.nextLine();
-
-        switch(userChoice)
+        catch(InputMismatchException exception)
         {
-            case 1:
-            {
-                addStaff(loginResult);
-                break;
-            }
-            case 2:
-            {
-                doStaffLogout(loginResult);
-                break;
-            }
-            case 3:
-            {
-                doRemoveUser(loginResult);
-                break;
-            }
-            case 4:
-            {
-                doPasswordChange(loginResult);
-                break;
-            }
-            case 5:
-            {
-                System.out.println("\n[DEBUG] Try saving to JSON...");
-                staffManagement.saveUsersToFile("staff.json");
-                staffMain(loginResult);
-                break;
-            }
-            case 6:
-            {
-                System.out.println("\n[DEBUG] Try loading from JSON...");
-                staffManagement.loadUsersFromFile("staff.json");
-                staffMain(loginResult);
-                break;
-            }
-            case 7:
-            {
-//                Main.main(null);
-                break;
-            }
-            case 8:
-            {
-                if(loginResult.getStaff().getUserType() == StaffType.MANAGER)
-                {
-                    ManagerStaffView.main(null);
-                }
-                else
-                {
-                    System.out.println("[ERROR] Permission denied.");
-                }
-                break;
-            }
-            case 9:
-            {
-                if(loginResult.getStaff().getUserType() == StaffType.WAREHOUSE)
-                {
-                    WarehouseStaffView.main(null);
-                }
-                else
-                {
-                    System.out.println("[ERROR] Permission denied.");
-                }
-            }
-            default:
-            {
-                System.out.println("[ERROR] Wrong input, please try again...\n\n");
-                main(null);
-            }
+            System.out.println("[ERROR] Invalid input detected, please try again\n");
+            staffMain(loginResult);
         }
     }
 
