@@ -1,6 +1,6 @@
 package checkout.Staff;
 
-import checkout.JsonDatabase;
+import checkout.util.JsonDatabase;
 
 import java.util.*;
 

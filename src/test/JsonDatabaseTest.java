@@ -3,7 +3,7 @@ package test;
 import checkout.Staff.StaffType;
 import org.junit.Before;
 import org.junit.Test;
-import checkout.JsonDatabase;
+import checkout.util.JsonDatabase;
 import checkout.Staff.Staff;
 import checkout.Staff.StaffManagement;
 

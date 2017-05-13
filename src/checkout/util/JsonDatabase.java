@@ -1,6 +1,5 @@
-package checkout;
+package checkout.util;
 
-import checkout.Product.Product;
 import checkout.SalesRecord.SalesRecordLine;
 import checkout.Staff.ManagerStaff;
 import checkout.Staff.SalesStaff;
@@ -27,19 +26,19 @@ public class JsonDatabase
     {
         Gson gson = new Gson();
         String jsonString = gson.toJson(targetObject);
-        saveToFile(jsonString, filePath);
+        TextFile.writeStringToFile(jsonString, filePath);
     }
 
     public Object readObjectFromFile(String filePath, Class<?> classType)
     {
         Gson gson = new Gson();
-        return gson.fromJson(readStringFromFile(filePath), classType);
+        return gson.fromJson(TextFile.readStringFromFile(filePath), classType);
     }
 
     public <T> T readObjectFromFile(String filePath, Type type)
     {
         Gson gson = new Gson();
-        return gson.fromJson(readStringFromFile(filePath), type);
+        return gson.fromJson(TextFile.readStringFromFile(filePath), type);
     }
 
     public ArrayList<Staff> readStaffListFromFile(String filePath)
@@ -51,7 +50,7 @@ public class JsonDatabase
         Type staffListType = new TypeToken<ArrayList<Staff>>(){}.getType();
 
         // Parse the damn JSON, then return
-        return gsonWithConverter.fromJson(readStringFromFile(filePath), staffListType);
+        return gsonWithConverter.fromJson(TextFile.readStringFromFile(filePath), staffListType);
 
     }
 
@@ -61,48 +60,9 @@ public class JsonDatabase
         return null;
     }
 
-    private void saveToFile(String jsonString, String filePath)
-    {
-        try
-        {
-            BufferedWriter writer = new BufferedWriter(new FileWriter(filePath));
 
-            writer.write(jsonString);
-            writer.flush();
-            writer.close();
-        }
-        catch (IOException e)
-        {
-            System.out.println(String.format("[Error] IOException thrown when saving file %s", filePath));
-        }
-    }
 
-    public static String readStringFromFile(String filePath)
-    {
-        StringBuilder jsonString = new StringBuilder();
-        String strBuffer;
 
-        try
-        {
-            BufferedReader reader = new BufferedReader(new FileReader(filePath));
-
-            while((strBuffer = reader.readLine()) != null)
-            {
-                jsonString.append(strBuffer);
-                jsonString.append('\n');
-            }
-        }
-        catch (FileNotFoundException fileNotFoundException)
-        {
-            System.out.println(String.format("[Error] File not found at %s", filePath));
-        }
-        catch (IOException ioException)
-        {
-            System.out.println(String.format("[Error] IOException thrown when saving file %s", filePath));
-        }
-
-        return jsonString.toString();
-    }
 }
 
 // Guys , remember to check Gson library references before editing this!!!

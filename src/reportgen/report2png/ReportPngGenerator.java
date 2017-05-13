@@ -1,18 +1,19 @@
 package reportgen.report2png;
 
-import checkout.JsonDatabase;
+import checkout.util.JsonDatabase;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.*;
 import java.io.*;
 import javax.imageio.*;
+import checkout.util.*;
 
 public class ReportPngGenerator
 {
     public void generatePicFromTextFile(String reportPath, String pngPath) throws FileNotFoundException
     {
-        String reportStr = JsonDatabase.readStringFromFile(reportPath);
+        String reportStr = TextFile.readStringFromFile(reportPath);
 
         generateImage(
                 getImageSize(

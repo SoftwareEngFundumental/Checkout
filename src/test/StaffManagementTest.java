@@ -2,12 +2,12 @@ package test;
 
 import static org.junit.Assert.*;
 
-import checkout.JsonDatabase;
+import checkout.util.JsonDatabase;
 import checkout.Staff.Staff;
 import checkout.Staff.StaffManagement;
 import checkout.Staff.StaffType;
 import org.junit.After;
-import org.junit.BeforeClass;
+import org.junit.Before;
 import org.junit.Test;
 import java.io.*;
 
@@ -17,7 +17,7 @@ public class StaffManagementTest
 {
     private StaffManagement staffManagement = null;
 
-    @BeforeClass
+    @Before
     public void setUp() throws Exception
     {
         staffManagement = new StaffManagement();
