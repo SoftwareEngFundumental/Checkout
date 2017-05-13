@@ -1,4 +1,4 @@
-package checkout.Item;
+package checkout.Product;
 
 import checkout.JsonDatabase;
 import com.google.gson.reflect.TypeToken;
@@ -9,13 +9,16 @@ import java.util.Scanner;
 
 import static java.lang.Integer.valueOf;
 
-public class Product extends Item {
+public class Product {
     private int ID;
+    private String name;
+    private double price;
     private int quantity;
     private boolean hasPromo;
 
     public Product(String name, double price, int quantity) {
-        super(name, price);
+        this.name = name;
+        this.price = price;
         int newProductID = 0;
         boolean isAvailableForNewProduct = false;
         do {
@@ -39,6 +42,17 @@ public class Product extends Item {
     public static void saveProductList(ArrayList<Product> productArrayList) {
         JsonDatabase jsonDatabase = new JsonDatabase();
         jsonDatabase.saveObjectToJsonFile(productArrayList, "productList.json");
+    }
+
+    public void saveProductInfoToList() {
+        ArrayList<Product> productArrayList = getProductList();
+        for (Product productInList : productArrayList) {
+            if (productInList.equals(this)) {
+                int index = productArrayList.indexOf(productInList);
+                productArrayList.set(index,this);
+            }
+        }
+        Product.saveProductList(productArrayList);
     }
 
     public static Product getProductByID(int ID) {
@@ -97,6 +111,22 @@ public class Product extends Item {
         return ID;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
+
     public int getQuantity() {
         return quantity;
     }
@@ -128,8 +158,8 @@ public class Product extends Item {
     public String toString() {
         return "Product{" +
                 "ID=" + ID +
-                ", name='" + super.getName() + '\'' +
-                ", price=" + super.getPrice() +
+                ", name='" + name +
+                ", price=" + price +
                 ", quantity=" + quantity +
                 ", hasPromo=" + hasPromo +
                 '}';

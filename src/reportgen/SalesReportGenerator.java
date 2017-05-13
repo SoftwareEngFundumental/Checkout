@@ -4,7 +4,7 @@ import java.text.*;
 import java.util.*;
 import java.io.*;
 import checkout.SalesRecord.*;
-import checkout.Item.*;
+import checkout.Product.*;
 
 public class SalesReportGenerator
 {
@@ -32,13 +32,13 @@ public class SalesReportGenerator
 
         for(String fileName : fileNames)
         {
-            ArrayList<SalesRecordLine> salesRecordLines = SalesRecord.getSalesRecord(fileName);
+            ArrayList<SalesRecordLine> salesRecordLines = SalesRecord.getSaleRecord(fileName);
             bufferedWriter.write(generateSingleSalesReportString(salesRecordLines, getTimeFromFilename(fileName)));
 
             // Calculate the total income
             for(SalesRecordLine salesRecordLine : salesRecordLines)
             {
-                totalSalesIncome += (salesRecordLine.getQuantity() * salesRecordLine.getItem().getPrice());
+                totalSalesIncome += (salesRecordLine.getQuantity() * salesRecordLine.getProduct().getPrice());
             }
 
             bufferedWriter.flush();
@@ -72,13 +72,13 @@ public class SalesReportGenerator
         // Get each sales record
         for(SalesRecordLine salesRecordLine : salesRecordLines)
         {
-            Item item = salesRecordLine.getItem();
+            Product product = salesRecordLine.getProduct();
             recordStr.append(String.format("%d\t%s\t%f\t%d\n",
-                    index, item.getName(), item.getPrice(), salesRecordLine.getQuantity()));
+                    index, product.getName(), product.getPrice(), salesRecordLine.getQuantity()));
 
             // Count the index and total price
             index++;
-            totalPrice += item.getPrice() * salesRecordLine.getQuantity();
+            totalPrice += product.getPrice() * salesRecordLine.getQuantity();
         }
 
         recordStr.append(String.format("\n\nTotal price $ %f, item amount %d\n\n", totalPrice, index));

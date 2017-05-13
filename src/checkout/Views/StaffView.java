@@ -116,7 +116,7 @@ public class StaffView
             }
             case 7:
             {
-                Main.main(null);
+//                Main.main(null);
                 break;
             }
             case 8:

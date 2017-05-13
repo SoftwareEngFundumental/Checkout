@@ -1,42 +1,48 @@
 package checkout.SalesRecord;
 
-import checkout.Item.Item;
-import checkout.Item.Product;
-import checkout.Item.Promotion;
+import checkout.Product.Product;
+import checkout.Product.Promotion;
 
 public class SalesRecordLine {
-    private Item item;
+    private Product product;
     private int quantity;
+    private PromotionLine promotionLine;
 
-    public SalesRecordLine(Item item, int quantity) {
-        this.item = item;
+    public SalesRecordLine(Product product, int quantity) {
+        this.product = product;
         this.quantity = quantity;
+
+        if (product.isHasPromo()) {
+            Promotion promotion = Promotion.getPromoByProduct(product);
+            if (quantity/promotion.getCondition() >= 1) {
+                PromotionLine promotionLine = new PromotionLine(promotion, quantity/promotion.getCondition());
+                this.promotionLine = promotionLine;
+            }
+        }
     }
 
-    public  boolean hasItem(Item item) {
-        return this.item.getClass() == item.getClass() && this.item.equals(item);
+    public  boolean hasProduct(Product product) {
+        return this.product.equals(product);
     }
 
     public  boolean canApplyPromo() {
-        if (this.item.getClass() == Product.class) {
-            Product product= (Product)this.item;
-            if (product.isHasPromo()) {
-                Promotion promotion = Promotion.getPromoByProduct(product);
-                if (quantity >= promotion.getCondition()) {
-                    return true;
-                }
+        // TODO: 13/05/2017
+        if (product.isHasPromo()) {
+            Promotion promotion = Promotion.getPromoByProduct(product);
+            if (quantity >= promotion.getCondition()) {
+                return true;
             }
         }
         return false;
     }
 
 
-    public Item getItem() {
-        return item;
+    public Product getProduct() {
+        return product;
     }
 
-    public void setItem(Item item) {
-        this.item = item;
+    public void setProduct(Product product) {
+        this.product = product;
     }
 
     public int getQuantity() {
@@ -44,15 +50,41 @@ public class SalesRecordLine {
     }
 
     public void setQuantity(int quantity) {
+        // TODO: 13/05/2017 check promo
         this.quantity = quantity;
+
+        if (product.isHasPromo()) {
+            Promotion promotion = Promotion.getPromoByProduct(product);
+            if (quantity/promotion.getCondition() >= 1) {
+                PromotionLine promotionLine = new PromotionLine(promotion, quantity/promotion.getCondition());
+                this.promotionLine = promotionLine;
+            }
+        }
+    }
+
+    public PromotionLine getPromotionLine() {
+        return promotionLine;
+    }
+
+    public void setPromotionLine(PromotionLine promotionLine) {
+        this.promotionLine = promotionLine;
     }
 
     @Override
     public String toString() {
         // TODO: 11/04/2017 To String
-        return item.getName()
-                + ", price: " + item.getPrice()
-                + ", quantity: " + quantity
-                + ", total: " + quantity*item.getPrice();
+        if (promotionLine != null) {
+            return product.getName()
+                    + ", price: " + product.getPrice()
+                    + ", quantity: " + quantity
+                    + ", total: " + quantity* product.getPrice()
+                    + "\n" + promotionLine;
+        }
+        else {
+            return product.getName()
+                    + ", price: " + product.getPrice()
+                    + ", quantity: " + quantity
+                    + ", total: " + quantity* product.getPrice();
+        }
     }
 }

@@ -1,11 +1,9 @@
 package checkout.Views;
 
 import checkout.Customer.Customer;
-import checkout.Item.Product;
-import checkout.Item.Promotion;
+import checkout.Product.Product;
 import checkout.SalesRecord.SalesRecordLine;
 import checkout.SalesRecord.SalesRecord;
-
 import java.util.ArrayList;
 import java.util.Scanner;
 import static java.lang.Integer.valueOf;
@@ -69,16 +67,15 @@ public class CustomerView {
     }
 
     private static void addProductToList(ArrayList<SalesRecordLine> salesRecordArrayList, Product product, int quantity) {
-        // TODO: 05/05/2017 break down into smaller method if possible
         boolean isAlreadyOnTheList = false;
-        boolean canApplyPromo;
         int indexOfSaleRecordLine = salesRecordArrayList.size();
 
         for (int index = 0; index < salesRecordArrayList.size(); index++) {
             SalesRecordLine salesRecordLine = salesRecordArrayList.get(index);
-            if (salesRecordLine.hasItem(product)) {
+            if (salesRecordLine.hasProduct(product)) {
                 isAlreadyOnTheList = true;
                 indexOfSaleRecordLine = index;
+                // TODO: 13/05/2017 dont break
                 break;
             }
         }
@@ -88,7 +85,6 @@ public class CustomerView {
             SalesRecordLine salesRecordLine = salesRecordArrayList.get(indexOfSaleRecordLine);
             salesRecordLine.setQuantity(salesRecordLine.getQuantity() + quantity);
             salesRecordArrayList.set(indexOfSaleRecordLine, salesRecordLine);
-            canApplyPromo = salesRecordLine.canApplyPromo();
             System.out.println(salesRecordLine + "\n");
         }
         else {
@@ -96,35 +92,8 @@ public class CustomerView {
             SalesRecordLine newSalesRecordLine = new SalesRecordLine(product, quantity);
             System.out.println(newSalesRecordLine + "\n");
             salesRecordArrayList.add(newSalesRecordLine);
-            canApplyPromo = newSalesRecordLine.canApplyPromo();
         }
 
-//                Apply promo if available
-        if (canApplyPromo) {
-            boolean promoIsAlreadyOnTheList = false;
-            int indexOfPromoLine = 0;
-            Promotion promotion = Promotion.getPromoByProduct(product);
-
-            for (int index = 0; index < salesRecordArrayList.size(); index++) {
-                SalesRecordLine salesRecordLine = salesRecordArrayList.get(index);
-                if (salesRecordLine.hasItem(promotion)) {
-                    promoIsAlreadyOnTheList = true;
-                    indexOfPromoLine = index;
-                    break;
-                }
-            }
-
-            SalesRecordLine salesRecordLine = salesRecordArrayList.get(indexOfSaleRecordLine);
-            SalesRecordLine promoLine = new SalesRecordLine(promotion, salesRecordLine.getQuantity()/promotion.getCondition());
-
-            if (promoIsAlreadyOnTheList) {
-                salesRecordArrayList.set(indexOfPromoLine,promoLine);
-            }
-            else {
-                salesRecordArrayList.add(indexOfSaleRecordLine+1,promoLine);
-            }
-            System.out.println(promoLine + "\n");
-        }
     }
 
     private static ArrayList<SalesRecordLine> checkOut() {

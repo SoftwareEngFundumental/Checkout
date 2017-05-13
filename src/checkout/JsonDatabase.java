@@ -1,7 +1,6 @@
 package checkout;
 
-import checkout.Item.Item;
-import checkout.Item.Product;
+import checkout.Product.Product;
 import checkout.SalesRecord.SalesRecordLine;
 import checkout.Staff.ManagerStaff;
 import checkout.Staff.SalesStaff;

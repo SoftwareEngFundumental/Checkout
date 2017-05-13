@@ -1,18 +1,21 @@
-package checkout.Item;
+package checkout.Product;
 
 import checkout.JsonDatabase;
 import com.google.gson.reflect.TypeToken;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 
-public class Promotion extends Item{
+public class Promotion {
+    private String name;
+    private double price;
     private int condition;
     private Product appliedProduct;
     // TODO: 04/05/2017 Promo: change constructor: input discountPercentage, self calculate
 
 
-    public Promotion(String name, double price, Product appliedProduct, int condition) {
-        super(name, price);
+    public Promotion(String name, double discountAmount, Product appliedProduct, int condition) {
+        this.name = name;
+        this.price = appliedProduct.getPrice()*discountAmount;
         this.appliedProduct = appliedProduct;
         this.condition = condition;
     }
@@ -29,6 +32,17 @@ public class Promotion extends Item{
         jsonDatabase.saveObjectToJsonFile(promoArrayList, "promoList.json");
     }
 
+    public void savePromoInfoToList() {
+        ArrayList<Promotion> promotionArrayList = getPromoList();
+        for (Promotion promotionInList:promotionArrayList) {
+            if (promotionInList.equals(this)) {
+                int index = promotionArrayList.indexOf(promotionInList);
+                promotionArrayList.set(index,this);
+            }
+        }
+        Promotion.savePromoList(promotionArrayList);
+    }
+
     public static Promotion getPromoByProduct(Product product) {
         ArrayList<Promotion> promoArrayList = getPromoList();
         for (int i = 0; i < promoArrayList.size(); i++) {
@@ -40,6 +54,21 @@ public class Promotion extends Item{
         return null;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
+    }
 
     public int getCondition() {
         return condition;
@@ -61,8 +90,8 @@ public class Promotion extends Item{
     @Override
     public String toString() {
         return "Promotion{" +
-                "Name=" + super.getName() +
-                ", Price=" + super.getPrice() +
+                "Name=" + name +
+                ", Price=" + price +
                 ", condition=" + condition +
                 ", appliedProduct=" + appliedProduct +
                 '}';

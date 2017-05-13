@@ -34,6 +34,17 @@ public class CreditCard {
         jsonDatabase.saveObjectToJsonFile(creditCardsArrayList, "creditCardList.json");
     }
 
+    public void saveCreditCardInfoToList() {
+        ArrayList<CreditCard> creditCardArrayList = getCreditCardList();
+        for (CreditCard creditCardInList:creditCardArrayList) {
+            if (creditCardArrayList.equals(this)) {
+                int index = creditCardArrayList.indexOf(creditCardInList);
+                creditCardArrayList.set(index,this);
+            }
+        }
+        CreditCard.saveCreditCardList(creditCardArrayList);
+    }
+
     public int getCardNumber() {
         return cardNumber;
     }
@@ -44,6 +55,17 @@ public class CreditCard {
 
     public void setCardValue(double cardValue) {
         this.cardValue = cardValue;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        CreditCard that = (CreditCard) o;
+
+        return cardNumber == that.cardNumber;
+
     }
 
     public void rechargeValue(int amount) {

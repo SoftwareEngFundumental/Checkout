@@ -1,6 +1,6 @@
 package checkout.Staff;
 
-import checkout.Item.Product;
+import checkout.Product.Product;
 
 import java.util.ArrayList;
 

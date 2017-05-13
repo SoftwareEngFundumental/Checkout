@@ -27,14 +27,29 @@ public class SalesRecord {
     }
 
     public void applyLoyaltyPoint(Customer customer) {
-        // TODO: 04/05/2017 Loyalty Point
+        double total = getTotalAmount();
+        int point = (int) total/10;
+        customer.setPoint(customer.getPoint()+point);
+        Customer.saveCustomerInfoToList(customer);
     }
 
-    public static ArrayList<SalesRecordLine> getSalesRecord(String filename) {
+    public double getTotalAmount() {
+        double total = 0;
+        for (SalesRecordLine salesRecordLine:this.recordLines) {
+            total += salesRecordLine.getProduct().getPrice()*salesRecordLine.getQuantity();
+            if (salesRecordLine.getPromotionLine() != null) {
+                PromotionLine promotionLine = salesRecordLine.getPromotionLine();
+                total += promotionLine.getPromotion().getPrice();
+            }
+        }
+        return total;
+    }
+
+    public static ArrayList<SalesRecordLine> getSaleRecord(String filename) {
         filename = "Sales Record/" + filename;
-        Type productListType = new TypeToken<ArrayList<SalesRecordLine>>() {}.getType();
+        Type salesRecordType = new TypeToken<ArrayList<SalesRecordLine>>() {}.getType();
         JsonDatabase jsonDatabase = new JsonDatabase();
-        return jsonDatabase.readObjectFromFile(filename, productListType);
+        return jsonDatabase.readObjectFromFile(filename, salesRecordType);
     }
 
     @Override

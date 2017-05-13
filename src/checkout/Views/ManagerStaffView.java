@@ -1,6 +1,6 @@
 package checkout.Views;
 
-import checkout.Item.Product;
+import checkout.Product.Product;
 
 import java.io.File;
 import java.util.ArrayList;

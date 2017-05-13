@@ -45,6 +45,17 @@ public class Customer
         jsonDatabase.saveObjectToJsonFile(customerArrayList, "customerList.json");
     }
 
+    public void saveCustomerInfoToList() {
+        ArrayList<Customer> customerList = getCustomerList();
+        for (Customer customerInList:customerList) {
+            if (customerInList.equals(this)) {
+                int index = customerList.indexOf(customerInList);
+                customerList.set(index,this);
+            }
+        }
+        saveCustomerList(customerList);
+    }
+
     public static Customer getCustomerByID(String ID) {
         ArrayList<Customer> customerArrayList = getCustomerList();
         for (int i = 0; i < customerArrayList.size(); i++) {
