@@ -1,0 +1,1 @@
+[{"product":{"ID":1,"name":"Apple","price":1.5,"quantity":480,"hasPromo":true},"quantity":10,"promotionLine":{"promotion":{"name":"10 Apple Save 2 Dollar","price":-2.0,"condition":10,"appliedProduct":{"ID":1,"name":"Apple","price":1.5,"quantity":470,"hasPromo":false}},"quantity":1}},{"product":{"ID":2,"name":"Book","price":2.8,"quantity":431,"hasPromo":false},"quantity":5}]
