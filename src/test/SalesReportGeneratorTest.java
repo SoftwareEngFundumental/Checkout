@@ -36,6 +36,8 @@ public class SalesReportGeneratorTest
     @Test
     public void generateReportString() throws Exception
     {
+        // Generate string save, see if the file exists later on.
+        // Since this cannot be parsed again, a human is needed in order to check if the file is correctly generated.
         salesReportGenerator.generateReportString("Sales Record/", "report.txt",
                 new DatePeriod(2017, 5,1,2017,6,1));
         File file = new File("report.txt");
@@ -50,7 +52,6 @@ public class SalesReportGeneratorTest
         reportPngGenerator.generatePicFromTextFile("report.txt", "report.png");
         File file = new File("report.png");
         assertTrue(file.exists());
-        assertTrue(file.getTotalSpace() > 1);
     }
 
 }
