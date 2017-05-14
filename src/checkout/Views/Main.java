@@ -17,13 +17,22 @@ public class Main {
 
         switch (input) {
             case "1":
+            {
                 Customer customer = Customer.scanCustomerID();
                 CustomerView.main(customer);
                 break;
+            }
             case "2":
+            {
                 StaffView.main(args);
                 break;
+            }
             default:
+            {
+                System.out.println("[ERROR] Invalid input, try again.\n");
+                Main.main(args);
+                break;
+            }
 
         }
     }
