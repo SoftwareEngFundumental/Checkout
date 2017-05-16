@@ -59,12 +59,12 @@ public class StaffManagement
         }
 
         // Set the status of password check
-        Boolean passwordCheck = staff.getUserPassword().equals(userPassword);
+        boolean passwordCheck = staff.getUserPassword().equals(userPassword);
         staff.setUserLoginStatus(passwordCheck);
         return new LoginResult(passwordCheck, staff);
     }
 
-    public Boolean createUser(StaffType staffType, String userName, String userPassword)
+    public boolean createUser(StaffType staffType, String userName, String userPassword)
     {
         // Generate user ID (int)
         int newUserId = getNewUserId(getStaffList());
@@ -107,21 +107,21 @@ public class StaffManagement
 
     }
 
-    public Boolean deleteUser(int userId)
+    public boolean deleteUser(int userId)
     {
         Staff staff = findUserFromList(userId);
 
         return(staff != null && this.getStaffList().remove(staff));
     }
 
-    public Boolean deleteUser(String userName)
+    public boolean deleteUser(String userName)
     {
         Staff staff = findUserFromList(userName);
 
         return(staff != null && this.getStaffList().remove(staff));
     }
 
-    public Boolean changeUserPassword(int userId, String userOldPassword, String userNewPassword)
+    public boolean changeUserPassword(int userId, String userOldPassword, String userNewPassword)
     {
         Staff staff = findUserFromList(userId);
 
@@ -137,7 +137,7 @@ public class StaffManagement
         }
     }
 
-    public Boolean changeUserPassword(String userName, String userOldPassword, String userNewPassword)
+    public boolean changeUserPassword(String userName, String userOldPassword, String userNewPassword)
     {
         Staff staff = findUserFromList(userName);
 
@@ -153,19 +153,19 @@ public class StaffManagement
         }
     }
 
-    public Boolean userLogout(String userName)
+    public boolean userLogout(String userName)
     {
         Staff staff = findUserFromList(userName);
         return _doUserLogout(staff);
     }
 
-    public Boolean userLogout(int userId)
+    public boolean userLogout(int userId)
     {
         Staff staff = findUserFromList(userId);
         return _doUserLogout(staff);
     }
 
-    private Boolean _doUserLogout(Staff staff)
+    private boolean _doUserLogout(Staff staff)
     {
         if(staff != null)
         {
