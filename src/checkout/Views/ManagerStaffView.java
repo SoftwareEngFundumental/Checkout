@@ -11,7 +11,6 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.InputMismatchException;
 import java.util.Scanner;
 
 
@@ -34,17 +33,7 @@ public class ManagerStaffView
         Scanner scanner = new Scanner(System.in);
 
         // Record user choice
-        int userChoice = -1;
-
-        try
-        {
-            userChoice = scanner.nextInt();
-        }
-        catch(InputMismatchException exception)
-        {
-            System.out.println("[ERROR] Invalid input detected, please try again\n");
-            getMonthReport();
-        }
+        int userChoice = scanner.nextInt();
 
         // Clean up next line, otherwise the new line character will still exist in the buffer
         // which will causes other issues later on.
@@ -71,12 +60,11 @@ public class ManagerStaffView
             }
             case 5:
             {
-                Main.main(null);
                 break;
             }
             default:
             {
-                System.out.println("[ERROR] Invalid input detected, please try again.\n");
+                System.out.println("[ERROR] Wrong input, please try again...\n\n");
                 main(null);
             }
         }
@@ -85,128 +73,57 @@ public class ManagerStaffView
 
     public static void getMonthReport()
     {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("\n[[ MANAGER - SALES REPORT GENERATOR ]]\n");
+        System.out.println("Now please enter a period of time to generate the report.");
+        System.out.print("Enter the start year (1900 to now): ");
+        int startYear = scanner.nextInt();
+        scanner.nextLine(); // Clear up the input buffer
+        System.out.print("\nEnter the start month (1 to 12): ");
+        int startMonth = scanner.nextInt();
+        scanner.nextLine(); // Clear up the input buffer
+        System.out.print("\nEnter the start date (1 to 31): ");
+        int startDate = scanner.nextInt();
+        scanner.nextLine(); // Clear up the input buffer
+        System.out.print("\nEnter the end year (1900 to now): ");
+        int endYear = scanner.nextInt();
+        scanner.nextLine(); // Clear up the input buffer
+        System.out.print("\nEnter the end month (1900 to now): ");
+        int endMonth = scanner.nextInt();
+        scanner.nextLine(); // Clear up the input buffer
+        System.out.print("\nEnter the end date (1900 to now): ");
+        int endDate = scanner.nextInt();
+        scanner.nextLine(); // Clear up the input buffer
+        System.out.print("\nEnter the path for report: ");
+        String reportPath = scanner.nextLine();
+
+
+        SalesReportGenerator salesReportGenerator = new SalesReportGenerator();
+        ReportPngGenerator reportPngGenerator = new ReportPngGenerator();
+
         try
         {
-            Scanner scanner = new Scanner(System.in);
-            System.out.println("\n[[ MANAGER - SALES REPORT GENERATOR ]]\n");
-            System.out.println("Now please enter a period of time to generate the report.");
-
-            System.out.println(
-                    "You can choose by: \n" +
-                            "1. ...entering the specified date period\n" +
-                            "2. ...entering the most recent X months \n"
-            );
-
-
-            // Record user choice
-            int userChoice = scanner.nextInt();
-
-            // Clean up next line, otherwise the new line character will still exist in the buffer
-            // which will causes other issues later on.
-            scanner.nextLine();
-
-            switch(userChoice)
-            {
-                case 1:
-                {
-                    System.out.print("Enter the start year (1900 to now): ");
-                    int startYear = scanner.nextInt();
-                    scanner.nextLine(); // Clear up the input buffer
-                    System.out.print("\nEnter the start month (1 to 12): ");
-                    int startMonth = scanner.nextInt();
-                    scanner.nextLine(); // Clear up the input buffer
-                    System.out.print("\nEnter the start date (1 to 31): ");
-                    int startDate = scanner.nextInt();
-                    scanner.nextLine(); // Clear up the input buffer
-                    System.out.print("\nEnter the end year (1900 to now): ");
-                    int endYear = scanner.nextInt();
-                    scanner.nextLine(); // Clear up the input buffer
-                    System.out.print("\nEnter the end month (1900 to now): ");
-                    int endMonth = scanner.nextInt();
-                    scanner.nextLine(); // Clear up the input buffer
-                    System.out.print("\nEnter the end date (1900 to now): ");
-                    int endDate = scanner.nextInt();
-                    scanner.nextLine(); // Clear up the input buffer
-                    System.out.print("\nEnter the path for report: ");
-                    String reportPath = scanner.nextLine();
-
-
-                    SalesReportGenerator salesReportGenerator = new SalesReportGenerator();
-                    ReportPngGenerator reportPngGenerator = new ReportPngGenerator();
-
-                    try
-                    {
-                        salesReportGenerator.generateReportString("Sales Record/", reportPath + ".txt",
-                                new DatePeriod(startYear, startMonth, startDate, endYear, endMonth, endDate));
-                        reportPngGenerator.generatePicFromTextFile(reportPath + ".txt", reportPath + ".png");
-                    }
-                    catch (FileNotFoundException exception)
-                    {
-                        System.out.println("[ERROR] Record file not found! Please try again!");
-                        getMonthReport();
-                    }
-                    catch (ParseException exception)
-                    {
-                        System.out.println("[ERROR] Record file corrupted!");
-                        getMonthReport();
-                    }
-                    catch (IOException exception)
-                    {
-                        System.out.println("[ERROR] Failed to read/write the files!");
-                        getMonthReport();
-                    }
-
-                    break;
-                }
-
-                case 2:
-                {
-                    System.out.print("Enter the most recent months value: ");
-                    int month = scanner.nextInt();
-                    scanner.nextLine(); // Clear up the input buffer
-
-                    SalesReportGenerator salesReportGenerator = new SalesReportGenerator();
-                    ReportPngGenerator reportPngGenerator = new ReportPngGenerator();
-
-                    System.out.print("\nEnter the path for report: ");
-                    String reportPath = scanner.nextLine();
-
-                    try
-                    {
-                        salesReportGenerator.generateReportString("Sales Record/", reportPath + ".txt",
-                                new DatePeriod(month));
-                        reportPngGenerator.generatePicFromTextFile(reportPath + ".txt", reportPath + ".png");
-                    }
-                    catch (FileNotFoundException exception)
-                    {
-                        System.out.println("[ERROR] Record file not found! Please try again!");
-                        getMonthReport();
-                    }
-                    catch (ParseException exception)
-                    {
-                        System.out.println("[ERROR] Record file corrupted!");
-                        getMonthReport();
-                    }
-                    catch (IOException exception)
-                    {
-                        System.out.println("[ERROR] Failed to read/write the files!");
-                        getMonthReport();
-                    }
-
-                    break;
-                }
-
-            }
-
-
-
-            ManagerStaffView.main(null);
+            salesReportGenerator.generateReportString("Sales Record/", reportPath + ".txt",
+                    new DatePeriod(startYear, startMonth, startDate, endYear, endMonth, endDate));
+            reportPngGenerator.generatePicFromTextFile(reportPath + ".txt", reportPath + ".png");
         }
-        catch(InputMismatchException exception)
+        catch (FileNotFoundException exception)
         {
-            System.out.println("[ERROR] Invalid input detected, please try again\n");
+            System.out.println("[ERROR] Record file not found! Please try again!");
             getMonthReport();
         }
+        catch (ParseException exception)
+        {
+            System.out.println("[ERROR] Record file corrupted!");
+            getMonthReport();
+        }
+        catch (IOException exception)
+        {
+            System.out.println("[ERROR] Failed to read/write the files!");
+            getMonthReport();
+        }
+
+        ManagerStaffView.main(null);
     }
 
     public void placeOrder() {

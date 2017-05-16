@@ -21,19 +21,18 @@ public class SalesRecordLine {
         }
     }
 
+
     public  boolean hasProduct(Product product) {
         return this.product.equals(product);
     }
 
-    public  boolean canApplyPromo() {
-        // TODO: 13/05/2017
-        if (product.isHasPromo()) {
-            Promotion promotion = Promotion.getPromoByProduct(product);
-            if (quantity >= promotion.getCondition()) {
-                return true;
-            }
+    public double totalCost() {
+        double total = product.getPrice()*quantity;
+
+        if (promotionLine != null) {
+            total += promotionLine.totalCost();
         }
-        return false;
+        return total;
     }
 
 

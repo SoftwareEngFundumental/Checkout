@@ -10,8 +10,6 @@ public class Promotion {
     private double price;
     private int condition;
     private Product appliedProduct;
-    // TODO: 04/05/2017 Promo: change constructor: input discountPercentage, self calculate
-
 
     public Promotion(String name, double discountAmount, Product appliedProduct, int condition) {
         this.name = name;

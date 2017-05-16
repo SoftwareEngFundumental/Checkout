@@ -22,6 +22,9 @@ public class CreditCard {
         cardValue = initialValue;
     }
 
+    public CreditCard() {
+        this(0);
+    }
 
     public static ArrayList<CreditCard> getCreditCardList() {
         Type creditCardListType = new TypeToken<ArrayList<CreditCard>>() {}.getType();

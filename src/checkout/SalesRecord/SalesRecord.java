@@ -27,20 +27,16 @@ public class SalesRecord {
     }
 
     public void applyLoyaltyPoint(Customer customer) {
-        double total = getTotalAmount();
+        double total = totalCost();
         int point = (int) total/10;
         customer.setPoint(customer.getPoint()+point);
         customer.saveCustomerInfoToList();
     }
 
-    public double getTotalAmount() {
+    public double totalCost() {
         double total = 0;
         for (SalesRecordLine salesRecordLine:this.recordLines) {
-            total += salesRecordLine.getProduct().getPrice()*salesRecordLine.getQuantity();
-            if (salesRecordLine.getPromotionLine() != null) {
-                PromotionLine promotionLine = salesRecordLine.getPromotionLine();
-                total += promotionLine.getPromotion().getPrice();
-            }
+            total += salesRecordLine.totalCost();
         }
         return total;
     }

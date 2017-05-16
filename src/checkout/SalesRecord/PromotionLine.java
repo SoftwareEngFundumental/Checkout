@@ -30,6 +30,10 @@ public class PromotionLine {
                 + ", quantity: " + quantity
                 + ", total: " + quantity*promotion.getPrice();
     }
+
+    public double totalCost() {
+        return promotion.getPrice()*quantity;
+    }
 }
 
 

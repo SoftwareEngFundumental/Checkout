@@ -32,6 +32,10 @@ public class Product {
         this.hasPromo = false;
     }
 
+    public Product(String name, double price) {
+        this(name, price, 0);
+    }
+
 
     public static ArrayList<Product> getProductList() {
         Type productListType = new TypeToken<ArrayList<Product>>() {}.getType();
