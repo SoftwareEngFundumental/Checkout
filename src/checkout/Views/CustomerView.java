@@ -93,13 +93,33 @@ public class CustomerView {
 
 
 
-    public static void main(Customer customer)
-    {
-        ArrayList<SalesRecordLine> salesRecordArrayList = checkOut();
+    public static void main(Customer customer) {
+        Scanner scanner = new Scanner(System.in);
 
-        SalesRecord salesRecord = new SalesRecord(salesRecordArrayList);
-        salesRecord.applyLoyaltyPoint(customer);
-        salesRecord.saveSaleRecord(customer);
-        System.out.println("\n" + salesRecord);
+        System.out.println("1. Check Out.\n" +
+                "2. New customer? Join us.");
+        System.out.print(">:");
+        String input = scanner.nextLine();
+
+        switch (input) {
+            case "2":
+
+                break;
+            case "1":
+                SalesRecord salesRecord = new SalesRecord(checkOut());
+
+                salesRecord.applyLoyaltyPoint(customer);
+                salesRecord.saveSaleRecord(customer);
+
+                System.out.println("\n" + salesRecord);
+                System.out.println("Thank you for shopping with us. Have a nice day.");
+                break;
+            default:
+                System.out.println("invalid input. Please choose again.");
+        }
+        CustomerView.main(customer);
+
+        // TODO: 16/05/2017 create new Customer
+
     }
 }
