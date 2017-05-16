@@ -1,5 +1,6 @@
 package checkout.Views;
 
+import checkout.Customer.CreditCard;
 import checkout.Customer.Customer;
 import checkout.Product.Product;
 import checkout.SalesRecord.SalesRecordLine;
@@ -103,7 +104,12 @@ public class CustomerView {
 
         switch (input) {
             case "2":
+                Scanner customerInput = new Scanner(System.in);
 
+                System.out.println("Please enter your name");
+                String name = customerInput.nextLine();
+
+                Customer newCustomer = new Customer(name, new CreditCard());
                 break;
             case "1":
                 Customer customer = Customer.scanCustomerID();
