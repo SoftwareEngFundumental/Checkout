@@ -18,8 +18,7 @@ public class Main {
         switch (input) {
             case "1":
             {
-                Customer customer = Customer.scanCustomerID();
-                CustomerView.main(customer);
+                CustomerView.main();
                 break;
             }
             case "2":

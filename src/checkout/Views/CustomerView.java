@@ -93,7 +93,7 @@ public class CustomerView {
 
 
 
-    public static void main(Customer customer) {
+    public static void main() {
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("1. Check Out.\n" +
@@ -106,6 +106,7 @@ public class CustomerView {
 
                 break;
             case "1":
+                Customer customer = Customer.scanCustomerID();
                 SalesRecord salesRecord = new SalesRecord(checkOut());
 
                 salesRecord.applyLoyaltyPoint(customer);
