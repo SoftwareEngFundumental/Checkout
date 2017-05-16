@@ -70,6 +70,29 @@ public class Product {
         return null;
     }
 
+
+    public static int askForQuantity() {
+        Scanner scanner = new Scanner(System.in);
+        int quantity = 0;
+        boolean validInput = false;
+
+        while (!validInput) {
+            System.out.print("Enter the quantity: ");
+            String scanInput = scanner.nextLine();
+            try {
+                valueOf(scanInput);
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid input. Please enter quantity again?\n");
+                continue;
+            }
+            if (valueOf(scanInput) > 0) {
+                quantity = valueOf(scanInput);
+                validInput = true;
+            }
+        }
+        return quantity;
+    }
+
     public static Product scanProductID() {
         Scanner scanner = new Scanner(System.in);
         boolean validInput = false;

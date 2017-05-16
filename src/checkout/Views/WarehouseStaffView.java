@@ -7,32 +7,10 @@ import static java.lang.Integer.valueOf;
 
 public class WarehouseStaffView {
 
-    private static int askForQuantity() {
-        Scanner scanner = new Scanner(System.in);
-        int quantity = 0;
-        boolean validInput = false;
-
-        while (!validInput) {
-            System.out.print("Enter the quantity: ");
-            String scanInput = scanner.nextLine();
-            try {
-                valueOf(scanInput);
-            } catch (NumberFormatException e) {
-                System.out.println("Invalid input. Please enter quantity again?\n");
-                continue;
-            }
-            if (valueOf(scanInput) > 0) {
-                quantity = valueOf(scanInput);
-                validInput = true;
-            }
-        }
-        return quantity;
-    }
-
     private static void restock() {
         Scanner scanner = new Scanner(System.in);
         Product product = Product.scanProductID();
-        int quantity = askForQuantity();
+        int quantity = Product.askForQuantity();
 
         product.setQuantity(product.getQuantity() + quantity);
         product.saveProductInfoToList();
@@ -41,7 +19,7 @@ public class WarehouseStaffView {
     private static void setProductQuantity() {
         Scanner scanner = new Scanner(System.in);
         Product product = Product.scanProductID();
-        int quantity = askForQuantity();
+        int quantity = Product.askForQuantity();
 
         product.setQuantity(quantity);
         product.saveProductInfoToList();

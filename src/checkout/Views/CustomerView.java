@@ -44,28 +44,6 @@ public class CustomerView {
     return product;
     }
 
-    private static int askForQuantity() {
-        Scanner scanner = new Scanner(System.in);
-        int quantity = 0;
-        boolean validInput = false;
-
-        while (!validInput) {
-            System.out.print("Enter the quantity: ");
-            String scanInput = scanner.nextLine();
-            try {
-                valueOf(scanInput);
-            } catch (NumberFormatException e) {
-                System.out.println("Invalid input. Please enter quantity again?\n");
-                continue;
-            }
-            if (valueOf(scanInput) > 0) {
-                quantity = valueOf(scanInput);
-                validInput = true;
-            }
-        }
-        return quantity;
-    }
-
     private static void addProductToList(ArrayList<SalesRecordLine> salesRecordArrayList, Product product, int quantity) {
         boolean isAlreadyOnTheList = false;
         int indexOfSaleRecordLine = salesRecordArrayList.size();
@@ -106,7 +84,7 @@ public class CustomerView {
                 doneEnteringItem = true;
                 continue;
             }
-            int quantity = askForQuantity();
+            int quantity = Product.askForQuantity();
             Product.deductQuantity(product, quantity);
             addProductToList(salesRecordArrayList,product,quantity);
         }

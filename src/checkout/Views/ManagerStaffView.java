@@ -5,7 +5,6 @@ import checkout.Staff.ManagerStaff;
 import checkout.util.DatePeriod;
 import reportgen.SalesReportGenerator;
 import reportgen.report2png.ReportPngGenerator;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
