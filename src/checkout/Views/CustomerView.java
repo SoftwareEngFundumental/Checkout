@@ -118,7 +118,7 @@ public class CustomerView {
             default:
                 System.out.println("invalid input. Please choose again.");
         }
-        CustomerView.main(customer);
+        CustomerView.main();
 
         // TODO: 16/05/2017 create new Customer
 
