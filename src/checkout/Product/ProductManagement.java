@@ -8,9 +8,6 @@ import checkout.SalesRecord.SalesRecordLine;
 import checkout.util.*;
 import com.google.gson.reflect.TypeToken;
 
-/**
- * Created by hu on 16/5/17.
- */
 public class ProductManagement
 {
     private ArrayList<Product> productList;
