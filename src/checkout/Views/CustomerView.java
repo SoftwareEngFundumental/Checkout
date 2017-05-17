@@ -26,8 +26,13 @@ public class CustomerView {
             try {
                 valueOf(scanInput);
             } catch (NumberFormatException e) {
-                System.out.println("Cannot find product. Please scan again. \n");
-                continue;
+                if (scanInput.equals("staff")) {
+                    StaffView.main(null);
+                }
+                else {
+                    System.out.println("Cannot find product. Please scan again. \n");
+                    continue;
+                }
 //            String
                 // TODO: 07/05/2017 check for sales staff
             }
