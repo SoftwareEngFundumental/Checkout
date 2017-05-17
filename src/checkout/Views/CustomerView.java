@@ -96,6 +96,7 @@ public class CustomerView {
     public static void main() {
         Scanner scanner = new Scanner(System.in);
 
+
         System.out.println("1. Check Out.\n" +
                 "2. New customer? Join us.");
         System.out.print(">:");
