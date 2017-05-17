@@ -56,6 +56,7 @@ public class StaffView
             {
                 case SALES:
                 {
+                    SalesStaffView.main(null);
                     break;
                 }
                 case MANAGER:
