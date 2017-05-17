@@ -4,10 +4,6 @@ import checkout.Customer.Customer;
 import checkout.Product.Product;
 import checkout.SalesRecord.SalesRecordLine;
 import checkout.SalesRecord.SalesRecord;
-import checkout.Staff.SalesStaff;
-import checkout.Staff.Staff;
-import checkout.Staff.StaffManagement;
-
 import java.util.ArrayList;
 import java.util.Scanner;
 import static java.lang.Integer.valueOf;
@@ -30,14 +26,10 @@ public class CustomerView {
             try {
                 valueOf(scanInput);
             } catch (NumberFormatException e) {
-
-                if (scanInput.equals("staff")) {
-                    SalesStaffView.main(null);
-                }
-                else {
-                    System.out.println("Cannot find product. Please scan again. \n");
-                    continue;
-                }
+                System.out.println("Cannot find product. Please scan again. \n");
+                continue;
+//            String
+                // TODO: 07/05/2017 check for sales staff
             }
 
             validInput = true;
@@ -110,6 +102,9 @@ public class CustomerView {
         String input = scanner.nextLine();
 
         switch (input) {
+            case "2":
+
+                break;
             case "1":
                 Customer customer = Customer.scanCustomerID();
                 SalesRecord salesRecord = new SalesRecord(checkOut());
@@ -119,9 +114,6 @@ public class CustomerView {
 
                 System.out.println("\n" + salesRecord);
                 System.out.println("Thank you for shopping with us. Have a nice day.");
-                break;
-            case "2":
-
                 break;
             default:
                 System.out.println("invalid input. Please choose again.");
