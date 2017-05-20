@@ -27,7 +27,7 @@ public class CustomerView {
                 valueOf(scanInput);
             } catch (NumberFormatException e) {
                 if (scanInput.equals("staff")) {
-                    StaffView.main(null);
+                    StaffLoginView.main();
                 }
                 else {
                     System.out.println("Cannot find product. Please scan again. \n");

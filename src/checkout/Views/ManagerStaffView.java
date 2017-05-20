@@ -1,21 +1,30 @@
 package checkout.Views;
 
-import checkout.Product.Product;
-import checkout.Staff.ManagerStaff;
+import checkout.Staff.*;
 import checkout.util.DatePeriod;
 import reportgen.SalesReportGenerator;
 import reportgen.report2png.ReportPngGenerator;
-import java.io.File;
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.ParseException;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 
 public class ManagerStaffView
 {
-    public static void main(String args[])
+    private ManagerStaff managerStaff = null;
+    private StaffManagement staffManagement = null;
+    private LoginToken loginToken = null;
+    
+    public ManagerStaffView(ManagerStaff staff, StaffManagement staffManagement, LoginToken loginToken)
+    {
+        this.managerStaff = staff;
+        this.staffManagement = staffManagement;
+        this.loginToken = loginToken;
+    }
+    
+    public void managerMain()
     {
         System.out.println("\n[[ MANAGER - MAIN MENU ]]\n");
         System.out.println(
@@ -24,7 +33,12 @@ public class ManagerStaffView
                         "2. Set discount/promo \n" +
                         "3. Set prices\n" +
                         "4. List product revenue\n" +
-                        "5. Return to main staff menu\n"
+                        "5. Add Staff\n" +
+                        "6. Remove Staff\n" +
+                        "7. Change a staff's password\n" +
+                        "8. Save staff details to disk\n" +
+                        "9. Load staff details from disk\n" + 
+                        "10. Log out and return staff login view\n"
         );
 
 
@@ -59,18 +73,45 @@ public class ManagerStaffView
             }
             case 5:
             {
+                addStaff();
                 break;
+            }
+            case 6:
+            {
+                removeUser();
+                break;
+            }
+            case 7:
+            {
+                changePassword();
+                break;
+            }
+            case 8:
+            {
+                System.out.println("[INFO] Try saving cache to staff.json...");
+                staffManagement.saveUsersToFile("staff.json");
+                break;
+            }
+            case 9:
+            {
+                System.out.println("[INFO] Try to load staff.json...");
+;               staffManagement.loadUsersFromFile("staff.json");
+                break;
+            }
+            case 10:
+            {
+                managerLogOut();
             }
             default:
             {
                 System.out.println("[ERROR] Wrong input, please try again...\n\n");
-                main(null);
+                managerMain();
             }
         }
 
     }
 
-    public static void getMonthReport()
+    public void getMonthReport()
     {
         Scanner scanner = new Scanner(System.in);
         System.out.println("\n[[ MANAGER - SALES REPORT GENERATOR ]]\n");
@@ -122,7 +163,7 @@ public class ManagerStaffView
             getMonthReport();
         }
 
-        ManagerStaffView.main(null);
+        managerMain();
     }
 
     public void placeOrder() {
@@ -146,5 +187,121 @@ public class ManagerStaffView
         //    Print productID, product name and revenue amount.
         //    Revenue amount = amount made from transactions.
 
+    }
+
+    private void addStaff()
+    {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("\nEnter user name: ");
+        String userName = scanner.nextLine();
+        System.out.print("\nEnter password: ");
+        String userPassword = scanner.nextLine();
+        System.out.println("\nEnter user type: ");
+        System.out.print("\n(Hint: it can be MANAGER, WAREHOUSE or SALES): ");
+        String userTypeName = scanner.nextLine().toUpperCase();
+
+
+        if(userName.length() < 1 && userPassword.length() < 1)
+        {
+            System.out.println("\n\n[Error] Invalid input for user name/password, please try again.");
+            addStaff();
+        }
+
+
+        StaffType staffType = null;
+
+        try
+        {
+            staffType = StaffType.valueOf(userTypeName);
+        }
+        catch(IllegalArgumentException illegalInputException)
+        {
+            System.out.println("\n\n[Error] Invalid input for user type, please try again.");
+            addStaff();
+        }
+
+
+        staffManagement.createUser(staffType, userName, userPassword);
+
+        System.out.println(String.format(
+                "\n\n-------------------\n" +
+                        "New user details:\n" +
+                        "Username: %s\n" +
+                        "User password: %s\n" +
+                        "User type %s\n" +
+                        "-------------------\n", userName, userPassword, userTypeName));
+
+        System.out.print("\nAdd more users?? (Y or N) ");
+        String userAddMore = scanner.nextLine();
+
+        if(userAddMore.toUpperCase().contains("Y"))
+        {
+            addStaff();
+        }
+        else
+        {
+            managerMain();
+        }
+    }
+
+    private void managerLogOut()
+    {
+        Scanner scanner = new Scanner(System.in);
+
+        if(staffManagement.userLogout(loginToken.getStaff().getUserName()))
+        {
+            System.out.println("[INFO] Try saving cache to staff.json...");
+            staffManagement.saveUsersToFile("staff.json");
+            System.out.println("[INFO] Log out successful!!");
+            StaffLoginView.main();
+        }
+        else
+        {
+            System.out.println("[INFO] Log out FAILED!");
+            StaffLoginView.main();
+        }
+    }
+
+
+    private void removeUser()
+    {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("\nEnter username: ");
+        String userName = scanner.nextLine();
+
+        if(staffManagement.deleteUser(userName))
+        {
+            System.out.println("Remove successful!!");
+            managerMain();
+        }
+        else
+        {
+            System.out.println("Remove FAILED!");
+            managerMain();
+        }
+    }
+
+    private void changePassword()
+    {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("\nEnter username: ");
+        String userName = scanner.nextLine();
+        System.out.print("\nEnter current password: ");
+        String userOldPassword = scanner.nextLine();
+        System.out.print("\nEnter new password: ");
+        String userNewPassword = scanner.nextLine();
+
+        if(staffManagement.changeUserPassword(userName, userOldPassword, userNewPassword))
+        {
+            System.out.println("Change successful!!");
+            managerMain();
+        }
+        else
+        {
+            System.out.println("Change FAILED!");
+            managerMain();
+        }
     }
 }

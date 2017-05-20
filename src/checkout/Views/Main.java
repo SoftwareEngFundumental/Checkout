@@ -1,6 +1,4 @@
 package checkout.Views;
-import checkout.Customer.Customer;
-import java.io.FileNotFoundException;
 import java.util.Scanner;
 
 import static java.lang.Integer.valueOf;
@@ -23,7 +21,7 @@ public class Main {
             }
             case "2":
             {
-                StaffView.main(args);
+                StaffLoginView.main();
                 break;
             }
             default:

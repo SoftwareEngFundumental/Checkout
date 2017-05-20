@@ -1,12 +1,12 @@
 package checkout.Staff;
 
 
-public class LoginResult
+public class LoginToken
 {
     private Boolean loginStatus;
     private Staff staff;
 
-    public LoginResult(Boolean loginStatus, Staff staff)
+    public LoginToken(Boolean loginStatus, Staff staff)
     {
         this.loginStatus = loginStatus;
         this.staff = staff;

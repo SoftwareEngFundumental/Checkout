@@ -25,7 +25,7 @@ public class WarehouseStaffView {
         product.saveProductInfoToList();
     }
 
-    public static void main(String[] args) {
+    public static void main() {
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("1. Restock product\n" +
@@ -41,8 +41,8 @@ public class WarehouseStaffView {
                 setProductQuantity();
                 break;
             default:
-                System.out.println("Invalid input. Please enter again.\n");
-                main(args);
+                System.out.println("Invalid input. Please try again.\n");
+                main();
         }
     }
 }
