@@ -3,6 +3,7 @@ package checkout.Views;
 import checkout.Staff.LoginToken;
 import checkout.Staff.ManagerStaff;
 import checkout.Staff.StaffManagement;
+import checkout.Staff.WarehouseStaff;
 
 import java.util.*;
 import java.lang.*;
@@ -32,6 +33,9 @@ public class StaffLoginView
             {
                 case WAREHOUSE:
                 {
+                    WarehouseStaffView warehouseStaffView = new WarehouseStaffView(
+                            (WarehouseStaff)loginToken.getStaff(), staffManagement, loginToken);
+                    warehouseStaffView.warehouseMain();
                     break;
                 }
                 case MANAGER:
