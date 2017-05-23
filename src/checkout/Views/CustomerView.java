@@ -10,7 +10,7 @@ import static java.lang.Integer.valueOf;
 
 public class CustomerView {
 
-    private static Product askForProduct() {
+    private static Product askForProduct(ArrayList<SalesRecordLine> salesRecordArrayList) {
         Scanner scanner = new Scanner(System.in);
         Product product = null;
         boolean validInput = false;
@@ -27,14 +27,12 @@ public class CustomerView {
                 valueOf(scanInput);
             } catch (NumberFormatException e) {
                 if (scanInput.equals("staff")) {
-                    StaffView.main(null);
+                    SalesStaffView.main(salesRecordArrayList);
                 }
                 else {
                     System.out.println("Cannot find product. Please scan again. \n");
-                    continue;
                 }
-//            String
-                // TODO: 07/05/2017 check for sales staff
+                continue;
             }
 
             validInput = true;
@@ -58,7 +56,7 @@ public class CustomerView {
             if (salesRecordLine.hasProduct(product)) {
                 isAlreadyOnTheList = true;
                 indexOfSaleRecordLine = index;
-                // TODO: 13/05/2017 dont break
+                // TODO: 13/05/2017 don't break
                 break;
             }
         }
@@ -84,7 +82,7 @@ public class CustomerView {
         ArrayList<SalesRecordLine> salesRecordArrayList = new ArrayList<>();
 
         while (!doneEnteringItem) {
-            Product product = askForProduct();
+            Product product = askForProduct(salesRecordArrayList);
             if (product == null) {
                 doneEnteringItem = true;
                 continue;
