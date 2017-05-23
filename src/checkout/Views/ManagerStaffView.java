@@ -62,6 +62,7 @@ public class ManagerStaffView
             }
             case 2:
             {
+                changePromo();
                 break;
             }
             case 3:
@@ -194,7 +195,9 @@ public class ManagerStaffView
             scanner.nextLine(); // Clear up the input buffer
         }
 
+        System.out.println("[INFO] Record added, saving product to disk...");
         productManagement.saveToFile("productList.json");
+        managerMain();
     }
 
     private void changePromo()
@@ -232,13 +235,14 @@ public class ManagerStaffView
         // Save the promo
         if(promotionManagement.addPromotion(promoInfo, promoPrice, selectedProduct, promoCondition))
         {
-            System.out.println("\n[ERROR] Failed to add promotion, may be it has already recorded.\n");
-            changePromo();
+            System.out.println("\n[INFO] Promo added, will be save to disk.\n");
+            promotionManagement.saveToFile("promoList.json");
+            managerMain();
         }
         else
         {
-            System.out.println("\n[INFO] Promo added, will be save to disk.\n");
-            productManagement.saveToFile("promoList.json");
+            System.out.println("\n[ERROR] Failed to add promotion, may be it has already recorded.\n");
+            changePromo();
         }
 
     }
@@ -337,7 +341,7 @@ public class ManagerStaffView
         else
         {
             System.out.println("[INFO] Log out FAILED!");
-            StaffLoginView.main();
+            Main.main(null);
         }
     }
 
