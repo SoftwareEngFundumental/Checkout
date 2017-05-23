@@ -1,7 +1,7 @@
 package reportgen.report2png;
 
 /**
- * Created by hu on 25/4/17.
+ * Tested by myself. Basically MEDIUM is recommended.
  */
 public final class QualityValues
 {

@@ -15,8 +15,8 @@ public class SalesReportGenerator
         // Put all files' name in the directory into the name list, then parse it later.
         ArrayList<String> fileNames = new ArrayList<>();
 
+        // Get all the JSON file names in the sales records path
         File fileOfPath = new File(pathName);
-
         for(File fileInPath : fileOfPath.listFiles())
         {
             fileNames.add(fileInPath.getName());
@@ -33,12 +33,15 @@ public class SalesReportGenerator
 
         double totalSalesIncome = 0;
 
+        // Go through the JSON file in the sales record path one by one
         for(String fileName : fileNames)
         {
+            // Detect if this JSON file is in the date period or not...
             if(DateCompare.dateInDatePeriod(getTimeFromFilename(fileName), datePeriod))
             {
+                // If it is in the date period, then load it anyway!
                 ArrayList<SalesRecordLine> salesRecordLines = SalesRecord.getSaleRecord(fileName);
-                bufferedWriter.write(generateSingleSalesReportString(salesRecordLines, getTimeFromFilename(fileName)));
+                bufferedWriter.write(getSingleSalesReportString(salesRecordLines, getTimeFromFilename(fileName)));
 
                 // Calculate the total income
                 for(SalesRecordLine salesRecordLine : salesRecordLines)
@@ -50,6 +53,7 @@ public class SalesReportGenerator
             }
             else
             {
+                // If it's not, skip it...
                 System.out.println(
                         String.format("[WARN] Skipping report file %s which is not in specified time span.", fileName));
             }
@@ -61,7 +65,7 @@ public class SalesReportGenerator
         bufferedWriter.close();
     }
 
-    private String generateSingleSalesReportString(ArrayList<SalesRecordLine> salesRecordLines, Date recordDate) throws IOException
+    private String getSingleSalesReportString(ArrayList<SalesRecordLine> salesRecordLines, Date recordDate) throws IOException
     {
 
         StringBuilder recordStr = new StringBuilder("-----------------------------------\n");
@@ -99,10 +103,19 @@ public class SalesReportGenerator
     }
 
 
-    /** File name is the full sales record file name, example: "20170509-135952-c1.json" */
+    /**
+     * File name is the full sales record file name, example: "20170509-135952-c1.json"
+     *
+     * In this project, since sales record related classes didn't implemented any time information APIs inside
+     * themselves, instead, they've just put the time details in the file name. As a result, I have to "manually"
+     * detect the files and convert it back to native Java Date.
+     * */
     private Date getTimeFromFilename(String fileName) throws ParseException
     {
+        // Convert original file name into a date in string (i.e. it just remove the ".json" filename extension)
         String dateStr = fileName.split("-")[0] + "-"+ fileName.split("-")[1];
+
+        // Parse the string into Date and return.
         return new SimpleDateFormat("yyyyMMdd-HHmmss").parse(dateStr);
     }
 }

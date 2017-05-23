@@ -3,7 +3,14 @@ package reportgen.report2png;
 import java.util.*;
 
 /**
- * Created by hu on 25/4/17.
+ * PicInfo holds some attributes about the picture which needs to be generated later.
+ *
+ * It inculdes: Picture size (quality related)
+ *              Picture font size (quality related, similar as DPI settings in Windows 10)
+ *              Picture font (font name in String)
+ *              Lines of strings (this is required due to the limitation of Java libraries. It has to write line by line anyway)
+ *              Edge scale (how many space should be reserved in the edges of the picture.)
+ *
  */
 public class PicInfo
 {

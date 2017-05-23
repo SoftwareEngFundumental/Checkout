@@ -80,7 +80,7 @@ public class ReportPngGenerator
         return new PicInfo(picWidth, picHeight, linesOfString, fontName, fontSize, horizonEdgeScale);
     }
 
-    public void generateImage(PicInfo picInfo, String pathOfPic)
+    public void generateImage(PicInfo picInfo, String outputPath)
     {
         // Split multiple lines of strings to an ArrayList, in order to get each lines' height
         ArrayList<String> linesOfString = picInfo.getLinesOfString();
@@ -137,8 +137,8 @@ public class ReportPngGenerator
         // Save picture to PNG file
         try
         {
-            System.out.println("\nSaving sales report to path: " + pathOfPic);
-            ImageIO.write(bufferedImage, "png", new File(pathOfPic));
+            System.out.println("\nSaving sales report to path: " + outputPath);
+            ImageIO.write(bufferedImage, "png", new File(outputPath));
         }
         catch (IOException error)
         {
