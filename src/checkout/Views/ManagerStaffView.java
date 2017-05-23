@@ -1,5 +1,6 @@
 package checkout.Views;
 
+import checkout.Product.*;
 import checkout.Staff.*;
 import checkout.util.DatePeriod;
 import reportgen.SalesReportGenerator;
@@ -65,6 +66,7 @@ public class ManagerStaffView
             }
             case 3:
             {
+                changePrice();
                 break;
             }
             case 4:
@@ -166,7 +168,83 @@ public class ManagerStaffView
         managerMain();
     }
 
-    public void placeOrder() {
+    private void changePrice()
+    {
+        // Declare scanner & get ID
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("[INFO] Enter your product ID: ");
+        int productId = scanner.nextInt();
+        scanner.nextLine(); // Clear up the input buffer
+
+        // Declare ProductManagement and try find the product.
+        ProductManagement productManagement = new ProductManagement("productList.json");
+        Product selectedProduct = productManagement.searchProduct(productId);
+
+        // If product not found, go over it again
+        if(selectedProduct == null)
+        {
+            System.out.println("\n[ERROR] Product not found, please try again.\n");
+            changePrice();
+        }
+        else
+        {
+            // Change the price
+            System.out.println(String.format("[INFO] The original price is %f, Enter the new price: ", selectedProduct.getPrice()));
+            selectedProduct.setPrice(scanner.nextInt());
+            scanner.nextLine(); // Clear up the input buffer
+        }
+
+        productManagement.saveToFile("productList.json");
+    }
+
+    private void changePromo()
+    {
+        // Declare scanner & get ID
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("[INFO] Enter your product ID: ");
+        int productId = scanner.nextInt();
+        scanner.nextLine(); // Clear up the input buffer
+
+        // Declare ProductManagement and try find the product.
+        ProductManagement productManagement = new ProductManagement("productList.json");
+        Product selectedProduct = productManagement.searchProduct(productId);
+
+        // If product not found, go over it again
+        if(selectedProduct == null)
+        {
+            System.out.println("\n[ERROR] Product not found, please try again.\n");
+            changePromo();
+        }
+
+        // Declare promotion management and get the scanner
+        PromotionManagement promotionManagement = new PromotionManagement("promoList.json");
+        System.out.println("\n[INFO] Enter promotion description: ");
+        String promoInfo = scanner.nextLine();
+
+        System.out.println("\n[INFO] Enter promotion price: ");
+        double promoPrice = scanner.nextDouble();
+        scanner.nextLine(); // Clean buffer
+
+        System.out.println("\n[INFO] Enter promotion condition: ");
+        int promoCondition = scanner.nextInt();
+        scanner.nextLine(); // Clean buffer
+
+        // Save the promo
+        if(promotionManagement.addPromotion(promoInfo, promoPrice, selectedProduct, promoCondition))
+        {
+            System.out.println("\n[ERROR] Failed to add promotion, may be it has already recorded.\n");
+            changePromo();
+        }
+        else
+        {
+            System.out.println("\n[INFO] Promo added, will be save to disk.\n");
+            productManagement.saveToFile("promoList.json");
+        }
+
+    }
+
+    public void placeOrder()
+    {
 
         //After purchase made, check:
         //if (product level < some amount(what amount?))
@@ -178,7 +256,8 @@ public class ManagerStaffView
 
     }
 
-    public void generateSupplyReport() {
+    public void generateSupplyReport()
+    {
 
         //    Sort products from most revenue to least revenue.
         //

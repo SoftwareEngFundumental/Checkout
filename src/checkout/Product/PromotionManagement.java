@@ -50,11 +50,16 @@ public class PromotionManagement
         jsonDatabase.saveObjectToJsonFile(this.promotionList, fileName);
     }
 
-    public void addPromotion(Promotion promotion, Product product)
+    public boolean addPromotion(Promotion promotion)
     {
         if(searchPromotion(promotion.getAppliedProduct()) == null || searchPromotion(promotion.getName()) == null)
         {
             promotionList.add(promotion);
+            return true;
+        }
+        else
+        {
+            return false;
         }
     }
 
