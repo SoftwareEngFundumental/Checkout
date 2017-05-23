@@ -4,6 +4,8 @@ import checkout.util.JsonDatabase;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Scanner;
 

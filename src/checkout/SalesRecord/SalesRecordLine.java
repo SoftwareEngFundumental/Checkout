@@ -3,6 +3,9 @@ package checkout.SalesRecord;
 import checkout.Product.Product;
 import checkout.Product.Promotion;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+
 public class SalesRecordLine {
     private Product product;
     private int quantity;
@@ -71,12 +74,11 @@ public class SalesRecordLine {
 
     @Override
     public String toString() {
-        // TODO: 11/04/2017 To String
         if (promotionLine != null) {
             return product.getName()
                     + ", price: " + product.getPrice()
                     + ", quantity: " + quantity
-                    + ", total: " + quantity* product.getPrice()
+                    + ", total: " + quantity*product.getPrice()
                     + "\n" + promotionLine;
         }
         else {

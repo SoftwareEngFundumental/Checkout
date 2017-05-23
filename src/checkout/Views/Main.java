@@ -10,10 +10,10 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("1. Customer View\n" +
-                            "2. Staff View\n");
+                            "2. Staff View");
         System.out.print(">: ");
         String input = scanner.nextLine();
-
+        System.out.println();
 
         switch (input) {
             case "1":
@@ -28,11 +28,10 @@ public class Main {
             }
             default:
             {
-                System.out.println("[ERROR] Invalid input, try again.\n");
+                System.out.println("Invalid input, try again.\n");
                 Main.main(args);
                 break;
             }
-
         }
     }
 }

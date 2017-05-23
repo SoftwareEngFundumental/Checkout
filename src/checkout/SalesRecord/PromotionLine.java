@@ -2,6 +2,9 @@ package checkout.SalesRecord;
 
 import checkout.Product.Promotion;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+
 public class PromotionLine {
      private Promotion promotion;
     private int quantity;
@@ -28,7 +31,7 @@ public class PromotionLine {
         return promotion.getName()
                 + ", price: " + promotion.getPrice()
                 + ", quantity: " + quantity
-                + ", total: " + quantity*promotion.getPrice();
+                + ", total: " + quantity* promotion.getPrice();
     }
 
     public double totalCost() {

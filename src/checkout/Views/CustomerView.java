@@ -10,7 +10,7 @@ import static java.lang.Integer.valueOf;
 
 public class CustomerView {
 
-    private static Product askForProduct() {
+    private static Product askForProduct(ArrayList<SalesRecordLine> salesRecordArrayList) {
         Scanner scanner = new Scanner(System.in);
         Product product = null;
         boolean validInput = false;
@@ -22,19 +22,20 @@ public class CustomerView {
             if (scanInput.isEmpty()) {
                 return null;
             }
-
             try {
                 valueOf(scanInput);
             } catch (NumberFormatException e) {
                 if (scanInput.equals("staff")) {
-                    StaffView.main(null);
+                    SalesStaffView.main(salesRecordArrayList);
+                    System.out.println("-------------------------------------------------------");
+                    salesRecordArrayList.forEach(System.out::println);
+                    System.out.println();
+
                 }
                 else {
                     System.out.println("Cannot find product. Please scan again. \n");
-                    continue;
                 }
-//            String
-                // TODO: 07/05/2017 check for sales staff
+                continue;
             }
 
             validInput = true;
@@ -84,7 +85,7 @@ public class CustomerView {
         ArrayList<SalesRecordLine> salesRecordArrayList = new ArrayList<>();
 
         while (!doneEnteringItem) {
-            Product product = askForProduct();
+            Product product = askForProduct(salesRecordArrayList);
             if (product == null) {
                 doneEnteringItem = true;
                 continue;
@@ -106,13 +107,12 @@ public class CustomerView {
                 "2. New customer? Join us.");
         System.out.print(">:");
         String input = scanner.nextLine();
+        System.out.println();
 
         switch (input) {
-            case "2":
-
-                break;
             case "1":
                 Customer customer = Customer.scanCustomerID();
+                System.out.println();
                 SalesRecord salesRecord = new SalesRecord(checkOut());
 
                 salesRecord.applyLoyaltyPoint(customer);
@@ -120,6 +120,14 @@ public class CustomerView {
 
                 System.out.println("\n" + salesRecord);
                 System.out.println("Thank you for shopping with us. Have a nice day.");
+                System.out.println("------------------------------");
+                System.out.println();
+                break;
+            case "2":
+
+                break;
+            case "exit":
+                System.exit(0);
                 break;
             default:
                 System.out.println("invalid input. Please choose again.");
