@@ -72,6 +72,7 @@ public class ManagerStaffView
             }
             case 4:
             {
+                // TODO: Need to implement the supply class and statistic class first
                 break;
             }
             case 5:
@@ -290,7 +291,7 @@ public class ManagerStaffView
             addStaff();
         }
 
-
+        // Declare staffType, convert staff type string to StaffType enum
         StaffType staffType = null;
 
         try
@@ -304,6 +305,7 @@ public class ManagerStaffView
         }
 
 
+        // Create a user with specified user details
         staffManagement.createUser(staffType, userName, userPassword);
 
         System.out.println(String.format(

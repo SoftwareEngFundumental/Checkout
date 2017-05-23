@@ -5,7 +5,6 @@ import java.util.*;
 import java.io.*;
 import checkout.SalesRecord.*;
 import checkout.Product.*;
-import checkout.util.DateCompare;
 import checkout.util.DatePeriod;
 
 public class SalesReportGenerator
@@ -37,7 +36,7 @@ public class SalesReportGenerator
         for(String fileName : fileNames)
         {
             // Detect if this JSON file is in the date period or not...
-            if(DateCompare.dateInDatePeriod(getTimeFromFilename(fileName), datePeriod))
+            if(DatePeriod.isDateInDatePeriod(getTimeFromFilename(fileName), datePeriod))
             {
                 // If it is in the date period, then load it anyway!
                 ArrayList<SalesRecordLine> salesRecordLines = SalesRecord.getSaleRecord(fileName);

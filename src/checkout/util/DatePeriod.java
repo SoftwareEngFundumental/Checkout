@@ -4,8 +4,10 @@ import java.util.Calendar;
 import java.util.Date;
 import java.time.*;
 
-// I know there is a Period class in java.time but it does not directly fit with Date class.
-// Also it seems did not provide a comparison function in a certain date range.
+/**
+ * I know there is a Period class in java.time but it does not directly fit with Date class.
+ * Also it seems did not provide a comparison function in a certain date range.
+ */
 public class DatePeriod
 {
     private Date earlierDate;
@@ -28,6 +30,8 @@ public class DatePeriod
         Calendar earlierCal = Calendar.getInstance();
         Calendar laterCal = Calendar.getInstance();
 
+        // Months are 0 - 11, i.e. January is 0 and December is 11
+        // It's stupid huh? So, USE C# AND MAKE OBJECT-ORIENTED PROGRAMMING GREAT AGAIN!!
         earlierMonth = earlierMonth - 1;
         laterMonth = laterMonth - 1;
 
@@ -38,14 +42,9 @@ public class DatePeriod
         this.laterDate = laterCal.getTime();
     }
 
-    public DatePeriod(int months)
+    public static boolean isDateInDatePeriod(Date date, DatePeriod datePeriod)
     {
-        this.laterDate = new Date();
-
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(new Date());
-        calendar.add(Calendar.MONTH, months * (-1));
-        this.earlierDate = calendar.getTime();
+        return datePeriod.getEarlierDate().before(date) && datePeriod.getLaterDate().after(date);
     }
 
     public Date getEarlierDate()

@@ -18,11 +18,13 @@ public class StaffLoginView
 
     private static void loginMain()
     {
+        // Load the staff related JSON files into staffManagement
         System.out.println("[INFO] Trying to load staff.json...");
         staffManagement.loadUsersFromFile("staff.json");
 
         System.out.println("\n[[\"Checkout\" Staff Console]] - [[LOGIN]]");
 
+        // Jump to login method and get the login token
         LoginToken loginToken = doStaffLogin();
 
         if(loginToken.getLoginStatus())

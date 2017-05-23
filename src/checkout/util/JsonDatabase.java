@@ -5,8 +5,6 @@ import checkout.Staff.ManagerStaff;
 import checkout.Staff.SalesStaff;
 import checkout.Staff.Staff;
 import checkout.Staff.WarehouseStaff;
-import com.google.gson.Gson;
-import com.google.gson.JsonDeserializer;
 import com.google.gson.*;
 import com.google.gson.reflect.*;
 
@@ -17,11 +15,6 @@ import java.util.*;
 
 public class JsonDatabase
 {
-    public JsonDatabase()
-    {
-
-    }
-
     public void saveObjectToJsonFile(Object targetObject, String filePath)
     {
         Gson gson = new Gson();
@@ -29,18 +22,19 @@ public class JsonDatabase
         TextFile.writeStringToFile(jsonString, filePath);
     }
 
-    public Object readObjectFromFile(String filePath, Class<?> classType)
-    {
-        Gson gson = new Gson();
-        return gson.fromJson(TextFile.readStringFromFile(filePath), classType);
-    }
-
+    /**
+     * Read a JSON file and set a type to it,
+     * then return an object with this type and alongside with the JSON content.
+     */
     public <T> T readObjectFromFile(String filePath, Type type)
     {
         Gson gson = new Gson();
         return gson.fromJson(TextFile.readStringFromFile(filePath), type);
     }
 
+    /**
+     * Since Staff is an abstract class, here we need to parse each kind of staff separately.
+     */
     public ArrayList<Staff> readStaffListFromFile(String filePath)
     {
         // Create a gson object with specified converter
@@ -53,19 +47,15 @@ public class JsonDatabase
         return gsonWithConverter.fromJson(TextFile.readStringFromFile(filePath), staffListType);
 
     }
-
-    public ArrayList<SalesRecordLine> readSalesRecordListFromFile(String filePath)
-    {
-        //TODO: Add converters
-        return null;
-    }
-
-
-
-
 }
 
-// Guys , remember to check Gson library references before editing this!!!
+/**
+ * Gson JsonDeserializer for Staff abstract class
+ *
+ * See here for more details: https://static.javadoc.io/com.google.code.gson/gson/2.6.2/com/google/gson/JsonDeserializer.html
+ *                            https://stackoverflow.com/questions/6096940/how-do-i-write-a-custom-json-deserializer-for-gson
+ *
+ */
 class StaffJsonDeserializer implements JsonDeserializer<Staff>
 {
     @Override
