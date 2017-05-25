@@ -1,7 +1,5 @@
 package reportgen.report2png;
 
-import checkout.util.JsonDatabase;
-
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.*;
@@ -19,13 +17,35 @@ public class ReportPngGenerator
                 getImageSize(
                         reportStr,
                         "Calibri",
-                        QualityValues.MEDIUM_QUALITY_FONTSIZE,
-                        QualityValues.MEDIUM_QUALITY_EDGESCALE),
+                        QualitySettings.MEDIUM_QUALITY),
                 pngPath);
     }
 
-    public PicInfo getImageSize(String strToGenerate, String fontName, int fontSize, int horizonEdgeScale)
+    public PicInfo getImageSize(String strToGenerate, String fontName, QualitySettings qualitySettings)
     {
+        // Generate font size and edge size (scale) from quality settings.
+        int fontSize = 15;
+        int horizonEdgeScale = 5;
+
+        switch(qualitySettings)
+        {
+            case LOW_QUALITY:
+            {
+                fontSize = 15;
+                horizonEdgeScale = 5;
+            }
+            case MEDIUM_QUALITY:
+            {
+                fontSize = 35;
+                horizonEdgeScale = 7;
+            }
+            case HIGH_QUALITY:
+            {
+                fontSize = 100;
+                horizonEdgeScale = 20;
+            }
+        }
+
         // Split multiple lines of strings to an ArrayList, in order to get the correct pic size.
         ArrayList<String> linesOfString = new ArrayList<>();
         linesOfString.addAll(Arrays.asList(strToGenerate.split("\n")));

@@ -53,8 +53,7 @@ public class ReportPngGeneratorTest
         PicInfo picInfo = reportPngGenerator.getImageSize(
                 testStr,
                 "Calibri",
-                QualityValues.HIGH_QUALITY_FONTSIZE,
-                QualityValues.HIGH_QUALITY_EDGESCALE);
+                QualitySettings.HIGH_QUALITY);
         assertNotNull(picInfo);
 
         // Actually I don't know the size of this picture will be (on various platforms),
@@ -71,8 +70,7 @@ public class ReportPngGeneratorTest
                 reportPngGenerator.getImageSize(
                         testStr,
                         "Calibri",
-                        QualityValues.LOW_QUALITY_FONTSIZE,
-                        QualityValues.LOW_QUALITY_EDGESCALE),
+                        QualitySettings.LOW_QUALITY),
                 "test-low.png");
 
         // Don't know how to re-parse (Do an OCR???) pictures in Java lol,
@@ -86,8 +84,7 @@ public class ReportPngGeneratorTest
                 reportPngGenerator.getImageSize(
                         testStr,
                         "Calibri",
-                        QualityValues.MEDIUM_QUALITY_FONTSIZE,
-                        QualityValues.MEDIUM_QUALITY_EDGESCALE),
+                        QualitySettings.MEDIUM_QUALITY),
                 "test-med.png");
 
         // Don't know how to re-parse (Do an OCR???) pictures in Java lol,
@@ -101,8 +98,7 @@ public class ReportPngGeneratorTest
                 reportPngGenerator.getImageSize(
                         testStr,
                         "Calibri",
-                        QualityValues.HIGH_QUALITY_FONTSIZE,
-                        QualityValues.HIGH_QUALITY_EDGESCALE),
+                        QualitySettings.HIGH_QUALITY),
                 "test-high.png");
 
         // Don't know how to re-parse (Do an OCR???) pictures in Java lol,
