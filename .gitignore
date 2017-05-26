@@ -1,3 +1,7 @@
+# Intellij IDEA Export to HTML function (not necessary to be pushed on GitHub)
+exportToHTML/
+*exportToHTML
+
 # Created by .ignore support plugin (hsz.mobi)
 ### Java template
 # Compiled class file
@@ -112,4 +116,3 @@ $RECYCLE.BIN/
 
 # Windows shortcuts
 *.lnk
-

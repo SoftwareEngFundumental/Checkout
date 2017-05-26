@@ -33,16 +33,19 @@ public class ReportPngGenerator
             {
                 fontSize = 15;
                 horizonEdgeScale = 5;
+                break;
             }
             case MEDIUM_QUALITY:
             {
                 fontSize = 35;
                 horizonEdgeScale = 7;
+                break;
             }
             case HIGH_QUALITY:
             {
                 fontSize = 100;
                 horizonEdgeScale = 20;
+                break;
             }
         }
 
@@ -54,7 +57,7 @@ public class ReportPngGenerator
         int picHeight = 0;
         int picWidth = 0;
 
-        // Do a for loop to get the result...
+        // Do a for loop to estimate size result...
         for(String currentLine : linesOfString)
         {
             // Temporarily set a buffered image first, in order to get the "graphical" string size
