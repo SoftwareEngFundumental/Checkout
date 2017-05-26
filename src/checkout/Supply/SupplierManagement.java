@@ -5,6 +5,7 @@ import checkout.util.JsonDatabase;
 import com.google.gson.reflect.TypeToken;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 public class SupplierManagement
 {
@@ -39,7 +40,7 @@ public class SupplierManagement
     {
         if(product != null && !supplierName.equals(""))
         {
-            supplierList.add(new Supplier(product, supplierName, supplierEmail, supplierPhone));
+            supplierList.add(new Supplier(product, supplierName, supplierEmail, supplierPhone, new Date()));
             return true;
         }
         else
@@ -86,13 +87,18 @@ public class SupplierManagement
     {
         for(Supplier currentSupplier : this.supplierList)
         {
-            if(currentSupplier.getSupplyId() == id)
+            if(currentSupplier.getSupplierId() == id)
             {
                 return currentSupplier;
             }
         }
 
         return null;
+    }
+
+    public double getSupplierTotalPrice(Supplier supplier)
+    {
+        return supplier.getProduct().getPrice() * supplier.getProduct().getQuantity();
     }
 
     public void saveSupplierList(String filePath)
