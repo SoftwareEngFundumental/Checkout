@@ -9,7 +9,7 @@ import java.util.Date;
 
 public class SupplierManagement
 {
-    private ArrayList<Supplier> supplierList;
+    private ArrayList<Supplier> supplierList = null;
 
     public SupplierManagement(String fileName)
     {
@@ -19,6 +19,12 @@ public class SupplierManagement
         // Load what we want to load...
         // The object type should be set to ArrayList<Product> in order to correctly parse from JSON file.
         this.supplierList = jsonDatabase.readObjectFromFile(fileName, new TypeToken<ArrayList<Supplier>>() {}.getType());
+
+        // In some sceneario the list may be null, so, set a new one.
+        if(this.supplierList == null)
+        {
+            this.supplierList = new ArrayList<>();
+        }
     }
 
     public SupplierManagement()

@@ -2,10 +2,13 @@ package checkout.Views;
 
 import checkout.Product.*;
 import checkout.Staff.*;
+import checkout.Supply.SupplierManagement;
 import checkout.util.DatePeriod;
 import reportgen.SalesReportGenerator;
+import reportgen.SupplyReportGenerator;
 import reportgen.report2png.ReportPngGenerator;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.ParseException;
@@ -33,13 +36,15 @@ public class ManagerStaffView
                         "1. Get sales report\n" +
                         "2. Set discount/promo \n" +
                         "3. Set prices\n" +
-                        "4. List product revenue\n" +
-                        "5. Add Staff\n" +
-                        "6. Remove Staff\n" +
-                        "7. Change a staff's password\n" +
-                        "8. Save staff details to disk\n" +
-                        "9. Load staff details from disk\n" + 
-                        "10. Log out and return staff login view\n"
+                        "4. Add supplier\n" +
+                        "5. Get supplier report\n" +
+                        "6. Remove supplier\n" +
+                        "7. Add Staff\n" +
+                        "8. Remove Staff\n" +
+                        "9. Change a staff's password\n" +
+                        "10. Save staff details to disk\n" +
+                        "11. Load staff details from disk\n" +
+                        "12. Log out and return staff login view\n"
         );
 
 
@@ -72,37 +77,47 @@ public class ManagerStaffView
             }
             case 4:
             {
-                // TODO: Need to implement the supply class and statistic class first
+                setSupplier();
                 break;
             }
             case 5:
             {
-                addStaff();
+                getAllSupplyReport();
                 break;
             }
             case 6:
             {
-                removeUser();
+                removeSupplier();
                 break;
             }
             case 7:
             {
-                changePassword();
+                addStaff();
                 break;
             }
             case 8:
+            {
+                removeUser();
+                break;
+            }
+            case 9:
+            {
+                changePassword();
+                break;
+            }
+            case 10:
             {
                 System.out.println("[INFO] Try saving cache to staff.json...");
                 staffManagement.saveUsersToFile("staff.json");
                 break;
             }
-            case 9:
+            case 11:
             {
                 System.out.println("[INFO] Try to load staff.json...");
 ;               staffManagement.loadUsersFromFile("staff.json");
                 break;
             }
-            case 10:
+            case 12:
             {
                 managerLogOut();
             }
@@ -115,7 +130,138 @@ public class ManagerStaffView
 
     }
 
-    public void getMonthReport()
+    private void getAllSupplyReport()
+    {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("\n[[ MANAGER - SUPPLY REPORT GENERATOR ]]\n");
+        System.out.println("Now please enter a period of time to generate the report.");
+        System.out.print("Enter the path for report: ");
+        String reportPath = scanner.nextLine();
+
+        SupplyReportGenerator supplyReportGenerator = new SupplyReportGenerator("supplyList.json");
+        ReportPngGenerator reportPngGenerator = new ReportPngGenerator();
+
+        try
+        {
+            supplyReportGenerator.generateReportString(reportPath);
+            reportPngGenerator.generatePicFromTextFile(reportPath + ".txt", reportPath + ".png");
+        }
+        catch (FileNotFoundException exception)
+        {
+            System.out.println("[ERROR] Record file not found! Please try again!");
+            getMonthReport();
+        }
+        catch (ParseException exception)
+        {
+            System.out.println("[ERROR] Record file corrupted!");
+            getMonthReport();
+        }
+        catch (IOException exception)
+        {
+            System.out.println("[ERROR] Failed to read/write the files!");
+            getMonthReport();
+        }
+
+        System.out.println("\n[INFO] Report generated.");
+        managerMain();
+    }
+
+    private void setSupplier()
+    {
+        File file = new File("supplyList.json");
+        System.out.println("\n[[ MANAGER - ADD SUPPLIER ]]\n");
+        if(!file.exists())
+        {
+            try
+            {
+                if(file.createNewFile())
+                {
+                    System.out.println("[INFO] Supply list does not exist, so a new file has been created.");
+                }
+                else
+                {
+                    System.out.println("[ERROR] Supply list does not exist while the new file has failed to create.");
+                    managerMain();
+                }
+            }
+            catch(IOException ioException)
+            {
+                System.out.println("[ERROR] IO Exception occurs. Do you have write permission to your file system?");
+                managerMain();
+            }
+        }
+
+        Scanner scanner = new Scanner(System.in);
+
+        SupplierManagement supplierManagement = new SupplierManagement("supplyList.json");
+        ProductManagement productManagement = new ProductManagement("productList.json");
+
+        System.out.print("\nEnter the product ID: ");
+        int productID = scanner.nextInt();
+        scanner.nextLine();
+
+        // The product may be null becuase the product ID may be invalid.
+        Product product = productManagement.searchProduct(productID);
+
+        if(product == null)
+        {
+            System.out.println("\n[ERROR] Product not found, please try again.");
+            
+            setSupplier();
+        }
+
+        System.out.print("\nEnter the supplier name: ");
+        String supplierName = scanner.nextLine();
+
+        System.out.print("\nEnter the supplier phone: ");
+        String supplierPhone = scanner.nextLine();
+
+        System.out.print("\nEnter the supplier email: ");
+        String supplierEmail = scanner.nextLine();
+
+        System.out.println("\n[INFO] Adding supplier information...");
+        supplierManagement.addSupplierToList(product, supplierName, supplierEmail, supplierPhone);
+        System.out.println("[INFO] Saving to file...");
+        supplierManagement.saveSupplierList("supplyList.json");
+
+        
+        managerMain();
+    }
+
+    private void removeSupplier()
+    {
+        File file = new File("supplyList.json");
+
+        System.out.println("\n[[ MANAGER - REMOVE SUPPLIER ]]\n");
+
+        if(!file.exists())
+        {
+            System.out.println("[ERROR] Supply list does not exist!");
+            managerMain();
+        }
+
+        Scanner scanner = new Scanner(System.in);
+        SupplierManagement supplierManagement = new SupplierManagement("supplyList.json");
+
+        System.out.print("Enter supplier ID: ");
+        int supplierID = scanner.nextInt();
+        scanner.nextLine();
+
+        if(supplierManagement.removeSupplierFromList(supplierManagement.findSupplier(supplierID)))
+        {
+            System.out.println("[INFO] Supplier removed.");
+        }
+        else
+        {
+            System.out.println("[ERROR] Supplier not found.");
+        }
+
+        
+        managerMain();
+
+    }
+
+    private void getMonthReport()
     {
         Scanner scanner = new Scanner(System.in);
         System.out.println("\n[[ MANAGER - SALES REPORT GENERATOR ]]\n");
@@ -174,6 +320,7 @@ public class ManagerStaffView
     {
         // Declare scanner & get ID
         Scanner scanner = new Scanner(System.in);
+        System.out.println("\n[[ MANAGER - CHANGE PRICE ]]\n");
         System.out.println("[INFO] Enter your product ID: ");
         int productId = scanner.nextInt();
         scanner.nextLine(); // Clear up the input buffer
@@ -205,6 +352,7 @@ public class ManagerStaffView
     {
         // Declare scanner & get ID
         Scanner scanner = new Scanner(System.in);
+        System.out.println("\n[[ MANAGER - CHANGE PROMO ]]\n");
         System.out.println("[INFO] Enter your product ID: ");
         int productId = scanner.nextInt();
         scanner.nextLine(); // Clear up the input buffer
@@ -248,33 +396,9 @@ public class ManagerStaffView
 
     }
 
-    public void placeOrder()
-    {
-
-        //After purchase made, check:
-        //if (product level < some amount(what amount?))
-        //{
-        //    Send request to replenish stock level for product.
-        //    ProductList.txt
-        //    WarehouseStaff.restock();
-        //}
-
-    }
-
-    public void generateSupplyReport()
-    {
-
-        //    Sort products from most revenue to least revenue.
-        //
-        //    ProductList.txt
-        //    List products in that sorted order.
-        //    Print productID, product name and revenue amount.
-        //    Revenue amount = amount made from transactions.
-
-    }
-
     private void addStaff()
     {
+        System.out.println("\n[[ MANAGER - ADD STAFF ]]\n");
         Scanner scanner = new Scanner(System.in);
         System.out.print("\nEnter user name: ");
         String userName = scanner.nextLine();
@@ -350,6 +474,7 @@ public class ManagerStaffView
 
     private void removeUser()
     {
+        System.out.println("\n[[ MANAGER - REMOVE USER ]]\n");
         Scanner scanner = new Scanner(System.in);
 
         System.out.print("\nEnter username: ");
@@ -369,6 +494,7 @@ public class ManagerStaffView
 
     private void changePassword()
     {
+        System.out.println("\n[[ MANAGER - CHANGE PASSWORD ]]\n");
         Scanner scanner = new Scanner(System.in);
 
         System.out.print("\nEnter username: ");
