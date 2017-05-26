@@ -35,5 +35,70 @@ public class SupplierManagement
         this.supplierList = supplierList;
     }
 
+    public boolean addSupplierToList(Product product, String supplierName, String supplierEmail, String supplierPhone)
+    {
+        if(product != null && !supplierName.equals(""))
+        {
+            supplierList.add(new Supplier(product, supplierName, supplierEmail, supplierPhone));
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    public boolean removeSupplierFromList(Supplier supplier)
+    {
+        if(supplier != null)
+        {
+            supplierList.remove(supplier);
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    public Supplier findSupplier(Product product)
+    {
+        if(product == null)
+        {
+            return null;
+        }
+
+        for(Supplier currentSupplier : this.supplierList)
+        {
+            // It's safer to validate both product name and ID
+            if(currentSupplier.getProduct().getID() == product.getID()
+                    && currentSupplier.getProduct().getName().equals(product.getName()))
+            {
+                return currentSupplier;
+            }
+        }
+
+        return null;
+    }
+
+
+    public Supplier findSupplier(int id)
+    {
+        for(Supplier currentSupplier : this.supplierList)
+        {
+            if(currentSupplier.getSupplyId() == id)
+            {
+                return currentSupplier;
+            }
+        }
+
+        return null;
+    }
+
+    public void saveSupplierList(String filePath)
+    {
+        JsonDatabase jsonDatabase = new JsonDatabase();
+        jsonDatabase.saveObjectToJsonFile(this.supplierList, filePath);
+    }
 
 }

@@ -4,6 +4,14 @@ import checkout.Product.Product;
 
 public class Supplier
 {
+    public Supplier(Product product, String supplierName, String supplierEmail, String supplierPhone)
+    {
+        this.product        = product;
+        this.supplierName   = supplierName;
+        this.supplierEmail  = supplierEmail;
+        this.supplierPhone  = supplierPhone;
+    }
+
     public Product getProduct()
     {
         return product;
