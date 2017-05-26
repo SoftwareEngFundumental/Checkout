@@ -28,9 +28,9 @@ public class ProductManagement
         this.productList = new ArrayList<>();
     }
 
-    public void setProductList(ArrayList<Product> productList) { this.productList = productList; }
+    public void setRawProductList(ArrayList<Product> productList) { this.productList = productList; }
 
-    public ArrayList<Product> getProductList() { return this.productList; }
+    public ArrayList<Product> getRawProductList() { return this.productList; }
 
     public void loadFromFile(String fileName)
     {

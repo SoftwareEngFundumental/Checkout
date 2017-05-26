@@ -2,9 +2,6 @@ package checkout.Supply;
 
 import checkout.Product.Product;
 
-/**
- * Created by hu on 26/5/17.
- */
 public class Supplier
 {
     public Product getProduct()
