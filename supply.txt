@@ -1,0 +1,53 @@
+-----------------------------------
+Report created @ 23:06:49 - 27 May, 2017...
+-----------------------------------
+-----------------------------------
+Supplier ID: 0
+Supplier Name: foobar
+Supplier Phone: 0413800138000
+Supplier Email: foobar@foobar.com
+Transaction Date: 00:51:02 - 27 May, 2017
+Product ID: 1
+Product Name: Apple
+Product total price: 441.000000
+-----------------------------------
+-----------------------------------
+Supplier ID: 0
+Supplier Name: foobar
+Supplier Phone: 0413800138000
+Supplier Email: foobar@foobar.js
+Transaction Date: 00:54:45 - 27 May, 2017
+Product ID: 1
+Product Name: Apple
+Product total price: 441.000000
+-----------------------------------
+-----------------------------------
+Supplier ID: 0
+Supplier Name: foobar
+Supplier Phone: foo.bar@foobar.js
+Supplier Email: hu@foobar,sfs
+Transaction Date: 00:56:39 - 27 May, 2017
+Product ID: 1
+Product Name: Apple
+Product total price: 441.000000
+-----------------------------------
+-----------------------------------
+Supplier ID: 0
+Supplier Name: oops
+Supplier Phone: 040000000
+Supplier Email: test@local
+Transaction Date: 11:03:21 - 27 May, 2017
+Product ID: 1
+Product Name: Apple
+Product total price: 441.000000
+-----------------------------------
+-----------------------------------
+Supplier ID: 0
+Supplier Name: foobar
+Supplier Phone: 0400000000
+Supplier Email: ohtest@foo.bar
+Transaction Date: 23:06:38 - 27 May, 2017
+Product ID: 5
+Product Name: Egg
+Product total price: 2199.600000
+-----------------------------------

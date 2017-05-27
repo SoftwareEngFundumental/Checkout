@@ -143,7 +143,7 @@ public class ManagerStaffView
 
         try
         {
-            supplyReportGenerator.generateReportString(reportPath);
+            supplyReportGenerator.generateReportString(reportPath + ".txt");
             reportPngGenerator.generatePicFromTextFile(reportPath + ".txt", reportPath + ".png");
         }
         catch (FileNotFoundException exception)
