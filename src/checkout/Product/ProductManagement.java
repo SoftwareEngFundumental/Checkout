@@ -21,6 +21,11 @@ public class ProductManagement
         // The object type should be set to ArrayList<Product> in order to correctly parse from JSON file.
         this.productList = jsonDatabase.readObjectFromFile(fileName, new TypeToken<ArrayList<Product>>() {}.getType());
 
+        // If the file is empty, create a new ArrayList<Product>
+        if(this.productList == null)
+        {
+            this.productList = new ArrayList<>();
+        }
     }
 
     public ProductManagement()

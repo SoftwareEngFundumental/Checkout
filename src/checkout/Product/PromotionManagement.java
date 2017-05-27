@@ -25,6 +25,12 @@ public class PromotionManagement
         // Load what we want to load...
         // The object type should be set to ArrayList<Promotion> in order to correctly parse from JSON file.
         this.promotionList = jsonDatabase.readObjectFromFile(fileName, new TypeToken<ArrayList<Promotion>>() {}.getType());
+
+        // If the file is empty, create a new ArrayList<Promotion>
+        if(this.promotionList == null)
+        {
+            this.promotionList = new ArrayList<>();
+        }
     }
     
     public ArrayList<Promotion> getPromotionList() { return this.promotionList; }
