@@ -64,37 +64,6 @@ public class ProductManagement
         }
     }
 
-    public boolean addProduct(String productName, double productPrice, int productQuantity)
-    {
-        Product product = new Product(productName, productPrice, productQuantity);
-
-        if(searchProduct(product.getID()) == null || searchProduct(product.getName()) == null)
-        {
-            productList.add(product);
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-
-    }
-
-    public boolean addProduct(String productName, double productPrice)
-    {
-        Product product = new Product(productName, productPrice);
-
-        if(searchProduct(product.getID()) == null || searchProduct(product.getName()) == null)
-        {
-            productList.add(product);
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-    }
-
     public boolean removeProduct(String productName)
     {
         Product product = searchProduct(productName);
