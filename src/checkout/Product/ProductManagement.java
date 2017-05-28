@@ -92,8 +92,7 @@ public class ProductManagement
         }
     }
 
-    public boolean modifyProduct(Product product,
-                                 int productId, String productName, double productPrice,
+    public boolean modifyProduct(Product product, String productName, double productPrice,
                                  int productQuantity, boolean prodductHasPromo)
     {
         if(product == null)

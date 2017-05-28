@@ -13,6 +13,10 @@ import java.io.*;
 
 import java.util.*;
 
+/**
+ * Created and maintained by Ming Hu (s3554025) @ Semester 2017 for SEF Assignment
+ */
+
 public class StaffManagementTest
 {
     private StaffManagement staffManagement = null;

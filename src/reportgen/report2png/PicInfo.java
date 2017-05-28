@@ -3,6 +3,8 @@ package reportgen.report2png;
 import java.util.*;
 
 /**
+ * Created and maintained by Ming Hu (s3554025) @ Semester 2017 for SEF Assignment
+ *
  * PicInfo holds some attributes about the picture which needs to be generated later.
  *
  * It inculdes: Picture size (quality related)

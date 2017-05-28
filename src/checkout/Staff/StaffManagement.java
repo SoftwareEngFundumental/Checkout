@@ -4,6 +4,10 @@ import checkout.util.JsonDatabase;
 
 import java.util.*;
 
+/**
+ * Created and maintained by Ming Hu (s3554025) @ Semester 2017 for SEF Assignment
+ */
+
 public class StaffManagement
 {
     private ArrayList<Staff> staffList = new ArrayList<>();

@@ -7,6 +7,10 @@ import java.io.*;
 import javax.imageio.*;
 import checkout.util.*;
 
+/**
+ * Created and maintained by Ming Hu (s3554025) @ Semester 2017 for SEF Assignment
+ */
+
 public class ReportPngGenerator
 {
     public void generatePicFromTextFile(String reportPath, String pngPath) throws FileNotFoundException

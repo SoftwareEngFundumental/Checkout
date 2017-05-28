@@ -6,6 +6,11 @@ import com.google.gson.reflect.TypeToken;
 
 import java.util.*;
 
+/**
+ * Created and maintained by Ming Hu (s3554025) @ Semester 2017 for SEF Assignment
+ * (BONUS PART?)
+ */
+
 public class SupplierManagement
 {
     private ArrayList<Supplier> supplierList = null;

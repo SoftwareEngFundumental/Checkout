@@ -12,6 +12,9 @@ import java.io.*;
 import java.lang.reflect.*;
 import java.util.*;
 
+/**
+ * Created and maintained by Ming Hu (s3554025) @ Semester 2017 for SEF Assignment
+ */
 
 public class JsonDatabase
 {

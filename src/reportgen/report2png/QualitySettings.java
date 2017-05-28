@@ -1,7 +1,8 @@
 package reportgen.report2png;
 
 /**
- * Tested by myself. Basically MEDIUM is recommended.
+ * Created and maintained by Ming Hu (s3554025) @ Semester 2017 for SEF Assignment
+ * Tested by myself and... basically MEDIUM is recommended.
  */
 public enum QualitySettings
 {

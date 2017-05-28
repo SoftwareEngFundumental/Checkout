@@ -8,6 +8,11 @@ import checkout.Staff.WarehouseStaff;
 import java.util.*;
 import java.lang.*;
 
+/**
+ * Created and maintained by Ming Hu (s3554025) @ Semester 2017 for SEF Assignment
+ */
+
+
 public class StaffLoginView
 {
     public static StaffManagement staffManagement = new StaffManagement();

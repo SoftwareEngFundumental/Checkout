@@ -7,6 +7,10 @@ import checkout.SalesRecord.*;
 import checkout.Product.*;
 import checkout.util.DatePeriod;
 
+/**
+ * Created and maintained by Ming Hu (s3554025) @ Semester 2017 for SEF Assignment
+ */
+
 public class SalesReportGenerator
 {
     public void generateReportString(String pathName, String reportPath, DatePeriod datePeriod) throws ParseException, IOException

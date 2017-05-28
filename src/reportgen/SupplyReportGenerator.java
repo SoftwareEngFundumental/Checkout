@@ -13,6 +13,10 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
+/**
+ * Created and maintained by Ming Hu (s3554025) @ Semester 2017 for SEF Assignment
+ */
+
 public class SupplyReportGenerator
 {
     private SupplierManagement supplierManagement = null;

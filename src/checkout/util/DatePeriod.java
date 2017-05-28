@@ -5,6 +5,8 @@ import java.util.Date;
 import java.time.*;
 
 /**
+ * Created and maintained by Ming Hu (s3554025) @ Semester 2017 for SEF Assignment
+ *
  * I know there is a Period class in java.time but it does not directly fit with Date class.
  * Also it seems did not provide a comparison function in a certain date range.
  */

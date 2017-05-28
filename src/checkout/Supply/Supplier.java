@@ -4,6 +4,11 @@ import checkout.Product.Product;
 
 import java.util.Date;
 
+/**
+ * Created and maintained by Ming Hu (s3554025) @ Semester 2017 for SEF Assignment
+ * (BONUS PART?)
+ */
+
 public class Supplier
 {
     public Supplier(int supplierId, Product product, String supplierName, String supplierEmail, String supplierPhone, Date date)
@@ -16,20 +21,11 @@ public class Supplier
         this.supplierId     = supplierId;
     }
 
-    public Product getProduct()
-    {
-        return product;
-    }
+    public Product getProduct() { return product; }
 
-    public void setProduct(Product product)
-    {
-        this.product = product;
-    }
+    public void setProduct(Product product) { this.product = product; }
 
-    public String getSupplierName()
-    {
-        return supplierName;
-    }
+    public String getSupplierName() { return supplierName; }
 
     public void setSupplierName(String supplierName)
     {
