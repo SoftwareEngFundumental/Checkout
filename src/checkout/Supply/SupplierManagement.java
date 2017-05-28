@@ -4,8 +4,7 @@ import checkout.Product.Product;
 import checkout.util.JsonDatabase;
 import com.google.gson.reflect.TypeToken;
 
-import java.util.ArrayList;
-import java.util.Date;
+import java.util.*;
 
 public class SupplierManagement
 {
@@ -46,7 +45,8 @@ public class SupplierManagement
     {
         if(product != null && !supplierName.equals(""))
         {
-            supplierList.add(new Supplier(product, supplierName, supplierEmail, supplierPhone, new Date()));
+            supplierList.add(new Supplier(getNewSupplierId(this.supplierList),
+                    product, supplierName, supplierEmail, supplierPhone, new Date()));
             return true;
         }
         else
@@ -111,6 +111,31 @@ public class SupplierManagement
     {
         JsonDatabase jsonDatabase = new JsonDatabase();
         jsonDatabase.saveObjectToJsonFile(this.supplierList, filePath);
+    }
+
+    private int getNewSupplierId(ArrayList<Supplier> userList)
+    {
+        // Create a supplier list
+        ArrayList<Integer> supplierIdList = new ArrayList<>();
+
+        for(Supplier supplierToQuery : userList)
+        {
+            supplierIdList.add(supplierToQuery.getSupplierId());
+        }
+
+        // Sort it in ascend
+        Collections.sort(supplierIdList);
+
+        // If the supplier ID list does not have any user in it, return 0 because there no supplier!
+        // Otherwise, find the largest supplier ID, then plus one to get the new ID.
+        if(supplierIdList.size() == 0)
+        {
+            return 0;
+        }
+        else
+        {
+            return (supplierIdList.get(supplierIdList.size() - 1) + 1);
+        }
     }
 
 }

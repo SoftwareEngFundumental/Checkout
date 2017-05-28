@@ -6,13 +6,14 @@ import java.util.Date;
 
 public class Supplier
 {
-    public Supplier(Product product, String supplierName, String supplierEmail, String supplierPhone, Date date)
+    public Supplier(int supplierId, Product product, String supplierName, String supplierEmail, String supplierPhone, Date date)
     {
         this.product        = product;
         this.supplierName   = supplierName;
         this.supplierEmail  = supplierEmail;
         this.supplierPhone  = supplierPhone;
         this.date           = date;
+        this.supplierId     = supplierId;
     }
 
     public Product getProduct()
@@ -57,12 +58,12 @@ public class Supplier
 
     public int getSupplierId()
     {
-        return supplyId;
+        return supplierId;
     }
 
     public void setSupplierId(int supplyId)
     {
-        this.supplyId = supplyId;
+        this.supplierId = supplyId;
     }
 
     public Date getDate() { return  this.date; }
@@ -77,7 +78,7 @@ public class Supplier
 
     private String supplierPhone;
 
-    private int supplyId;
+    private int supplierId;
 
     private Date date;
 }

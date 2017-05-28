@@ -29,12 +29,6 @@ public class StaffManagementTest
         staffManagement.createUser(StaffType.MANAGER, "Foo Login", "f0o.bAr");
     }
 
-    @After
-    public void tearDown() throws Exception
-    {
-        // Do nothing?
-    }
-
 
     @Test
     public void testUserLogin() throws Exception
